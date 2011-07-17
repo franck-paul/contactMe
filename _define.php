@@ -15,7 +15,7 @@ $this->registerModule(
 	/* Name */		"ContactMe",
 	/* Description*/	"Add a simple contact form on your blog",
 	/* Author */		"Olivier Meunier and contributors",
-	/* Version */		'1.1',
+	/* Version */		'1.2',
 	/* Permissions */	'admin'
 );
 ?>
