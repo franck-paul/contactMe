@@ -1,0 +1,175 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Dotclear 2 contactMe module\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-08-14 12:12+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: plugins-test/contactMe//_admin.php:14
+#: plugins-test/contactMe//_public.php:282
+#: plugins-test/contactMe//_widgets.php:20
+#: plugins-test/contactMe//_widgets.php:22
+#: plugins-test/contactMe//index.php:24 plugins-test/contactMe//index.php:104
+#: plugins-test/contactMe//index.php:109
+msgid "Contact me"
+msgstr ""
+
+#: plugins-test/contactMe//_public.php:15
+msgid "Subject"
+msgstr ""
+
+#: plugins-test/contactMe//_public.php:16
+msgid "Message"
+msgstr ""
+
+#: plugins-test/contactMe//_public.php:84
+msgid "You must provide a name."
+msgstr ""
+
+#: plugins-test/contactMe//_public.php:92
+msgid "You must provide a subject."
+msgstr ""
+
+#: plugins-test/contactMe//_public.php:96
+msgid "You must write a message."
+msgstr ""
+
+#: plugins-test/contactMe//_public.php:112
+msgid "No valid contact recipient was found."
+msgstr ""
+
+#: plugins-test/contactMe//_public.php:133
+msgid "Message seems to be a spam."
+msgstr ""
+
+#: plugins-test/contactMe//_public.php:156
+msgid ""
+"Hi there!\n"
+"\n"
+"You received a message from your blog's contact page."
+msgstr ""
+
+#: plugins-test/contactMe//_public.php:158
+#, php-format
+msgid "Blog: %s"
+msgstr ""
+
+#: plugins-test/contactMe//_public.php:159
+#, php-format
+msgid "Message from: %s <%s>"
+msgstr ""
+
+#: plugins-test/contactMe//_public.php:160
+#, php-format
+msgid "Website: %s"
+msgstr ""
+
+#: plugins-test/contactMe//_public.php:161
+msgid "Message:"
+msgstr ""
+
+#: plugins-test/contactMe//_widgets.php:21
+msgid "Contact"
+msgstr ""
+
+#: plugins-test/contactMe//_widgets.php:22
+msgid "Link title:"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:28
+msgid "<p>You can use the following form to send me an e-mail.</p>"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:32
+msgid "<p style=\"color:green\"><strong>Thank you for your message.</strong></p>"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:36
+#, php-format
+msgid "<p style=\"color:red\"><strong>An error occured:</strong> %s</p>"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:52
+msgid "No page title."
+msgstr ""
+
+#: plugins-test/contactMe//index.php:56
+msgid "No success message."
+msgstr ""
+
+#: plugins-test/contactMe//index.php:60
+msgid "No error message."
+msgstr ""
+
+#: plugins-test/contactMe//index.php:73
+#, php-format
+msgid "%s is not a valid e-mail address."
+msgstr ""
+
+#: plugins-test/contactMe//index.php:112
+msgid "Setting have been successfully updated."
+msgstr ""
+
+#: plugins-test/contactMe//index.php:117
+msgid "E-Mail settings"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:118
+msgid "Comma separated recipients list:"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:120
+msgid "Empty recipients list to disable contact page."
+msgstr ""
+
+#: plugins-test/contactMe//index.php:121
+msgid "E-Mail subject prefix:"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:123
+msgid "This will be prepend to e-mail subject"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:130
+msgid "Use comments spam filter"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:136
+msgid "Presentation options"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:137
+msgid "Page title:"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:140
+msgid "Form caption:"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:143
+msgid "Confirmation message:"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:146
+msgid "Error message:"
+msgstr ""
+
+#: plugins-test/contactMe//index.php:149
+#, php-format
+msgid "\"%s\" is the error message."
+msgstr ""
+
+#: plugins-test/contactMe//index.php:155
+#, php-format
+msgid "Don't forget to add a <a href=\"%s\">widget</a> linking to your contact page."
+msgstr ""
