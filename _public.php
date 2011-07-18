@@ -15,8 +15,6 @@ if (!defined('DC_RC_PATH')) { return; }
 __('Subject');
 __('Message');
 
-$core->url->register('contactme','contact','^contact(?:/(.+))?$',array('urlContactMe','contact'));
-
 $core->tpl->addValue('ContactMeURL',array('tplContactMe','ContactMeURL'));
 $core->tpl->addBlock('ContactMeIf',array('tplContactMe','ContactMeIf'));
 $core->tpl->addValue('ContactMePageTitle',array('tplContactMe','ContactMePageTitle'));

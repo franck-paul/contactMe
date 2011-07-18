@@ -21,14 +21,17 @@ $core->addBehavior('adminSimpleMenuBeforeEdit',array('contactMeSimpleMenu','admi
 class contactMeSimpleMenu {
 
 	public static function adminSimpleMenuAddType($items) {
-		$items['contactme'] = array(__('Contact me'),false);
+		$items['contactme'] = new ArrayObject(array(__('Contact me'),false));
 	}
 
-	public static function adminSimpleMenuBeforeEdit($item_type,$item_select,$item_label,$item_descr,$item_url,$item_select_label) {
+	public static function adminSimpleMenuBeforeEdit($item_type,$item_select,$args) {
+		global $core;
+		
 		if ($item_type == 'contactme') {
-			$item_label = __('Contact me');
-			$item_descr = __('Mail contact form');
-			$item_url .= $core->url->getBase('contactme');
+			
+			$args[0] = __('Contact me');
+			$args[1] = __('Mail contact form');
+			$args[2] .= $core->url->getBase('contactme');
 		}
 	}
 
