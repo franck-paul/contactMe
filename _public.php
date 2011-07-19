@@ -27,6 +27,17 @@ $core->tpl->addValue('ContactMeSite',array('tplContactMe','ContactMeSite'));
 $core->tpl->addValue('ContactMeSubject',array('tplContactMe','ContactMeSubject'));
 $core->tpl->addValue('ContactMeMessage',array('tplContactMe','ContactMeMessage'));
 
+$core->addBehavior('publicBreadcrumb',array('extContactMe','publicBreadcrumb'));
+
+class extContactMe
+{
+	public static function publicBreadcrumb($context,$separator)
+	{
+		if ($context == 'contactme') {
+			return __('Contact me');
+		}
+	}
+}
 
 class urlContactMe extends dcUrlHandlers
 {
