@@ -21,6 +21,7 @@ class contactMeWidgets
 		$w->contactMe->setting('title',__('Title:'),__('Contact'));
 		$w->contactMe->setting('link_title',__('Link title:'),__('Contact me'));
 		$w->contactMe->setting('homeonly',__('Home page only'),0,'check');
+		$w->contactMe->setting('class',__('CSS class:'),'');
 	}
 }
 ?>

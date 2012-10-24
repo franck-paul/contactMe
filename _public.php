@@ -285,7 +285,7 @@ class tplContactMe
 		}
 		
 		$res =
-		'<div class="contact-me">'.
+		'<div class="contact-me'.($w->class ? ' '.html::escapeHTML($w->class) : '').'">'.
 		($w->title ? '<h2>'.html::escapeHTML($w->title).'</h2>' : '').
 		'<p><a href="'.$core->blog->url.$core->url->getBase('contactme').'">'.
 		($w->link_title ? html::escapeHTML($w->link_title) : __('Contact me')).
