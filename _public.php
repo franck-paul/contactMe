@@ -276,7 +276,8 @@ class tplContactMe
 	{
 		global $core;
 		
-		if ($w->homeonly && $core->url->type != 'default') {
+		if (($w->homeonly == 1 && $core->url->type != 'default') ||
+			($w->homeonly == 2 && $core->url->type == 'default')) {
 			return;
 		}
 		

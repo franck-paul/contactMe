@@ -20,7 +20,13 @@ class contactMeWidgets
 		$w->create('contactMe',__('Contact me'),array('tplContactMe','contactMeWidget'));
 		$w->contactMe->setting('title',__('Title:'),__('Contact'));
 		$w->contactMe->setting('link_title',__('Link title:'),__('Contact me'));
-		$w->contactMe->setting('homeonly',__('Home page only'),0,'check');
+		$w->contactMe->setting('homeonly',__('Display on:'),0,'combo',
+			array(
+				__('All pages') => 0,
+				__('Home page only') => 1,
+				__('Except on home page') => 2
+				)
+		);
 		$w->contactMe->setting('class',__('CSS class:'),'');
 	}
 }
