@@ -12,10 +12,10 @@
 if (!defined('DC_RC_PATH')) { return; }
 
 $this->registerModule(
-	/* Name */		"ContactMe",
-	/* Description*/	"Add a simple contact form on your blog",
+	/* Name */			__("ContactMe"),
+	/* Description*/	__("Add a simple contact form on your blog"),
 	/* Author */		"Olivier Meunier and contributors",
-	/* Version */		'1.3',
+	/* Version */		'1.2',
 	/* Permissions */	'admin'
 );
 ?>
