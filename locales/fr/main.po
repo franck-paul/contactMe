@@ -156,3 +156,6 @@ msgstr ""
 
 #~ msgid "Link title:"
 #~ msgstr "Titre du lien :"
+
+msgid "Link to the contact form"
+msgstr "Lien vers le formulaire de contact"

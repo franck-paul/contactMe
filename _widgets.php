@@ -17,7 +17,7 @@ class contactMeWidgets
 {
 	public static function initWidgets($w)
 	{
-		$w->create('contactMe',__('Contact me'),array('tplContactMe','contactMeWidget'));
+		$w->create('contactMe',__('Contact me'),array('tplContactMe','contactMeWidget'),null,__('Link to the contact form'));
 		$w->contactMe->setting('title',__('Title:'),__('Contact'));
 		$w->contactMe->setting('link_title',__('Link title:'),__('Contact me'));
 		$w->contactMe->setting('homeonly',__('Display on:'),0,'combo',
