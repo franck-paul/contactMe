@@ -109,7 +109,7 @@ if (isset($_POST['cm_recipients']))
 echo '<h2>'.html::escapeHTML($core->blog->name).' &rsaquo; '.__('Contact me').'</h2>';
 
 if (!empty($_GET['upd'])) {
-	echo '<p class="message">'.__('Setting have been successfully updated.').'</p>';
+	dcPage::message(__('Setting have been successfully updated.'));
 }
 
 echo
