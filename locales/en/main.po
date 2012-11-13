@@ -1,0 +1,144 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Dotclear 2 contactMe module\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-05 16:52+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Message"
+msgstr ""
+
+msgid "Subject"
+msgstr ""
+
+msgid "Contact me"
+msgstr ""
+
+msgid "Mail contact form"
+msgstr ""
+
+msgid "ContactMe"
+msgstr ""
+
+msgid "Add a simple contact form on your blog"
+msgstr ""
+
+msgid "You must provide a name."
+msgstr ""
+
+msgid "You must provide a subject."
+msgstr ""
+
+msgid "You must write a message."
+msgstr ""
+
+msgid "No valid contact recipient was found."
+msgstr ""
+
+msgid "Message seems to be a spam."
+msgstr ""
+
+msgid ""
+"Hi there!\n"
+"\n"
+"You received a message from your blog's contact page."
+msgstr ""
+
+#, php-format
+msgid "Blog: %s"
+msgstr ""
+
+#, php-format
+msgid "Message from: %s <%s>"
+msgstr ""
+
+#, php-format
+msgid "Website: %s"
+msgstr ""
+
+msgid "Message:"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "<p>You can use the following form to send me an e-mail.</p>"
+msgstr ""
+
+msgid "<p style=\"color:green\"><strong>Thank you for your message.</strong></p>"
+msgstr ""
+
+#, php-format
+msgid "<p style=\"color:red\"><strong>An error occured:</strong> %s</p>"
+msgstr ""
+
+msgid "No page title."
+msgstr ""
+
+msgid "No success message."
+msgstr ""
+
+msgid "No error message."
+msgstr ""
+
+#, php-format
+msgid "%s is not a valid e-mail address."
+msgstr ""
+
+msgid "Setting have been successfully updated."
+msgstr ""
+
+msgid "E-Mail settings"
+msgstr ""
+
+msgid "Comma separated recipients list:"
+msgstr ""
+
+msgid "Empty recipients list to disable contact page."
+msgstr ""
+
+msgid "E-Mail subject prefix:"
+msgstr ""
+
+msgid "This will be prepend to e-mail subject"
+msgstr ""
+
+msgid "Use comments spam filter"
+msgstr ""
+
+msgid "Presentation options"
+msgstr ""
+
+msgid "Page title:"
+msgstr ""
+
+msgid "Form caption:"
+msgstr ""
+
+msgid "Confirmation message:"
+msgstr ""
+
+msgid "Error message:"
+msgstr ""
+
+#, php-format
+msgid "\"%s\" is the error message."
+msgstr ""
+
+msgid "save"
+msgstr ""
+
+#, php-format
+msgid "Don't forget to add a <a href=\"%s\">widget</a> linking to your contact page."
+msgstr ""
