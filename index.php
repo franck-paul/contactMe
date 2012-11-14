@@ -115,10 +115,10 @@ if (!empty($_GET['upd'])) {
 echo
 '<form action="'.$p_url.'" method="post">'.
 '<fieldset><legend>'.__('E-Mail settings').'</legend>'.
-'<p><label>'.__('Comma separated recipients list:').'</label> '.
+'<p><label for="cm_recipients">'.__('Comma separated recipients list:').'</label> '.
 form::field('cm_recipients',30,512,html::escapeHTML($cm_recipients),'maximal').'</p>'.
 '<p class="form-note">'.__('Empty recipients list to disable contact page.').'</p>'.
-'<p><label>'.__('E-Mail subject prefix:').'</label> '.
+'<p><label for="cm_subject_prefix">'.__('E-Mail subject prefix:').'</label> '.
 form::field('cm_subject_prefix',30,128,html::escapeHTML($cm_subject_prefix)).'</p>'.
 '<p class="form-note">'.__('This will be prepend to e-mail subject').'</p>';
 
@@ -127,25 +127,25 @@ if ($antispam_enabled)
 {
 	echo
 	'<p>'.form::checkbox('cm_use_antispam',1,(boolean) $cm_use_antispam).
-	' <label class="classic">'.__('Use comments spam filter').'</label></p>';
+	' <label for="cm_use_antispam" class="classic">'.__('Use comments spam filter').'</label></p>';
 }
 
 echo
 '</fieldset>'.
 
 '<fieldset><legend>'.__('Presentation options').'</legend>'.
-'<p><label class="required" title="'.__('Required field').'"><abbr title="'.__('Required field').'">*</abbr> '.
+'<p><label for="cm_page_title" class="required" title="'.__('Required field').'"><abbr title="'.__('Required field').'">*</abbr> '.
 __('Page title:').'</label> '.
 form::field('cm_page_title',30,256,html::escapeHTML($cm_page_title)).
 '</p>'.
-'<p class="area"><label>'.__('Form caption:').'</label> '.
+'<p class="area"><label for="cm_form_caption">'.__('Form caption:').'</label> '.
 form::textarea('cm_form_caption',30,2,html::escapeHTML($cm_form_caption)).
 '</p>'.
-'<p class="area"><label class="required" title="'.__('Required field').'"><abbr title="'.__('Required field').'">*</abbr> '.
+'<p class="area"><label for="cm_msg_success" class="required" title="'.__('Required field').'"><abbr title="'.__('Required field').'">*</abbr> '.
 __('Confirmation message:').'</label> '.
 form::textarea('cm_msg_success',30,2,html::escapeHTML($cm_msg_success)).
 '</p>'.
-'<p class="area"><label class="required" title="'.__('Required field').'"><abbr title="'.__('Required field').'">*</abbr> '.
+'<p class="area"><label for="cm_msg_error" class="required" title="'.__('Required field').'"><abbr title="'.__('Required field').'">*</abbr> '.
 __('Error message:').'</label> '.
 form::textarea('cm_msg_error',30,2,html::escapeHTML($cm_msg_error)).
 '</p>'.
