@@ -27,6 +27,7 @@ class contactMeWidgets
 				__('Except on home page') => 2
 				)
 		);
+		$w->contactMe->setting('content_only',__('Content only'),0,'check');
 		$w->contactMe->setting('class',__('CSS class:'),'');
 	}
 }
