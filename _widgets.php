@@ -11,7 +11,7 @@
 # -- END LICENSE BLOCK ------------------------------------
 if (!defined('DC_RC_PATH')) { return; }
 
-$core->addBehavior('initWidgets',array('contactMeWidgets','initWidgets'));
+$GLOBALS['core']->addBehavior('initWidgets',array('contactMeWidgets','initWidgets'));
 
 class contactMeWidgets
 {
