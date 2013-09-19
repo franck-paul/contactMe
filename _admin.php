@@ -11,10 +11,10 @@
 
 if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
-$_menu['Plugins']->addItem(__('Contact me'),'plugin.php?p=contactMe','index.php?pf=contactMe/icon.png',
+$_menu['Blog']->addItem(__('Contact me'),'plugin.php?p=contactMe','index.php?pf=contactMe/icon.png',
 		preg_match('/plugin.php\?p=contactMe(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('admin',$core->blog->id));
-		
+
 $core->addBehavior('adminSimpleMenuAddType',array('contactMeSimpleMenu','adminSimpleMenuAddType'));
 $core->addBehavior('adminSimpleMenuBeforeEdit',array('contactMeSimpleMenu','adminSimpleMenuBeforeEdit'));
 
@@ -26,14 +26,13 @@ class contactMeSimpleMenu {
 
 	public static function adminSimpleMenuBeforeEdit($item_type,$item_select,$args) {
 		global $core;
-		
+
 		if ($item_type == 'contactme') {
-			
+
 			$args[0] = __('Contact me');
 			$args[1] = __('Mail contact form');
 			$args[2] .= $core->url->getBase('contactme');
 		}
 	}
-
 }
 ?>

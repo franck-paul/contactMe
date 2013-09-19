@@ -44,12 +44,12 @@ class urlContactMe extends dcUrlHandlers
 	public static function contact($args)
 	{
 		global $core, $_ctx;
-		
+
 		if (!$core->blog->settings->contactme->cm_recipients) {
 			self::p404();
 			exit;
 		}
-		
+
 		$_ctx->contactme = new ArrayObject(array(
 			'name' => '',
 			'email' => '',
@@ -60,12 +60,12 @@ class urlContactMe extends dcUrlHandlers
 			'error' => false,
 			'error_msg' => ''
 		));
-		
+
 		$send_msg =
 			isset($_POST['c_name']) && isset($_POST['c_mail']) &&
 			isset($_POST['c_site']) && isset($_POST['c_message']) &&
 			isset($_POST['c_subject']);
-		
+
 		if ($args == 'sent')
 		{
 			$_ctx->contactme['sent'] = true;
@@ -79,7 +79,7 @@ class urlContactMe extends dcUrlHandlers
 				echo "So Long, and Thanks For All the Fish";
 				exit;
 			}
-			
+
 			try
 			{
 				$_ctx->contactme['name'] = preg_replace('/[\n\r]/','',$_POST['c_name']);
@@ -87,24 +87,24 @@ class urlContactMe extends dcUrlHandlers
 				$_ctx->contactme['site'] = preg_replace('/[\n\r]/','',$_POST['c_site']);
 				$_ctx->contactme['subject'] = preg_replace('/[\n\r]/','',$_POST['c_subject']);
 				$_ctx->contactme['message'] = $_POST['c_message'];
-				
+
 				# Checks provided fields
 				if (empty($_POST['c_name'])) {
 					throw new Exception(__('You must provide a name.'));
 				}
-				
+
 				if (!text::isEmail($_POST['c_mail'])) {
 					throw new Exception(__('You must provide a valid email address.'));
 				}
-				
+
 				if (empty($_POST['c_subject'])) {
 					throw new Exception(__('You must provide a subject.'));
 				}
-				
+
 				if (empty($_POST['c_message'])) {
 					throw new Exception(__('You must write a message.'));
 				}
-				
+
 				# Checks recipients addresses
 				$recipients = explode(',',$core->blog->settings->contactme->cm_recipients);
 				$rc2 = array();
@@ -116,11 +116,11 @@ class urlContactMe extends dcUrlHandlers
 				}
 				$recipients = $rc2;
 				unset($rc2);
-				
+
 				if (empty($recipients)) {
 					throw new Exception(__('No valid contact recipient was found.'));
 				}
-				
+
 				# Check message form spam
 				if ($core->blog->settings->contactme->cm_use_antispam && class_exists('dcAntispam') && isset($core->spamfilters))
 				{
@@ -134,16 +134,16 @@ class urlContactMe extends dcUrlHandlers
 					$cur->comment_content = $_ctx->contactme['message'];
 					$cur->post_id = 0; // That could break things...
 					$cur->comment_status = 1;
-					
+
 					@dcAntispam::isSpam($cur);
-					
+
 					if ($cur->comment_status == -2) {
 						unset($cur);
 						throw new Exception(__('Message seems to be a spam.'));
 					}
 					unset($cur);
 				}
-				
+
 				# Sending mail
 				$headers = array(
 					'From: '.mail::B64Header($_ctx->contactme['name']).' <'.$_ctx->contactme['email'].'>',
@@ -154,13 +154,13 @@ class urlContactMe extends dcUrlHandlers
 					'X-Blog-Name: '.mail::B64Header($core->blog->name),
 					'X-Blog-Url: '.mail::B64Header($core->blog->url)
 				);
-				
+
 				$subject = $_ctx->contactme['subject'];
 				if ($core->blog->settings->contactme->cm_subject_prefix) {
 					$subject = $core->blog->settings->contactme->cm_subject_prefix.' '.$subject;
 				}
 				$subject = mail::B64Header($subject);
-				
+
 				$msg =
 				__("Hi there!\n\nYou received a message from your blog's contact page.").
 				"\n\n".
@@ -170,7 +170,7 @@ class urlContactMe extends dcUrlHandlers
 				__('Message:')."\n".
 				"-----------------------------------------------------------\n".
 				$_ctx->contactme['message']."\n\n";
-				
+
 				foreach ($recipients as $email) {
 					mail::sendMail($email,$subject,$msg,$headers);
 				}
@@ -182,7 +182,7 @@ class urlContactMe extends dcUrlHandlers
 				$_ctx->contactme['error_msg'] = $e->getMessage();
 			}
 		}
-		
+
 		$core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__).'/default-templates');
 		self::serveDocument('contact_me.html');
 		exit;
@@ -196,95 +196,95 @@ class tplContactMe
 		$f = $GLOBALS['core']->tpl->getFilters($attr);
 		return '<?php echo '.sprintf($f,'$core->blog->url.$core->url->getBase("contactme")').'; ?>';
 	}
-	
+
 	public static function ContactMeIf($attr,$content)
 	{
 		$if = array();
-		
+
 		$operator = isset($attr['operator']) ? dcTemplate::getOperator($attr['operator']) : '&&';
-		
+
 		if (isset($attr['sent'])) {
 			$sign = (boolean) $attr['sent'] ? '' : '!';
 			$if[] = $sign."\$_ctx->contactme['sent']";
 		}
-		
+
 		if (isset($attr['error'])) {
 			$sign = (boolean) $attr['error'] ? '' : '!';
 			$if[] = $sign."\$_ctx->contactme['error']";
 		}
-		
+
 		if (!empty($if)) {
 			return '<?php if('.implode(' '.$operator.' ',$if).') : ?>'.$content.'<?php endif; ?>';
 		} else {
 			return $content;
 		}
 	}
-	
+
 	public static function ContactMePageTitle($attr)
 	{
 		$f = $GLOBALS['core']->tpl->getFilters($attr);
 		return '<?php echo '.sprintf($f,'$core->blog->settings->contactme->cm_page_title').'; ?>';
 	}
-	
+
 	public static function ContactMeFormCaption($attr)
 	{
 		return '<?php echo $core->blog->settings->contactme->cm_form_caption; ?>';
 	}
-	
+
 	public static function ContactMeMsgSuccess($attr)
 	{
 		return '<?php echo $core->blog->settings->contactme->cm_msg_success; ?>';
 	}
-	
+
 	public static function ContactMeMsgError($attr)
 	{
 		return '<?php echo sprintf($core->blog->settings->contactme->cm_msg_error,html::escapeHTML($_ctx->contactme["error_msg"])); ?>';
 	}
-	
+
 	public static function ContactMeName($attr)
 	{
 		$f = $GLOBALS['core']->tpl->getFilters($attr);
 		return '<?php echo '.sprintf($f,'$_ctx->contactme["name"]').'; ?>';
 	}
-	
+
 	public static function ContactMeEmail($attr)
 	{
 		$f = $GLOBALS['core']->tpl->getFilters($attr);
 		return '<?php echo '.sprintf($f,'$_ctx->contactme["email"]').'; ?>';
 	}
-	
+
 	public static function ContactMeSite($attr)
 	{
 		$f = $GLOBALS['core']->tpl->getFilters($attr);
 		return '<?php echo '.sprintf($f,'$_ctx->contactme["site"]').'; ?>';
 	}
-	
+
 	public static function ContactMeSubject($attr)
 	{
 		$f = $GLOBALS['core']->tpl->getFilters($attr);
 		return '<?php echo '.sprintf($f,'$_ctx->contactme["subject"]').'; ?>';
 	}
-	
+
 	public static function ContactMeMessage($attr)
 	{
 		$f = $GLOBALS['core']->tpl->getFilters($attr);
 		return '<?php echo '.sprintf($f,'$_ctx->contactme["message"]').'; ?>';
 	}
-	
+
 	# Widget function
 	public static function contactMeWidget($w)
 	{
 		global $core;
-		
+
 		if (($w->homeonly == 1 && $core->url->type != 'default') ||
 			($w->homeonly == 2 && $core->url->type == 'default')) {
 			return;
 		}
-		
+
 		if (!$core->blog->settings->contactme->cm_recipients) {
 			return;
 		}
-		
+
 		$res =
 		($w->content_only ? '' : '<div class="contact-me'.($w->class ? ' '.html::escapeHTML($w->class) : '').'">').
 		($w->title ? '<h2>'.html::escapeHTML($w->title).'</h2>' : '').
@@ -292,7 +292,7 @@ class tplContactMe
 		($w->link_title ? html::escapeHTML($w->link_title) : __('Contact me')).
 		'</a></p>'.
 		($w->content_only ? '' : '</div>');
-		
+
 		return $res;
 	}
 }

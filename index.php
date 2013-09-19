@@ -48,22 +48,22 @@ if (isset($_POST['cm_recipients']))
 		$cm_msg_success = $_POST['cm_msg_success'];
 		$cm_msg_success = $_POST['cm_msg_success'];
 		$cm_msg_error = $_POST['cm_msg_error'];
-		
+
 		if (empty($_POST['cm_page_title'])) {
 			throw new Exception(__('No page title.'));
 		}
-		
+
 		if (empty($_POST['cm_msg_success'])) {
 			throw new Exception(__('No success message.'));
 		}
-		
+
 		if (empty($_POST['cm_msg_error'])) {
 			throw new Exception(__('No error message.'));
 		}
-		
+
 		$cm_r = explode(',',$cm_recipients);
 		$cm_r2 = array();
-		
+
 		foreach ($cm_r as $v)
 		{
 			$v = trim($v);
@@ -76,7 +76,7 @@ if (isset($_POST['cm_recipients']))
 			$cm_r2[] = $v;
 		}
 		$cm_recipients = implode(', ',$cm_r2);
-		
+
 		# Everything's fine, save options
 		$core->blog->settings->addNamespace('contactme');
 		$core->blog->settings->contactme->put('cm_recipients',$cm_recipients,'string','ContactMe recipients');
@@ -85,11 +85,11 @@ if (isset($_POST['cm_recipients']))
 		$core->blog->settings->contactme->put('cm_form_caption',$cm_form_caption,'string','ContactMe form caption');
 		$core->blog->settings->contactme->put('cm_msg_success',$cm_msg_success,'string','ContactMe success message');
 		$core->blog->settings->contactme->put('cm_msg_error',$cm_msg_error,'string','ContactMe error message');
-		
+
 		if ($antispam_enabled) {
 			$core->blog->settings->contactme->put('cm_use_antispam',!empty($_POST['cm_use_antispam']),'boolean','ContactMe should use comments spam filter');
 		}
-		
+
 		$core->blog->triggerBlog();
 		http::redirect($p_url.'&upd=1');
 	}
@@ -107,15 +107,19 @@ if (isset($_POST['cm_recipients']))
 
 <body>
 <?php
-echo '<h2>'.html::escapeHTML($core->blog->name).' &rsaquo; <span class="page-title">'.__('Contact me').'</span></h2>';
+echo dcPage::breadcrumb(
+	array(
+		html::escapeHTML($core->blog->name) => '',
+		'<span class="page-title">'.__('Contact me').'</span>' => ''
+	));
 
 if (!empty($_GET['upd'])) {
-	dcPage::message(__('Setting have been successfully updated.'));
+	dcPage::success(__('Setting have been successfully updated.'));
 }
 
 echo
 '<form action="'.$p_url.'" method="post">'.
-'<fieldset><legend>'.__('E-Mail settings').'</legend>'.
+'<h3>'.__('E-Mail settings').'</h3>'.
 '<p><label for="cm_recipients">'.__('Comma separated recipients list:').'</label> '.
 form::field('cm_recipients',30,512,html::escapeHTML($cm_recipients),'maximal').'</p>'.
 '<p class="form-note">'.__('Empty recipients list to disable contact page.').'</p>'.
@@ -132,9 +136,7 @@ if ($antispam_enabled)
 }
 
 echo
-'</fieldset>'.
-
-'<fieldset><legend>'.__('Presentation options').'</legend>'.
+'<h3>'.__('Presentation options').'</h3>'.
 '<p><label for="cm_page_title" class="required" title="'.__('Required field').'"><abbr title="'.__('Required field').'">*</abbr> '.
 __('Page title:').'</label> '.
 form::field('cm_page_title',30,256,html::escapeHTML($cm_page_title)).
@@ -151,12 +153,11 @@ __('Error message:').'</label> '.
 form::textarea('cm_msg_error',30,2,html::escapeHTML($cm_msg_error)).
 '</p>'.
 '<p class="form-note">'.__('"%s" is the error message.').'</p>'.
-'</fieldset>'.
 
 '<p>'.$core->formNonce().'<input type="submit" value="'.__('save').'" /></p>'.
 '</form>';
 
-echo '<p>'.sprintf(__('Don\'t forget to add a <a href="%s">widget</a> linking to your contact page.'),'plugin.php?p=widgets').'</p>';
+echo '<p class="info">'.sprintf(__('Don\'t forget to add a <a href="%s">widget</a> linking to your contact page.'),'plugin.php?p=widgets').'</p>';
 ?>
 </body>
 </html>
