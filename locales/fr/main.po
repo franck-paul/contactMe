@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 contactMe module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-19 17:06+0200\n"
+"POT-Creation-Date: 2013-09-24 13:34+0200\n"
 "PO-Revision-Date: 2012-11-05 16:48+0100\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -21,6 +21,12 @@ msgstr "Message"
 
 msgid "Subject"
 msgstr "Sujet"
+
+msgid "Add a simple contact form on your blog"
+msgstr "Ajoute un formulaire simple de contact sur votre blog"
+
+msgid "ContactMe"
+msgstr "Contact"
 
 msgid "Contact me"
 msgstr "Contactez-moi"
@@ -142,12 +148,6 @@ msgstr "enregistrer"
 #, php-format
 msgid "Don't forget to add a <a href=\"%s\">widget</a> linking to your contact page."
 msgstr "N'oubliez pas d'ajouter un <a href=\"%s\">widget</a> insérant un lien vers votre page de contact."
-
-msgid "ContactMe"
-msgstr "Contact"
-
-msgid "Add a simple contact form on your blog"
-msgstr "Ajoute un formulaire simple de contact sur votre blog"
 
 #~ msgid "Link title:"
 #~ msgstr "Titre du lien :"
