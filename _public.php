@@ -296,4 +296,3 @@ class tplContactMe
 		return $res;
 	}
 }
-?>

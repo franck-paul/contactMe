@@ -11,7 +11,7 @@
 
 if (!defined('DC_RC_PATH')) { return; }
 
-$GLOBALS['core']->addBehavior('initWidgets',array('contactMeWidgets','initWidgets'));
+$core->addBehavior('initWidgets',array('contactMeWidgets','initWidgets'));
 
 class contactMeWidgets
 {
@@ -31,4 +31,3 @@ class contactMeWidgets
 		$w->contactMe->setting('class',__('CSS class:'),'');
 	}
 }
-?>
