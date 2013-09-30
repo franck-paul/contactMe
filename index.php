@@ -110,7 +110,7 @@ if (isset($_POST['cm_recipients']))
 echo dcPage::breadcrumb(
 	array(
 		html::escapeHTML($core->blog->name) => '',
-		'<span class="page-title">'.__('Contact me').'</span>' => ''
+		__('Contact me') => ''
 	));
 
 if (!empty($_GET['upd'])) {
