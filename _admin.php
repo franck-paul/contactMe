@@ -18,6 +18,15 @@ $_menu['Blog']->addItem(__('Contact me'),'plugin.php?p=contactMe','index.php?pf=
 		preg_match('/plugin.php\?p=contactMe(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('admin',$core->blog->id));
 
+$core->addBehavior('adminDashboardFavs','contactMeDashboardFavs');
+
+function contactMeDashboardFavs($core,$favs)
+{
+	$favs['contactMe'] = new ArrayObject(array('contactMe','Contact me','plugin.php?p=contactMe',
+		'index.php?pf=contactMe/icon.png','index.php?pf=contactMe/icon-big.png',
+		'admin',null,null));
+}
+
 $core->addBehavior('adminSimpleMenuAddType',array('contactMeSimpleMenu','adminSimpleMenuAddType'));
 $core->addBehavior('adminSimpleMenuBeforeEdit',array('contactMeSimpleMenu','adminSimpleMenuBeforeEdit'));
 
