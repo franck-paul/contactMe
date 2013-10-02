@@ -91,7 +91,8 @@ if (isset($_POST['cm_recipients']))
 		}
 
 		$core->blog->triggerBlog();
-		http::redirect($p_url.'&upd=1');
+		dcPage::addSuccessNotice(__('Setting have been successfully updated.'));
+		http::redirect($p_url);
 	}
 	catch (Exception $e)
 	{
@@ -112,10 +113,7 @@ echo dcPage::breadcrumb(
 		html::escapeHTML($core->blog->name) => '',
 		__('Contact me') => ''
 	));
-
-if (!empty($_GET['upd'])) {
-	dcPage::success(__('Setting have been successfully updated.'));
-}
+echo dcPage::notices();
 
 echo
 '<form action="'.$p_url.'" method="post">'.
