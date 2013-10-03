@@ -18,13 +18,21 @@ $_menu['Blog']->addItem(__('Contact me'),'plugin.php?p=contactMe','index.php?pf=
 		preg_match('/plugin.php\?p=contactMe(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('admin',$core->blog->id));
 
-$core->addBehavior('adminDashboardFavs','contactMeDashboardFavs');
+/* Register favorite */
+$core->addBehavior('adminDashboardFavorites',array('contactMeAdmin','adminDashboardFavorites'));
 
-function contactMeDashboardFavs($core,$favs)
+class contactMeAdmin
 {
-	$favs['contactMe'] = new ArrayObject(array('contactMe','Contact me','plugin.php?p=contactMe',
-		'index.php?pf=contactMe/icon.png','index.php?pf=contactMe/icon-big.png',
-		'admin',null,null));
+	public static function adminDashboardFavorites($core,$favs)
+	{
+		$favs->register('contactMe', array(
+			'title' => __('Contact me'),
+			'url' => 'plugin.php?p=contactMe',
+			'small-icon' => 'index.php?pf=contactMe/icon.png',
+			'large-icon' => 'index.php?pf=contactMe/icon-big.png',
+			'permissions' => 'admin'
+		));
+	}
 }
 
 $core->addBehavior('adminSimpleMenuAddType',array('contactMeSimpleMenu','adminSimpleMenuAddType'));
