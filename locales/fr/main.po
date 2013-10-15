@@ -103,7 +103,7 @@ msgid "%s is not a valid e-mail address."
 msgstr "%s n'est pas une adresse email valide."
 
 msgid "Setting have been successfully updated."
-msgstr "Configuration mise à jour avec succès."
+msgstr "La configuration a été mise à jour."
 
 msgid "E-Mail settings"
 msgstr "Paramètres de courrier électronique"
