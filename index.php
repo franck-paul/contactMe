@@ -152,10 +152,10 @@ form::textarea('cm_msg_error',30,2,html::escapeHTML($cm_msg_error)).
 '</p>'.
 '<p class="form-note">'.__('"%s" is the error message.').'</p>'.
 
-'<p>'.$core->formNonce().'<input type="submit" value="'.__('save').'" /></p>'.
+'<p>'.$core->formNonce().'<input type="submit" value="'.__('Save').'" /></p>'.
 '</form>';
 
-echo '<p class="info">'.sprintf(__('Don\'t forget to add a <a href="%s">widget</a> linking to your contact page.'),'plugin.php?p=widgets').'</p>';
+echo '<p class="info">'.sprintf(__('Don\'t forget to add a <a href="%s">“Contact Me” widget</a> linking to your contact page.'),'plugin.php?p=widgets').'</p>';
 ?>
 </body>
 </html>

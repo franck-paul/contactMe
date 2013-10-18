@@ -7,13 +7,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 contactMe module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-24 13:34+0200\n"
+"POT-Creation-Date: 2013-10-18 13:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../hg-plugins/contactMe//__html_tpl_dummy.php:5
@@ -35,19 +35,20 @@ msgid "ContactMe"
 msgstr ""
 
 #: ../hg-plugins/contactMe//_admin.php:17
-#: ../hg-plugins/contactMe//_admin.php:27
-#: ../hg-plugins/contactMe//_admin.php:35
+#: ../hg-plugins/contactMe//_admin.php:29
+#: ../hg-plugins/contactMe//_admin.php:44
+#: ../hg-plugins/contactMe//_admin.php:52
 #: ../hg-plugins/contactMe//_public.php:37
 #: ../hg-plugins/contactMe//_public.php:292
 #: ../hg-plugins/contactMe//_widgets.php:20
 #: ../hg-plugins/contactMe//_widgets.php:22
 #: ../hg-plugins/contactMe//index.php:25
-#: ../hg-plugins/contactMe//index.php:105
-#: ../hg-plugins/contactMe//index.php:113
+#: ../hg-plugins/contactMe//index.php:106
+#: ../hg-plugins/contactMe//index.php:114
 msgid "Contact me"
 msgstr ""
 
-#: ../hg-plugins/contactMe//_admin.php:36
+#: ../hg-plugins/contactMe//_admin.php:53
 msgid "Mail contact form"
 msgstr ""
 
@@ -135,64 +136,60 @@ msgstr ""
 msgid "%s is not a valid e-mail address."
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:117
+#: ../hg-plugins/contactMe//index.php:94
 msgid "Setting have been successfully updated."
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:122
+#: ../hg-plugins/contactMe//index.php:120
 msgid "E-Mail settings"
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:123
+#: ../hg-plugins/contactMe//index.php:121
 msgid "Comma separated recipients list:"
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:125
+#: ../hg-plugins/contactMe//index.php:123
 msgid "Empty recipients list to disable contact page."
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:126
+#: ../hg-plugins/contactMe//index.php:124
 msgid "E-Mail subject prefix:"
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:128
+#: ../hg-plugins/contactMe//index.php:126
 msgid "This will be prepend to e-mail subject"
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:135
+#: ../hg-plugins/contactMe//index.php:133
 msgid "Use comments spam filter"
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:139
+#: ../hg-plugins/contactMe//index.php:137
 msgid "Presentation options"
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:141
+#: ../hg-plugins/contactMe//index.php:139
 msgid "Page title:"
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:144
+#: ../hg-plugins/contactMe//index.php:142
 msgid "Form caption:"
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:148
+#: ../hg-plugins/contactMe//index.php:146
 msgid "Confirmation message:"
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:152
+#: ../hg-plugins/contactMe//index.php:150
 msgid "Error message:"
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:155
+#: ../hg-plugins/contactMe//index.php:153
 #, php-format
 msgid "\"%s\" is the error message."
 msgstr ""
 
-#: ../hg-plugins/contactMe//index.php:157
-msgid "save"
-msgstr ""
-
-#: ../hg-plugins/contactMe//index.php:160
+#: ../hg-plugins/contactMe//index.php:158
 #, php-format
-msgid "Don't forget to add a <a href=\"%s\">widget</a> linking to your contact page."
+msgid "Don't forget to add a <a href=\"%s\">“Contact Me” widget</a> linking to your contact page."
 msgstr ""
