@@ -1,15 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{tpl:BlogLanguage}}" lang="{{tpl:BlogLanguage}}">
+<!DOCTYPE html>
+<html lang="{{tpl:BlogLanguage}}">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="MSSmartTagsPreventParsing" content="TRUE" />
+  <meta charset="UTF-8" />
   <meta name="ROBOTS" content="{{tpl:BlogMetaRobots robots="NOINDEX,NOARCHIVE"}}" />
-  
+
   <title>{{tpl:ContactMePageTitle encode_html="1"}} - {{tpl:BlogName encode_html="1"}}</title>
   <meta name="copyright" content="{{tpl:BlogCopyrightNotice encode_html="1"}}" />
   <meta name="author" content="{{tpl:BlogEditor encode_html="1"}}" />
-  
+
   <link rel="schema.dc" href="http://purl.org/dc/elements/1.1/" />
   <meta name="dc.title" lang="{{tpl:BlogLanguage}}" content="{{tpl:ContactMePageTitle}} - {{tpl:BlogName encode_html="1"}}" />
   <meta name="dc.language" content="{{tpl:BlogLanguage}}" />
@@ -17,10 +15,10 @@
   <meta name="dc.rights" content="{{tpl:BlogCopyrightNotice encode_html="1"}}" />
   <meta name="dc.type" content="text" />
   <meta name="dc.format" content="text/html" />
-  
+
   <link rel="top" href="{{tpl:BlogURL}}" title="{{tpl:lang Home}}" />
   <link rel="contents" title="{{tpl:lang Archives}}" href="{{tpl:BlogArchiveURL}}" />
-  
+
   {{tpl:include src="_head.html"}}
 </head>
 
@@ -32,16 +30,16 @@
 
 <div id="main">
   <div id="content">
-  
+
 	<div id="content-info">
   	<h2>{{tpl:ContactMePageTitle encode_html="1"}}</h2>
 	</div>
-  
+
   <div class="content-inner">
   <tpl:ContactMeIf sent="1">{{tpl:ContactMeMsgSuccess}}</tpl:ContactMeIf>
-  
+
   <tpl:ContactMeIf error="1">{{tpl:ContactMeMsgError}}</tpl:ContactMeIf>
-  
+
   <tpl:ContactMeIf sent="0">
     {{tpl:ContactMeFormCaption}}
     <form action="{{tpl:ContactMeURL}}" method="post" id="comment-form" class="contactme">
@@ -50,37 +48,37 @@
         <input name="c_name" id="c_name" type="text" size="30" maxlength="255"
         value="{{tpl:ContactMeName encode_html="1"}}" />
         </p>
-        
+
         <p class="field"><label for="c_mail">{{tpl:lang Email address}}&nbsp;:</label>
         <input name="c_mail" id="c_mail" type="text" size="30" maxlength="255"
         value="{{tpl:ContactMeEmail encode_html="1"}}" />
         </p>
-        
+
         <p class="field"><label for="c_site">{{tpl:lang Website}}
         ({{tpl:lang optional}})&nbsp;:</label>
         <input name="c_site" id="c_site" type="text" size="30" maxlength="255"
         value="{{tpl:ContactMeSite encode_html="1"}}" />
         </p>
-        
+
         <p class="field"><label for="c_subject">{{tpl:lang Subject}}&nbsp;:</label>
         <input name="c_subject" id="c_subject" type="text" size="30" maxlength="255"
         value="{{tpl:ContactMeSubject encode_html="1"}}" />
         </p>
-        
+
         <p style="display:none"><input name="f_mail" type="text" size="30"
         maxlength="255" value="" /></p>
-        
+
         <p class="field"><label for="c_message">{{tpl:lang Message}}&nbsp;:</label>
         <textarea name="c_message" id="c_message" cols="35"
         rows="7">{{tpl:ContactMeMessage raw="1" encode_html="1"}}</textarea>
         </p>
-        
+
         <p><input type="submit" class="submit" value="{{tpl:lang send}}" /></p>
       </fieldset>
     </form>
   </tpl:ContactMeIf>
   </div>
-  
+
   </div>
 </div>
 
@@ -88,7 +86,7 @@
   <div id="blognav">
     {{tpl:Widgets type="nav"}}
   </div> <!-- End #blognav -->
-  
+
   <div id="blogextra">
     {{tpl:Widgets type="extra"}}
   </div> <!-- End #blogextra -->
