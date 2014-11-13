@@ -29,5 +29,6 @@ class contactMeWidgets
 		);
 		$w->contactMe->setting('content_only',__('Content only'),0,'check');
 		$w->contactMe->setting('class',__('CSS class:'),'');
+		$w->contactMe->setting('offline',__('Offline'),0,'check');
 	}
 }
