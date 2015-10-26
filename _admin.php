@@ -14,7 +14,9 @@ if (!defined('DC_CONTEXT_ADMIN')) { return; }
 // dead but useful code, in order to have translations
 __('ContactMe').__('Add a simple contact form on your blog');
 
-$_menu['Blog']->addItem(__('Contact me'),'plugin.php?p=contactMe','index.php?pf=contactMe/icon.png',
+$_menu['Blog']->addItem(__('Contact me'),
+		'plugin.php?p=contactMe',
+		urldecode(dcPage::getPF('contactMe/icon.png')),
 		preg_match('/plugin.php\?p=contactMe(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('admin',$core->blog->id));
 
@@ -28,8 +30,8 @@ class contactMeAdmin
 		$favs->register('contactMe', array(
 			'title' => __('Contact me'),
 			'url' => 'plugin.php?p=contactMe',
-			'small-icon' => 'index.php?pf=contactMe/icon.png',
-			'large-icon' => 'index.php?pf=contactMe/icon-big.png',
+			'small-icon' => urldecode(dcPage::getPF('contactMe/icon.png')),
+			'large-icon' => urldecode(dcPage::getPF('contactMe/icon-big.png')),
 			'permissions' => 'admin'
 		));
 	}
