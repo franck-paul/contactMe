@@ -233,7 +233,8 @@ class tplContactMe
 
 	public static function ContactMeFormCaption($attr)
 	{
-		return '<?php echo $core->blog->settings->contactme->cm_form_caption; ?>';
+		$f = $GLOBALS['core']->tpl->getFilters($attr);
+		return '<?php echo '.sprintf($f,'$core->blog->settings->contactme->cm_form_caption').'; ?>';
 	}
 
 	public static function ContactMeMsgSuccess($attr)
