@@ -46,7 +46,6 @@ if (isset($_POST['cm_recipients']))
 		$cm_page_title = $_POST['cm_page_title'];
 		$cm_form_caption = $_POST['cm_form_caption'];
 		$cm_msg_success = $_POST['cm_msg_success'];
-		$cm_msg_success = $_POST['cm_msg_success'];
 		$cm_msg_error = $_POST['cm_msg_error'];
 
 		if (empty($_POST['cm_page_title'])) {
@@ -104,6 +103,11 @@ if (isset($_POST['cm_recipients']))
 <html>
 <head>
 	<title><?php echo __('Contact me'); ?></title>
+<?php
+	$rich_editor = $core->auth->getOption('editor');
+	echo $core->callBehavior('adminPostEditor',$rich_editor['xhtml'],'contactme',
+		array('#cm_form_caption','#cm_msg_success','#cm_msg_error'),'xhtml');
+?>
 </head>
 
 <body>
