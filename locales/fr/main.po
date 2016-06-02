@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 contactMe module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-18 13:25+0200\n"
+"POT-Creation-Date: 2016-06-02 10:08+0200\n"
 "PO-Revision-Date: 2012-11-05 16:48+0100\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -88,6 +88,9 @@ msgstr "<p style=\"color:green\"><strong>Merci pour votre message.</strong></p>"
 #, php-format
 msgid "<p style=\"color:red\"><strong>An error occured:</strong> %s</p>"
 msgstr "<p style=\"color:red\"><strong>Une erreur s'est produite :</strong> %s</p>"
+
+msgid "No recipients."
+msgstr "Pas de destinataires."
 
 msgid "No page title."
 msgstr "Pas de titre de page."

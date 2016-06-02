@@ -48,6 +48,10 @@ if (isset($_POST['cm_recipients']))
 		$cm_msg_success = $_POST['cm_msg_success'];
 		$cm_msg_error = $_POST['cm_msg_error'];
 
+		if (empty($_POST['cm_recipients'])) {
+			throw new Exception(__('No recipients.'));
+		}
+
 		if (empty($_POST['cm_page_title'])) {
 			throw new Exception(__('No page title.'));
 		}
@@ -122,7 +126,7 @@ echo dcPage::notices();
 echo
 '<form action="'.$p_url.'" method="post">'.
 '<h3>'.__('E-Mail settings').'</h3>'.
-'<p><label for="cm_recipients">'.__('Comma separated recipients list:').'</label> '.
+'<p><label for="cm_recipients" class="required" title="'.__('Required field').'">'.__('Comma separated recipients list:').'</label> '.
 form::field('cm_recipients',30,512,html::escapeHTML($cm_recipients),'maximal').'</p>'.
 '<p class="form-note">'.__('Empty recipients list to disable contact page.').'</p>'.
 '<p><label for="cm_subject_prefix">'.__('E-Mail subject prefix:').'</label> '.
