@@ -109,8 +109,15 @@ if (isset($_POST['cm_recipients']))
 	<title><?php echo __('Contact me'); ?></title>
 <?php
 	$rich_editor = $core->auth->getOption('editor');
-	echo $core->callBehavior('adminPostEditor',$rich_editor['xhtml'],'contactme',
-		array('#cm_form_caption','#cm_msg_success','#cm_msg_error'),'xhtml');
+	$rte_flag = true;
+	$rte_flags  = @$core->auth->user_prefs->interface->rte_flags;
+	if (is_array($rte_flags) && in_array('contactme',$rte_flags)) {
+		$rte_flag = $rte_flags['contactme'];
+	}
+	if ($rte_flag) {
+		echo $core->callBehavior('adminPostEditor',$rich_editor['xhtml'],'contactme',
+			array('#cm_form_caption','#cm_msg_success','#cm_msg_error'),'xhtml');
+	}
 ?>
 </head>
 

@@ -22,6 +22,7 @@ $_menu['Blog']->addItem(__('Contact me'),
 
 /* Register favorite */
 $core->addBehavior('adminDashboardFavorites',array('contactMeAdmin','adminDashboardFavorites'));
+$core->addBehavior('adminRteFlags',array('contactMeAdmin','adminRteFlags'));
 
 class contactMeAdmin
 {
@@ -34,6 +35,11 @@ class contactMeAdmin
 			'large-icon' => urldecode(dcPage::getPF('contactMe/icon-big.png')),
 			'permissions' => 'admin'
 		));
+	}
+
+	public static function adminRteFlags($core,$rte)
+	{
+		$rte['contactme'] = array(true,__('Contact me form caption and messages'));
 	}
 }
 

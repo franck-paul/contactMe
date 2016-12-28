@@ -148,3 +148,6 @@ msgstr "\"%s\" est le message d'erreur."
 #, php-format
 msgid "Don't forget to add a <a href=\"%s\">“Contact Me” widget</a> linking to your contact page."
 msgstr "N'oubliez pas d'ajouter le <a href=\"%s\">widget « Contactez-moi »</a> insérant un lien vers votre page de contact."
+
+msgid "Contact me form caption and messages"
+msgstr "Intitulé de formulaire et messages de Contactez-moi"
