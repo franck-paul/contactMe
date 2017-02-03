@@ -15,6 +15,7 @@ $(function() {
 	if ($.isFunction(jsToolBar)) {
 		$('p.area textarea').each(function() {
 			var tbWidgetText = new jsToolBar(this);
+			tbWidgetText.context = 'contactme';
 			tbWidgetText.draw('xhtml');
 		});
 	}
