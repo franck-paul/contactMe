@@ -115,8 +115,10 @@ if (isset($_POST['cm_recipients']))
 		$rte_flag = $rte_flags['contactme'];
 	}
 	if ($rte_flag) {
-		echo $core->callBehavior('adminPostEditor',$rich_editor['xhtml'],'contactme',
-			array('#cm_form_caption','#cm_msg_success','#cm_msg_error'),'xhtml');
+		echo
+			$core->callBehavior('adminPostEditor',$rich_editor['xhtml'],'contactme',
+				array('#cm_form_caption','#cm_msg_success','#cm_msg_error'),'xhtml').
+			dcPage::jsLoad(urldecode(dcPage::getPF('contactMe/contactme.js')));
 	}
 ?>
 </head>
