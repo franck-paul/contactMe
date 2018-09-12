@@ -23,37 +23,37 @@ $_menu['Blog']->addItem(__('Contact me'),
     $core->auth->check('admin', $core->blog->id));
 
 /* Register favorite */
-$core->addBehavior('adminDashboardFavorites', array('contactMeAdmin', 'adminDashboardFavorites'));
-$core->addBehavior('adminRteFlags', array('contactMeAdmin', 'adminRteFlags'));
+$core->addBehavior('adminDashboardFavorites', ['contactMeAdmin', 'adminDashboardFavorites']);
+$core->addBehavior('adminRteFlags', ['contactMeAdmin', 'adminRteFlags']);
 
 class contactMeAdmin
 {
     public static function adminDashboardFavorites($core, $favs)
     {
-        $favs->register('contactMe', array(
+        $favs->register('contactMe', [
             'title'       => __('Contact me'),
             'url'         => 'plugin.php?p=contactMe',
             'small-icon'  => urldecode(dcPage::getPF('contactMe/icon.png')),
             'large-icon'  => urldecode(dcPage::getPF('contactMe/icon-big.png')),
             'permissions' => 'admin'
-        ));
+        ]);
     }
 
     public static function adminRteFlags($core, $rte)
     {
-        $rte['contactme'] = array(true, __('Contact me form caption and messages'));
+        $rte['contactme'] = [true, __('Contact me form caption and messages')];
     }
 }
 
-$core->addBehavior('adminSimpleMenuAddType', array('contactMeSimpleMenu', 'adminSimpleMenuAddType'));
-$core->addBehavior('adminSimpleMenuBeforeEdit', array('contactMeSimpleMenu', 'adminSimpleMenuBeforeEdit'));
+$core->addBehavior('adminSimpleMenuAddType', ['contactMeSimpleMenu', 'adminSimpleMenuAddType']);
+$core->addBehavior('adminSimpleMenuBeforeEdit', ['contactMeSimpleMenu', 'adminSimpleMenuBeforeEdit']);
 
 class contactMeSimpleMenu
 {
 
     public static function adminSimpleMenuAddType($items)
     {
-        $items['contactme'] = new ArrayObject(array(__('Contact me'), false));
+        $items['contactme'] = new ArrayObject([__('Contact me'), false]);
     }
 
     public static function adminSimpleMenuBeforeEdit($item_type, $item_select, $args)

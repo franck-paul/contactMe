@@ -66,7 +66,7 @@ if (isset($_POST['cm_recipients'])) {
         }
 
         $cm_r  = explode(',', $cm_recipients);
-        $cm_r2 = array();
+        $cm_r2 = [];
 
         foreach ($cm_r as $v) {
             $v = trim($v);
@@ -115,7 +115,7 @@ if (is_array($rte_flags) && in_array('contactme', $rte_flags)) {
 if ($rte_flag) {
     echo
     $core->callBehavior('adminPostEditor', $rich_editor['xhtml'], 'contactme',
-        array('#cm_form_caption', '#cm_msg_success', '#cm_msg_error'), 'xhtml') .
+        ['#cm_form_caption', '#cm_msg_success', '#cm_msg_error'], 'xhtml') .
     dcPage::jsLoad(urldecode(dcPage::getPF('contactMe/contactme.js')));
 }
 ?>
@@ -124,10 +124,10 @@ if ($rte_flag) {
 <body>
 <?php
 echo dcPage::breadcrumb(
-    array(
+    [
         html::escapeHTML($core->blog->name) => '',
         __('Contact me')                    => ''
-    ));
+    ]);
 echo dcPage::notices();
 
 echo

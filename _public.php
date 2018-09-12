@@ -17,19 +17,19 @@ if (!defined('DC_RC_PATH')) {return;}
 __('Subject');
 __('Message');
 
-$core->tpl->addValue('ContactMeURL', array('tplContactMe', 'ContactMeURL'));
-$core->tpl->addBlock('ContactMeIf', array('tplContactMe', 'ContactMeIf'));
-$core->tpl->addValue('ContactMePageTitle', array('tplContactMe', 'ContactMePageTitle'));
-$core->tpl->addValue('ContactMeFormCaption', array('tplContactMe', 'ContactMeFormCaption'));
-$core->tpl->addValue('ContactMeMsgSuccess', array('tplContactMe', 'ContactMeMsgSuccess'));
-$core->tpl->addValue('ContactMeMsgError', array('tplContactMe', 'ContactMeMsgError'));
-$core->tpl->addValue('ContactMeName', array('tplContactMe', 'ContactMeName'));
-$core->tpl->addValue('ContactMeEmail', array('tplContactMe', 'ContactMeEmail'));
-$core->tpl->addValue('ContactMeSite', array('tplContactMe', 'ContactMeSite'));
-$core->tpl->addValue('ContactMeSubject', array('tplContactMe', 'ContactMeSubject'));
-$core->tpl->addValue('ContactMeMessage', array('tplContactMe', 'ContactMeMessage'));
+$core->tpl->addValue('ContactMeURL', ['tplContactMe', 'ContactMeURL']);
+$core->tpl->addBlock('ContactMeIf', ['tplContactMe', 'ContactMeIf']);
+$core->tpl->addValue('ContactMePageTitle', ['tplContactMe', 'ContactMePageTitle']);
+$core->tpl->addValue('ContactMeFormCaption', ['tplContactMe', 'ContactMeFormCaption']);
+$core->tpl->addValue('ContactMeMsgSuccess', ['tplContactMe', 'ContactMeMsgSuccess']);
+$core->tpl->addValue('ContactMeMsgError', ['tplContactMe', 'ContactMeMsgError']);
+$core->tpl->addValue('ContactMeName', ['tplContactMe', 'ContactMeName']);
+$core->tpl->addValue('ContactMeEmail', ['tplContactMe', 'ContactMeEmail']);
+$core->tpl->addValue('ContactMeSite', ['tplContactMe', 'ContactMeSite']);
+$core->tpl->addValue('ContactMeSubject', ['tplContactMe', 'ContactMeSubject']);
+$core->tpl->addValue('ContactMeMessage', ['tplContactMe', 'ContactMeMessage']);
 
-$core->addBehavior('publicBreadcrumb', array('extContactMe', 'publicBreadcrumb'));
+$core->addBehavior('publicBreadcrumb', ['extContactMe', 'publicBreadcrumb']);
 
 class extContactMe
 {
@@ -52,7 +52,7 @@ class urlContactMe extends dcUrlHandlers
             exit;
         }
 
-        $_ctx->contactme = new ArrayObject(array(
+        $_ctx->contactme = new ArrayObject([
             'name'      => '',
             'email'     => '',
             'site'      => '',
@@ -61,7 +61,7 @@ class urlContactMe extends dcUrlHandlers
             'sent'      => false,
             'error'     => false,
             'error_msg' => ''
-        ));
+        ]);
 
         $send_msg =
         isset($_POST['c_name']) && isset($_POST['c_mail']) &&
@@ -106,7 +106,7 @@ class urlContactMe extends dcUrlHandlers
 
                 # Checks recipients addresses
                 $recipients = explode(',', $core->blog->settings->contactme->cm_recipients);
-                $rc2        = array();
+                $rc2        = [];
                 foreach ($recipients as $v) {
                     $v = trim($v);
                     if (!empty($v) && text::isEmail($v)) {
@@ -143,7 +143,7 @@ class urlContactMe extends dcUrlHandlers
                 }
 
                 # Sending mail
-                $headers = array(
+                $headers = [
                     'From: ' . mail::B64Header($_ctx->contactme['name']) . ' <' . $_ctx->contactme['email'] . '>',
                     'Content-Type: text/plain; charset=UTF-8;',
                     'X-Originating-IP: ' . http::realIP(),
@@ -151,7 +151,7 @@ class urlContactMe extends dcUrlHandlers
                     'X-Blog-Id: ' . mail::B64Header($core->blog->id),
                     'X-Blog-Name: ' . mail::B64Header($core->blog->name),
                     'X-Blog-Url: ' . mail::B64Header($core->blog->url)
-                );
+                ];
 
                 $subject = $_ctx->contactme['subject'];
                 if ($core->blog->settings->contactme->cm_subject_prefix) {
@@ -200,7 +200,7 @@ class tplContactMe
 
     public static function ContactMeIf($attr, $content)
     {
-        $if = array();
+        $if = [];
 
         $operator = isset($attr['operator']) ? dcTemplate::getOperator($attr['operator']) : '&&';
 

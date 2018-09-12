@@ -13,6 +13,6 @@
 
 if (!defined('DC_RC_PATH')) {return;}
 
-$core->url->register('contactme', 'contact', '^contact(?:/(.+))?$', array('urlContactMe', 'contact'));
+$core->url->register('contactme', 'contact', '^contact(?:/(.+))?$', ['urlContactMe', 'contact']);
 
 require dirname(__FILE__) . '/_widgets.php';
