@@ -19,18 +19,13 @@ class contactMeWidgets
 {
     public static function initWidgets($w)
     {
-        $w->create('contactMe', __('Contact me'), ['tplContactMe', 'contactMeWidget'], null, __('Link to the contact form'));
-        $w->contactMe->setting('title', __('Title:'), __('Contact'));
-        $w->contactMe->setting('link_title', __('Link title:'), __('Contact me'));
-        $w->contactMe->setting('homeonly', __('Display on:'), 0, 'combo',
-            [
-                __('All pages')           => 0,
-                __('Home page only')      => 1,
-                __('Except on home page') => 2
-            ]
-        );
-        $w->contactMe->setting('content_only', __('Content only'), 0, 'check');
-        $w->contactMe->setting('class', __('CSS class:'), '');
-        $w->contactMe->setting('offline', __('Offline'), 0, 'check');
+        $w
+            ->create('contactMe', __('Contact me'), ['tplContactMe', 'contactMeWidget'], null, __('Link to the contact form'))
+            ->addTitle(__('Contact'))
+            ->setting('link_title', __('Link title:'), __('Contact me'))
+            ->addHomeOnly()
+            ->addContentOnly()
+            ->addClass()
+            ->addOffline();
     }
 }
