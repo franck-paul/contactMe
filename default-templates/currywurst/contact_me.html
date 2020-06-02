@@ -31,12 +31,12 @@
         <fieldset>
           <p class="field"><label for="c_name">{{tpl:lang Name or nickname}}&nbsp;:</label>
           <input name="c_name" id="c_name" type="text" size="30" maxlength="255"
-          value="{{tpl:ContactMeName encode_html="1"}}" />
+          value="{{tpl:ContactMeName encode_html="1"}}" required aria-required="true" />
           </p>
 
           <p class="field"><label for="c_mail">{{tpl:lang Email address}}&nbsp;:</label>
           <input name="c_mail" id="c_mail" type="text" size="30" maxlength="255"
-          value="{{tpl:ContactMeEmail encode_html="1"}}" />
+          value="{{tpl:ContactMeEmail encode_html="1"}}" required aria-required="true" />
           </p>
 
           <p class="field"><label for="c_site">{{tpl:lang Website}}
@@ -47,7 +47,7 @@
 
           <p class="field"><label for="c_subject">{{tpl:lang Subject}}&nbsp;:</label>
           <input name="c_subject" id="c_subject" type="text" size="30" maxlength="255"
-          value="{{tpl:ContactMeSubject encode_html="1"}}" />
+          value="{{tpl:ContactMeSubject encode_html="1"}}" required aria-required="true" />
           </p>
 
           <p style="display:none"><input name="f_mail" type="text" size="30"
@@ -55,7 +55,7 @@
 
           <p class="field"><label for="c_message">{{tpl:lang Message}}&nbsp;:</label>
           <textarea name="c_message" id="c_message" cols="35"
-          rows="7">{{tpl:ContactMeMessage raw="1" encode_html="1"}}</textarea>
+          rows="7" required aria-required="true">{{tpl:ContactMeMessage raw="1" encode_html="1"}}</textarea>
           </p>
 
           <p><input type="submit" class="submit" value="{{tpl:lang send}}" /></p>
