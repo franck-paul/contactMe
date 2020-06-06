@@ -47,7 +47,7 @@ class urlContactMe extends dcUrlHandlers
     {
         global $core, $_ctx;
 
-        if (!$core->blog->settings->contactme->cm_recipients) {
+        if (!$core->blog->settings->contactme->cm_recipients || !$core->blog->settings->contactme->active) {
             self::p404();
             exit;
         }
@@ -287,7 +287,7 @@ class tplContactMe
             return;
         }
 
-        if (!$core->blog->settings->contactme->cm_recipients) {
+        if (!$core->blog->settings->contactme->cm_recipients || !$core->blog->settings->contactme->active) {
             return;
         }
 

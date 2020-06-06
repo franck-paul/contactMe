@@ -13,6 +13,7 @@
 
 if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
+$cm_active         = $core->blog->settings->contactme->active;
 $cm_recipients     = $core->blog->settings->contactme->cm_recipients;
 $cm_subject_prefix = $core->blog->settings->contactme->cm_subject_prefix;
 $cm_page_title     = $core->blog->settings->contactme->cm_page_title;
@@ -42,6 +43,7 @@ if ($cm_msg_error === null) {
 if (isset($_POST['cm_recipients'])) {
     try
     {
+        $cm_active         = !empty($_POST['cm_active']);
         $cm_recipients     = $_POST['cm_recipients'];
         $cm_subject_prefix = $_POST['cm_subject_prefix'];
         $cm_page_title     = $_POST['cm_page_title'];
@@ -82,6 +84,7 @@ if (isset($_POST['cm_recipients'])) {
 
         # Everything's fine, save options
         $core->blog->settings->addNamespace('contactme');
+        $core->blog->settings->contactme->put('active', $cm_active, 'boolean');
         $core->blog->settings->contactme->put('cm_recipients', $cm_recipients, 'string', 'ContactMe recipients');
         $core->blog->settings->contactme->put('cm_subject_prefix', $cm_subject_prefix, 'string', 'ContactMe subject prefix');
         $core->blog->settings->contactme->put('cm_page_title', $cm_page_title, 'string', 'ContactMe page title');
@@ -132,10 +135,11 @@ echo dcPage::notices();
 
 echo
 '<form action="' . $p_url . '" method="post">' .
+'<p>' . form::checkbox('cm_active', 1, $cm_active) . ' ' .
+'<label for="cm_active" class="classic">' . __('Activate contactMe on blog') . '</label></p>' .
 '<h3>' . __('E-Mail settings') . '</h3>' .
 '<p><label for="cm_recipients" class="required" title="' . __('Required field') . '">' . __('Comma separated recipients list:') . '</label> ' .
 form::field('cm_recipients', 30, 512, html::escapeHTML($cm_recipients), 'maximal', '', false, 'required placeholder="' . __('Email') . '"') . '</p>' .
-'<p class="form-note">' . __('Empty recipients list to disable contact page.') . '</p>' .
 '<p><label for="cm_subject_prefix">' . __('E-Mail subject prefix:') . '</label> ' .
 form::field('cm_subject_prefix', 30, 128, html::escapeHTML($cm_subject_prefix)) . '</p>' .
 '<p class="form-note">' . __('This will be prepend to e-mail subject') . '</p>';
