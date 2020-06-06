@@ -28,7 +28,7 @@ try
         $core->blog->settings->contactme->put('active', true, 'boolean', 'Active', false, true);
     }
 
-    $core->setVersion('contactme', $new_version);
+    $core->setVersion('contactMe', $new_version);
 
     return true;
 } catch (Exception $e) {
