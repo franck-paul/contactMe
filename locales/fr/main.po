@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 contactMe module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-06 13:25+0200\n"
+"POT-Creation-Date: 2020-09-17 11:18+0200\n"
 "PO-Revision-Date: 2012-11-05 16:48+0100\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: \n"
@@ -131,6 +131,12 @@ msgstr "Préfixe du sujet des messages :"
 
 msgid "This will be prepend to e-mail subject"
 msgstr "Ceci précédera le sujet du courrier électronique"
+
+msgid "SMTP account (optional):"
+msgstr "Compte SMTP à utiliser (optionnel) :"
+
+msgid "This will be use as e-mail sender. Note that the sent e-mails will have a Reply-To filled with your correspondent e-mail."
+msgstr "Ce compte sera utilisé comme émetteur du mail. Notez que les courriers électroniques envoyés contiendront l'adresse email de réponse fournie par votre correspondent·e."
 
 msgid "Use comments spam filter"
 msgstr "Utiliser le filtre de spam des commentaires"

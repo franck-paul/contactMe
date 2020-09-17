@@ -21,6 +21,7 @@ $cm_form_caption   = $core->blog->settings->contactme->cm_form_caption;
 $cm_msg_success    = $core->blog->settings->contactme->cm_msg_success;
 $cm_msg_error      = $core->blog->settings->contactme->cm_msg_error;
 $cm_use_antispam   = $core->blog->settings->contactme->cm_use_antispam;
+$cm_smtp_account   = $core->blog->settings->contactme->cm_smtp_account;
 
 $antispam_enabled = $core->plugins->moduleExists('antispam');
 
@@ -50,6 +51,7 @@ if (isset($_POST['cm_recipients'])) {
         $cm_form_caption   = $_POST['cm_form_caption'];
         $cm_msg_success    = $_POST['cm_msg_success'];
         $cm_msg_error      = $_POST['cm_msg_error'];
+        $cm_smtp_account   = $_POST['cm_smtp_account'];
 
         if (empty($_POST['cm_recipients'])) {
             throw new Exception(__('No recipients.'));
@@ -91,6 +93,7 @@ if (isset($_POST['cm_recipients'])) {
         $core->blog->settings->contactme->put('cm_form_caption', $cm_form_caption, 'string', 'ContactMe form caption');
         $core->blog->settings->contactme->put('cm_msg_success', $cm_msg_success, 'string', 'ContactMe success message');
         $core->blog->settings->contactme->put('cm_msg_error', $cm_msg_error, 'string', 'ContactMe error message');
+        $core->blog->settings->contactme->put('cm_smtp_account', $cm_smtp_account, 'string', 'ContactMe SMTP account');
 
         if ($antispam_enabled) {
             $core->blog->settings->contactme->put('cm_use_antispam', !empty($_POST['cm_use_antispam']), 'boolean', 'ContactMe should use comments spam filter');
@@ -142,7 +145,11 @@ echo
 form::field('cm_recipients', 30, 512, html::escapeHTML($cm_recipients), 'maximal', '', false, 'required placeholder="' . __('Email') . '"') . '</p>' .
 '<p><label for="cm_subject_prefix">' . __('E-Mail subject prefix:') . '</label> ' .
 form::field('cm_subject_prefix', 30, 128, html::escapeHTML($cm_subject_prefix)) . '</p>' .
-'<p class="form-note">' . __('This will be prepend to e-mail subject') . '</p>';
+'<p class="form-note">' . __('This will be prepend to e-mail subject') . '</p>' .
+'<p><label for="cm_smtp_account">' . __('SMTP account (optional):') . '</label> ' .
+form::field('cm_smtp_account', 30, 512, html::escapeHTML($cm_smtp_account), 'maximal', '', false) . '</p>' .
+'<p class="form-note">' . __('This will be use as e-mail sender. Note that the sent e-mails will have a Reply-To filled with your correspondent e-mail.') . '</p>';
+
 
 # Antispam options
 if ($antispam_enabled) {

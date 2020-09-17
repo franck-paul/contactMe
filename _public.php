@@ -142,9 +142,16 @@ class urlContactMe extends dcUrlHandlers
                     unset($cur);
                 }
 
+                if ($core->blog->settings->contactme->cm_smtp_account) {
+                    $from = mail::B64Header($core->blog->name) . ' <' . $core->blog->settings->contactme->cm_smtp_account . '>';
+                } else {
+                    $from = mail::B64Header($_ctx->contactme['name']) . ' <' . $_ctx->contactme['email'] . '>';
+                }
+
                 # Sending mail
                 $headers = [
-                    'From: ' . mail::B64Header($_ctx->contactme['name']) . ' <' . $_ctx->contactme['email'] . '>',
+                    'From: ' . $from,
+                    'Reply-To: ' . mail::B64Header($_ctx->contactme['name']) . ' <' . $_ctx->contactme['email'] . '>',
                     'Content-Type: text/plain; charset=UTF-8;',
                     'X-Originating-IP: ' . http::realIP(),
                     'X-Mailer: Dotclear',

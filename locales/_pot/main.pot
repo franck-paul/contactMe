@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 contactMe module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-06 13:25+0200\n"
+"POT-Creation-Date: 2020-09-17 11:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 
 #: ../git-plugins/contactMe/__html_tpl_dummy.php:4
 #: ../git-plugins/contactMe/_public.php:18
-#: ../git-plugins/contactMe/index.php:165
-#: ../git-plugins/contactMe/index.php:169
+#: ../git-plugins/contactMe/index.php:172
+#: ../git-plugins/contactMe/index.php:176
 msgid "Message"
 msgstr ""
 
@@ -41,12 +41,12 @@ msgstr ""
 #: ../git-plugins/contactMe/_admin.php:56
 #: ../git-plugins/contactMe/_admin.php:65
 #: ../git-plugins/contactMe/_public.php:39
-#: ../git-plugins/contactMe/_public.php:297
+#: ../git-plugins/contactMe/_public.php:304
 #: ../git-plugins/contactMe/_widgets.php:23
 #: ../git-plugins/contactMe/_widgets.php:25
-#: ../git-plugins/contactMe/index.php:28
-#: ../git-plugins/contactMe/index.php:110
-#: ../git-plugins/contactMe/index.php:132
+#: ../git-plugins/contactMe/index.php:29
+#: ../git-plugins/contactMe/index.php:113
+#: ../git-plugins/contactMe/index.php:135
 msgid "Contact me"
 msgstr ""
 
@@ -78,29 +78,29 @@ msgstr ""
 msgid "Message seems to be a spam."
 msgstr ""
 
-#: ../git-plugins/contactMe/_public.php:163
+#: ../git-plugins/contactMe/_public.php:170
 msgid ""
 "Hi there!\n"
 "\n"
 "You received a message from your blog's contact page."
 msgstr ""
 
-#: ../git-plugins/contactMe/_public.php:165
+#: ../git-plugins/contactMe/_public.php:172
 #, php-format
 msgid "Blog: %s"
 msgstr ""
 
-#: ../git-plugins/contactMe/_public.php:166
+#: ../git-plugins/contactMe/_public.php:173
 #, php-format
 msgid "Message from: %s <%s>"
 msgstr ""
 
-#: ../git-plugins/contactMe/_public.php:167
+#: ../git-plugins/contactMe/_public.php:174
 #, php-format
 msgid "Website: %s"
 msgstr ""
 
-#: ../git-plugins/contactMe/_public.php:168
+#: ../git-plugins/contactMe/_public.php:175
 msgid "Message:"
 msgstr ""
 
@@ -116,106 +116,114 @@ msgstr ""
 msgid "Link title:"
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:32
+#: ../git-plugins/contactMe/index.php:33
 msgid "<p>You can use the following form to send me an e-mail.</p>"
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:36
+#: ../git-plugins/contactMe/index.php:37
 msgid "<p style=\"color:green\"><strong>Thank you for your message.</strong></p>"
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:40
+#: ../git-plugins/contactMe/index.php:41
 #, php-format
 msgid "<p style=\"color:red\"><strong>An error occured:</strong> %s</p>"
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:55
+#: ../git-plugins/contactMe/index.php:57
 msgid "No recipients."
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:59
+#: ../git-plugins/contactMe/index.php:61
 msgid "No page title."
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:63
+#: ../git-plugins/contactMe/index.php:65
 msgid "No success message."
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:67
+#: ../git-plugins/contactMe/index.php:69
 msgid "No error message."
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:79
+#: ../git-plugins/contactMe/index.php:81
 #, php-format
 msgid "%s is not a valid e-mail address."
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:100
+#: ../git-plugins/contactMe/index.php:103
 msgid "Setting have been successfully updated."
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:139
+#: ../git-plugins/contactMe/index.php:142
 msgid "Activate contactMe on blog"
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:140
+#: ../git-plugins/contactMe/index.php:143
 msgid "E-Mail settings"
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:141
+#: ../git-plugins/contactMe/index.php:144
 msgid "Comma separated recipients list:"
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:142
+#: ../git-plugins/contactMe/index.php:145
 msgid "Email"
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:143
+#: ../git-plugins/contactMe/index.php:146
 msgid "E-Mail subject prefix:"
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:145
+#: ../git-plugins/contactMe/index.php:148
 msgid "This will be prepend to e-mail subject"
 msgstr ""
 
+#: ../git-plugins/contactMe/index.php:149
+msgid "SMTP account:"
+msgstr ""
+
 #: ../git-plugins/contactMe/index.php:151
-msgid "Use comments spam filter"
-msgstr ""
-
-#: ../git-plugins/contactMe/index.php:155
-msgid "Presentation options"
-msgstr ""
-
-#: ../git-plugins/contactMe/index.php:157
-msgid "Page title:"
+msgid "This will be use as e-mail sender. Note that the sent e-mails will have a Reply-To filled with your correspondent e-mail."
 msgstr ""
 
 #: ../git-plugins/contactMe/index.php:158
-msgid "Title"
+msgid "Use comments spam filter"
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:160
-msgid "Form caption:"
+#: ../git-plugins/contactMe/index.php:162
+msgid "Presentation options"
 msgstr ""
 
 #: ../git-plugins/contactMe/index.php:164
-msgid "Confirmation message:"
+msgid "Page title:"
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:168
-msgid "Error message:"
+#: ../git-plugins/contactMe/index.php:165
+msgid "Title"
+msgstr ""
+
+#: ../git-plugins/contactMe/index.php:167
+msgid "Form caption:"
 msgstr ""
 
 #: ../git-plugins/contactMe/index.php:171
+msgid "Confirmation message:"
+msgstr ""
+
+#: ../git-plugins/contactMe/index.php:175
+msgid "Error message:"
+msgstr ""
+
+#: ../git-plugins/contactMe/index.php:178
 #, php-format
 msgid "\"%s\" is the error message."
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:173
+#: ../git-plugins/contactMe/index.php:180
 msgid "Save"
 msgstr ""
 
-#: ../git-plugins/contactMe/index.php:176
+#: ../git-plugins/contactMe/index.php:183
 #, php-format
 msgid "Don't forget to add a <a href=\"%s\">“Contact Me” widget</a> linking to your contact page."
 msgstr ""
