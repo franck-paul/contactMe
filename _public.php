@@ -143,7 +143,7 @@ class urlContactMe extends dcUrlHandlers
                 }
 
                 if ($core->blog->settings->contactme->cm_smtp_account) {
-                    $from = mail::B64Header($core->blog->name) . ' <' . $core->blog->settings->contactme->cm_smtp_account . '>';
+                    $from = mail::B64Header(str_replace(':', '-', $core->blog->name)) . ' <' . $core->blog->settings->contactme->cm_smtp_account . '>';
                 } else {
                     $from = mail::B64Header($_ctx->contactme['name']) . ' <' . $_ctx->contactme['email'] . '>';
                 }
