@@ -29,6 +29,8 @@
       {{tpl:ContactMeFormCaption}}
       <form action="{{tpl:ContactMeURL}}" method="post" id="comment-form" class="contactme">
         <fieldset>
+          <!-- # --BEHAVIOR-- publicContactMeFormBeforeContent -->
+          {{tpl:SysBehavior behavior="publicContactMeFormBeforeContent"}}
           <p class="field"><label for="c_name">{{tpl:lang Name or nickname}}&nbsp;:</label>
           <input name="c_name" id="c_name" type="text" size="30" maxlength="255"
           value="{{tpl:ContactMeName encode_html="1"}}" required aria-required="true" />
@@ -57,6 +59,8 @@
           <textarea name="c_message" id="c_message" cols="35"
           rows="7" required aria-required="true">{{tpl:ContactMeMessage raw="1" encode_html="1"}}</textarea>
           </p>
+          <!-- # --BEHAVIOR-- publicContactMeFormAfterContent -->
+          {{tpl:SysBehavior behavior="publicContactMeFormAfterContent"}}
 
           <p><input type="submit" class="submit" value="{{tpl:lang send}}" /></p>
         </fieldset>
