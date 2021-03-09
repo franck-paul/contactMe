@@ -109,7 +109,7 @@ msgstr "Pas de message d'erreur."
 
 #, php-format
 msgid "%s is not a valid e-mail address."
-msgstr "%s n'est pas une adresse email valide."
+msgstr "%s n'est pas une adresse e-mail valide."
 
 msgid "Setting have been successfully updated."
 msgstr "La configuration a été mise à jour."
@@ -136,7 +136,7 @@ msgid "SMTP account (optional):"
 msgstr "Compte SMTP à utiliser (optionnel) :"
 
 msgid "This will be use as e-mail sender. Note that the sent e-mails will have a Reply-To filled with your correspondent e-mail."
-msgstr "Ce compte sera utilisé comme émetteur du mail. Notez que les courriers électroniques envoyés contiendront l'adresse email de réponse fournie par votre correspondent·e."
+msgstr "Ce compte sera utilisé comme émetteur du message électronique. Notez que les courriers envoyés contiendront l'adresse e-mail de réponse fournie par votre correspondant·e."
 
 msgid "Use comments spam filter"
 msgstr "Utiliser le filtre de spam des commentaires"
