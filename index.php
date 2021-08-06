@@ -10,8 +10,9 @@
  * @copyright Olivier Meunier
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
 $cm_active         = $core->blog->settings->contactme->active;
 $cm_recipients     = $core->blog->settings->contactme->cm_recipients;
@@ -42,8 +43,7 @@ if ($cm_msg_error === null) {
 }
 
 if (isset($_POST['cm_recipients'])) {
-    try
-    {
+    try {
         $cm_active         = !empty($_POST['cm_active']);
         $cm_recipients     = $_POST['cm_recipients'];
         $cm_subject_prefix = $_POST['cm_subject_prefix'];
@@ -149,7 +149,6 @@ form::field('cm_subject_prefix', 30, 128, html::escapeHTML($cm_subject_prefix)) 
 '<p><label for="cm_smtp_account">' . __('SMTP account (optional):') . '</label> ' .
 form::field('cm_smtp_account', 30, 512, html::escapeHTML($cm_smtp_account), 'maximal', '', false) . '</p>' .
 '<p class="form-note">' . __('This will be use as e-mail sender. Note that the sent e-mails will have a Reply-To filled with your correspondent e-mail.') . '</p>';
-
 
 # Antispam options
 if ($antispam_enabled) {

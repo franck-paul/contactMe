@@ -1,13 +1,13 @@
-/*global $, jsToolBar */
+/*global $, jsToolBar, dotclear */
 'use strict';
 
-$(function() {
+$(function () {
   // HTML text editor
   if (typeof jsToolBar === 'function') {
-    $('p.area textarea').each(function() {
-      var tbWidgetText = new jsToolBar(this);
-      tbWidgetText.context = 'contactme';
-      tbWidgetText.draw('xhtml');
+    $('p.area textarea').each(function () {
+      dotclear.tbWidgetText = new jsToolBar(this);
+      dotclear.tbWidgetText.context = 'contactme';
+      dotclear.tbWidgetText.draw('xhtml');
     });
   }
 });

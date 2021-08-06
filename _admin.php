@@ -10,8 +10,9 @@
  * @copyright Olivier Meunier
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
 // dead but useful code, in order to have translations
 __('ContactMe') . __('Add a simple contact form on your blog');
@@ -50,7 +51,6 @@ $core->addBehavior('adminSimpleMenuBeforeEdit', ['contactMeSimpleMenu', 'adminSi
 
 class contactMeSimpleMenu
 {
-
     public static function adminSimpleMenuAddType($items)
     {
         $items['contactme'] = new ArrayObject([__('Contact me'), false]);
@@ -61,7 +61,6 @@ class contactMeSimpleMenu
         global $core;
 
         if ($item_type == 'contactme') {
-
             $args[0] = __('Contact me');
             $args[1] = __('Mail contact form');
             $args[2] .= $core->url->getURLFor('contactme');

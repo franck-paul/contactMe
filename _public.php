@@ -10,8 +10,9 @@
  * @copyright Olivier Meunier
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_RC_PATH')) {return;}
+if (!defined('DC_RC_PATH')) {
+    return;
+}
 
 # Localized string we find in template
 __('Subject');
@@ -63,10 +64,7 @@ class urlContactMe extends dcUrlHandlers
             'error_msg' => ''
         ]);
 
-        $send_msg =
-        isset($_POST['c_name']) && isset($_POST['c_mail']) &&
-        isset($_POST['c_site']) && isset($_POST['c_message']) &&
-        isset($_POST['c_subject']);
+        $send_msg = isset($_POST['c_name']) && isset($_POST['c_mail']) && isset($_POST['c_site']) && isset($_POST['c_message']) && isset($_POST['c_subject']);
 
         if ($args == 'sent') {
             $_ctx->contactme['sent'] = true;
@@ -75,12 +73,11 @@ class urlContactMe extends dcUrlHandlers
             if (!empty($_POST['f_mail'])) {
                 http::head(412, 'Precondition Failed');
                 header('Content-Type: text/plain');
-                echo "So Long, and Thanks For All the Fish";
+                echo 'So Long, and Thanks For All the Fish';
                 exit;
             }
 
-            try
-            {
+            try {
                 $_ctx->contactme['name']    = preg_replace('/[\n\r]/', '', $_POST['c_name']);
                 $_ctx->contactme['email']   = preg_replace('/[\n\r]/', '', $_POST['c_mail']);
                 $_ctx->contactme['site']    = preg_replace('/[\n\r]/', '', $_POST['c_site']);
@@ -137,6 +134,7 @@ class urlContactMe extends dcUrlHandlers
 
                     if ($cur->comment_status == -2) {
                         unset($cur);
+
                         throw new Exception(__('Message seems to be a spam.'));
                     }
                     unset($cur);
@@ -166,8 +164,7 @@ class urlContactMe extends dcUrlHandlers
                 }
                 $subject = mail::B64Header($subject);
 
-                $msg =
-                __("Hi there!\n\nYou received a message from your blog's contact page.") .
+                $msg = __("Hi there!\n\nYou received a message from your blog's contact page.") .
                 "\n\n" .
                 sprintf(__('Blog: %s'), $core->blog->name) . "\n" .
                 sprintf(__('Message from: %s <%s>'), $_ctx->contactme['name'], $_ctx->contactme['email']) . "\n" .
@@ -202,6 +199,7 @@ class tplContactMe
     public static function ContactMeURL($attr)
     {
         $f = $GLOBALS['core']->tpl->getFilters($attr);
+
         return '<?php echo ' . sprintf($f, '$core->blog->url.$core->url->getURLFor("contactme")') . '; ?>';
     }
 
@@ -223,20 +221,22 @@ class tplContactMe
 
         if (!empty($if)) {
             return '<?php if(' . implode(' ' . $operator . ' ', $if) . ') : ?>' . $content . '<?php endif; ?>';
-        } else {
-            return $content;
         }
+
+        return $content;
     }
 
     public static function ContactMePageTitle($attr)
     {
         $f = $GLOBALS['core']->tpl->getFilters($attr);
+
         return '<?php echo ' . sprintf($f, '$core->blog->settings->contactme->cm_page_title') . '; ?>';
     }
 
     public static function ContactMeFormCaption($attr)
     {
         $f = $GLOBALS['core']->tpl->getFilters($attr);
+
         return '<?php echo ' . sprintf($f, '$core->blog->settings->contactme->cm_form_caption') . '; ?>';
     }
 
@@ -253,30 +253,35 @@ class tplContactMe
     public static function ContactMeName($attr)
     {
         $f = $GLOBALS['core']->tpl->getFilters($attr);
+
         return '<?php echo ' . sprintf($f, '$_ctx->contactme["name"]') . '; ?>';
     }
 
     public static function ContactMeEmail($attr)
     {
         $f = $GLOBALS['core']->tpl->getFilters($attr);
+
         return '<?php echo ' . sprintf($f, '$_ctx->contactme["email"]') . '; ?>';
     }
 
     public static function ContactMeSite($attr)
     {
         $f = $GLOBALS['core']->tpl->getFilters($attr);
+
         return '<?php echo ' . sprintf($f, '$_ctx->contactme["site"]') . '; ?>';
     }
 
     public static function ContactMeSubject($attr)
     {
         $f = $GLOBALS['core']->tpl->getFilters($attr);
+
         return '<?php echo ' . sprintf($f, '$_ctx->contactme["subject"]') . '; ?>';
     }
 
     public static function ContactMeMessage($attr)
     {
         $f = $GLOBALS['core']->tpl->getFilters($attr);
+
         return '<?php echo ' . sprintf($f, '$_ctx->contactme["message"]') . '; ?>';
     }
 
@@ -289,8 +294,7 @@ class tplContactMe
             return;
         }
 
-        if (($w->homeonly == 1 && !$core->url->isHome($core->url->type)) ||
-            ($w->homeonly == 2 && $core->url->isHome($core->url->type))) {
+        if (($w->homeonly == 1 && !$core->url->isHome($core->url->type)) || ($w->homeonly == 2 && $core->url->isHome($core->url->type))) {
             return;
         }
 
@@ -298,8 +302,7 @@ class tplContactMe
             return;
         }
 
-        $res =
-        ($w->title ? $w->renderTitle(html::escapeHTML($w->title)) : '') .
+        $res = ($w->title ? $w->renderTitle(html::escapeHTML($w->title)) : '') .
         '<p><a href="' . $core->blog->url . $core->url->getURLFor('contactme') . '">' .
             ($w->link_title ? html::escapeHTML($w->link_title) : __('Contact me')) .
             '</a></p>';

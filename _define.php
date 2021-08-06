@@ -18,9 +18,9 @@ $this->registerModule(
     'ContactMe',                              // Name
     'Add a simple contact form on your blog', // Description
     'Olivier Meunier and contributors',       // Author
-    '1.13',                                   // Version
+    '1.14',                                   // Version
     [
-        'requires'    => [['core', '2.16']],                         // Dependencies
+        'requires'    => [['core', '2.19']],                         // Dependencies
         'permissions' => 'admin',                                    // Permissions
         'type'        => 'plugin',                                   // Type
         'support'     => 'https://github.com/franck-paul/contactMe', // Support URL
