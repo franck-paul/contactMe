@@ -23,7 +23,10 @@ $this->registerModule(
         'requires'    => [['core', '2.19']],                         // Dependencies
         'permissions' => 'admin',                                    // Permissions
         'type'        => 'plugin',                                   // Type
-        'support'     => 'https://github.com/franck-paul/contactMe', // Support URL
-        'settings'    => []
+        'settings'    => [],
+
+        'details'    => 'https://open-time.net/?q=contactMe',       // Details URL
+        'support'    => 'https://github.com/franck-paul/contactMe', // Support URL
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/contactMe/main/dcstore.xml'
     ]
 );
