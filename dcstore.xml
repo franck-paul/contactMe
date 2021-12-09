@@ -1,8 +1,8 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="contactMe">
-    <name>Add a simple contact form on your blog</name>
+    <name>ContactMe</name>
     <version>1.14</version>
-    <author>Add a simple contact form on your blog</author>
+    <author>Olivier Meunier and contributors</author>
     <desc>Add a simple contact form on your blog</desc>
     <file>https://github.com/franck-paul/contactMe/releases/download/1.14/plugin-contactMe-1.14.zip</file>
     <da:dcmin>2.19</da:dcmin>
