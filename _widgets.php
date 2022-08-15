@@ -14,7 +14,7 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-$core->addBehavior('initWidgets', ['contactMeWidgets', 'initWidgets']);
+dcCore::app()->addBehavior('initWidgets', ['contactMeWidgets', 'initWidgets']);
 
 class contactMeWidgets
 {

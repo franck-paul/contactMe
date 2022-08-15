@@ -17,15 +17,17 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 // dead but useful code, in order to have translations
 __('ContactMe') . __('Add a simple contact form on your blog');
 
-$_menu['Blog']->addItem(__('Contact me'),
+$_menu['Blog']->addItem(
+    __('Contact me'),
     'plugin.php?p=contactMe',
-    urldecode(dcPage::getPF('contactMe/icon.png')),
+    urldecode(dcPage::getPF('contactMe/icon.svg')),
     preg_match('/plugin.php\?p=contactMe(&.*)?$/', $_SERVER['REQUEST_URI']),
-    $core->auth->check('admin', $core->blog->id));
+    dcCore::app()->auth->check('admin', dcCore::app()->blog->id)
+);
 
 /* Register favorite */
-$core->addBehavior('adminDashboardFavorites', ['contactMeAdmin', 'adminDashboardFavorites']);
-$core->addBehavior('adminRteFlags', ['contactMeAdmin', 'adminRteFlags']);
+dcCore::app()->addBehavior('adminDashboardFavorites', ['contactMeAdmin', 'adminDashboardFavorites']);
+dcCore::app()->addBehavior('adminRteFlags', ['contactMeAdmin', 'adminRteFlags']);
 
 class contactMeAdmin
 {
@@ -34,9 +36,9 @@ class contactMeAdmin
         $favs->register('contactMe', [
             'title'       => __('Contact me'),
             'url'         => 'plugin.php?p=contactMe',
-            'small-icon'  => urldecode(dcPage::getPF('contactMe/icon.png')),
-            'large-icon'  => urldecode(dcPage::getPF('contactMe/icon-big.png')),
-            'permissions' => 'admin'
+            'small-icon'  => urldecode(dcPage::getPF('contactMe/icon.svg')),
+            'large-icon'  => urldecode(dcPage::getPF('contactMe/icon.svg')),
+            'permissions' => 'admin',
         ]);
     }
 
@@ -46,8 +48,8 @@ class contactMeAdmin
     }
 }
 
-$core->addBehavior('adminSimpleMenuAddType', ['contactMeSimpleMenu', 'adminSimpleMenuAddType']);
-$core->addBehavior('adminSimpleMenuBeforeEdit', ['contactMeSimpleMenu', 'adminSimpleMenuBeforeEdit']);
+dcCore::app()->addBehavior('adminSimpleMenuAddType', ['contactMeSimpleMenu', 'adminSimpleMenuAddType']);
+dcCore::app()->addBehavior('adminSimpleMenuBeforeEdit', ['contactMeSimpleMenu', 'adminSimpleMenuBeforeEdit']);
 
 class contactMeSimpleMenu
 {
@@ -58,12 +60,10 @@ class contactMeSimpleMenu
 
     public static function adminSimpleMenuBeforeEdit($item_type, $item_select, $args)
     {
-        global $core;
-
         if ($item_type == 'contactme') {
             $args[0] = __('Contact me');
             $args[1] = __('Mail contact form');
-            $args[2] .= $core->url->getURLFor('contactme');
+            $args[2] .= dcCore::app()->url->getURLFor('contactme');
         }
     }
 }

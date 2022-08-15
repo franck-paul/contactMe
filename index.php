@@ -14,17 +14,17 @@ if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-$cm_active         = $core->blog->settings->contactme->active;
-$cm_recipients     = $core->blog->settings->contactme->cm_recipients;
-$cm_subject_prefix = $core->blog->settings->contactme->cm_subject_prefix;
-$cm_page_title     = $core->blog->settings->contactme->cm_page_title;
-$cm_form_caption   = $core->blog->settings->contactme->cm_form_caption;
-$cm_msg_success    = $core->blog->settings->contactme->cm_msg_success;
-$cm_msg_error      = $core->blog->settings->contactme->cm_msg_error;
-$cm_use_antispam   = $core->blog->settings->contactme->cm_use_antispam;
-$cm_smtp_account   = $core->blog->settings->contactme->cm_smtp_account;
+$cm_active         = dcCore::app()->blog->settings->contactme->active;
+$cm_recipients     = dcCore::app()->blog->settings->contactme->cm_recipients;
+$cm_subject_prefix = dcCore::app()->blog->settings->contactme->cm_subject_prefix;
+$cm_page_title     = dcCore::app()->blog->settings->contactme->cm_page_title;
+$cm_form_caption   = dcCore::app()->blog->settings->contactme->cm_form_caption;
+$cm_msg_success    = dcCore::app()->blog->settings->contactme->cm_msg_success;
+$cm_msg_error      = dcCore::app()->blog->settings->contactme->cm_msg_error;
+$cm_use_antispam   = dcCore::app()->blog->settings->contactme->cm_use_antispam;
+$cm_smtp_account   = dcCore::app()->blog->settings->contactme->cm_smtp_account;
 
-$antispam_enabled = $core->plugins->moduleExists('antispam');
+$antispam_enabled = dcCore::app()->plugins->moduleExists('antispam');
 
 if ($cm_page_title === null) {
     $cm_page_title = __('Contact me');
@@ -73,7 +73,7 @@ if (isset($_POST['cm_recipients'])) {
         $cm_r2 = [];
 
         foreach ($cm_r as $v) {
-            $v = trim($v);
+            $v = trim((string) $v);
             if (empty($v)) {
                 continue;
             }
@@ -85,25 +85,25 @@ if (isset($_POST['cm_recipients'])) {
         $cm_recipients = implode(', ', $cm_r2);
 
         # Everything's fine, save options
-        $core->blog->settings->addNamespace('contactme');
-        $core->blog->settings->contactme->put('active', $cm_active, 'boolean');
-        $core->blog->settings->contactme->put('cm_recipients', $cm_recipients, 'string', 'ContactMe recipients');
-        $core->blog->settings->contactme->put('cm_subject_prefix', $cm_subject_prefix, 'string', 'ContactMe subject prefix');
-        $core->blog->settings->contactme->put('cm_page_title', $cm_page_title, 'string', 'ContactMe page title');
-        $core->blog->settings->contactme->put('cm_form_caption', $cm_form_caption, 'string', 'ContactMe form caption');
-        $core->blog->settings->contactme->put('cm_msg_success', $cm_msg_success, 'string', 'ContactMe success message');
-        $core->blog->settings->contactme->put('cm_msg_error', $cm_msg_error, 'string', 'ContactMe error message');
-        $core->blog->settings->contactme->put('cm_smtp_account', $cm_smtp_account, 'string', 'ContactMe SMTP account');
+        dcCore::app()->blog->settings->addNamespace('contactme');
+        dcCore::app()->blog->settings->contactme->put('active', $cm_active, 'boolean');
+        dcCore::app()->blog->settings->contactme->put('cm_recipients', $cm_recipients, 'string', 'ContactMe recipients');
+        dcCore::app()->blog->settings->contactme->put('cm_subject_prefix', $cm_subject_prefix, 'string', 'ContactMe subject prefix');
+        dcCore::app()->blog->settings->contactme->put('cm_page_title', $cm_page_title, 'string', 'ContactMe page title');
+        dcCore::app()->blog->settings->contactme->put('cm_form_caption', $cm_form_caption, 'string', 'ContactMe form caption');
+        dcCore::app()->blog->settings->contactme->put('cm_msg_success', $cm_msg_success, 'string', 'ContactMe success message');
+        dcCore::app()->blog->settings->contactme->put('cm_msg_error', $cm_msg_error, 'string', 'ContactMe error message');
+        dcCore::app()->blog->settings->contactme->put('cm_smtp_account', $cm_smtp_account, 'string', 'ContactMe SMTP account');
 
         if ($antispam_enabled) {
-            $core->blog->settings->contactme->put('cm_use_antispam', !empty($_POST['cm_use_antispam']), 'boolean', 'ContactMe should use comments spam filter');
+            dcCore::app()->blog->settings->contactme->put('cm_use_antispam', !empty($_POST['cm_use_antispam']), 'boolean', 'ContactMe should use comments spam filter');
         }
 
-        $core->blog->triggerBlog();
+        dcCore::app()->blog->triggerBlog();
         dcPage::addSuccessNotice(__('Setting have been successfully updated.'));
         http::redirect($p_url);
     } catch (Exception $e) {
-        $core->error->add($e->getMessage());
+        dcCore::app()->error->add($e->getMessage());
     }
 }
 
@@ -112,17 +112,22 @@ if (isset($_POST['cm_recipients'])) {
 <head>
   <title><?php echo __('Contact me'); ?></title>
 <?php
-$rich_editor = $core->auth->getOption('editor');
+$rich_editor = dcCore::app()->auth->getOption('editor');
 $rte_flag    = true;
-$rte_flags   = @$core->auth->user_prefs->interface->rte_flags;
+$rte_flags   = @dcCore::app()->auth->user_prefs->interface->rte_flags;
 if (is_array($rte_flags) && in_array('contactme', $rte_flags)) {
     $rte_flag = $rte_flags['contactme'];
 }
 if ($rte_flag) {
     echo
-    $core->callBehavior('adminPostEditor', $rich_editor['xhtml'], 'contactme',
-        ['#cm_form_caption', '#cm_msg_success', '#cm_msg_error'], 'xhtml') .
-    dcPage::jsLoad(urldecode(dcPage::getPF('contactMe/contactme.js')));
+    dcCore::app()->callBehavior(
+        'adminPostEditor',
+        $rich_editor['xhtml'],
+        'contactme',
+        ['#cm_form_caption', '#cm_msg_success', '#cm_msg_error'],
+        'xhtml'
+    ) .
+    dcPage::jsModuleLoad('contactMe/contactme.js');
 }
 ?>
 </head>
@@ -131,9 +136,10 @@ if ($rte_flag) {
 <?php
 echo dcPage::breadcrumb(
     [
-        html::escapeHTML($core->blog->name) => '',
-        __('Contact me')                    => ''
-    ]);
+        html::escapeHTML(dcCore::app()->blog->name) => '',
+        __('Contact me')                            => '',
+    ]
+);
 echo dcPage::notices();
 
 echo
@@ -153,7 +159,7 @@ form::field('cm_smtp_account', 30, 512, html::escapeHTML($cm_smtp_account), 'max
 # Antispam options
 if ($antispam_enabled) {
     echo
-    '<p>' . form::checkbox('cm_use_antispam', 1, (boolean) $cm_use_antispam) .
+    '<p>' . form::checkbox('cm_use_antispam', 1, (bool) $cm_use_antispam) .
     ' <label for="cm_use_antispam" class="classic">' . __('Use comments spam filter') . '</label></p>';
 }
 
@@ -176,7 +182,7 @@ form::textarea('cm_msg_error', 30, 2, html::escapeHTML($cm_msg_error), '', '', f
 '</p>' .
 '<p class="form-note">' . __('"%s" is the error message.') . '</p>' .
 
-'<p>' . $core->formNonce() . '<input type="submit" value="' . __('Save') . '" /></p>' .
+'<p>' . dcCore::app()->formNonce() . '<input type="submit" value="' . __('Save') . '" /></p>' .
     '</form>';
 
 echo '<p class="info">' . sprintf(__('Don\'t forget to add a <a href="%s">“Contact Me” widget</a> linking to your contact page.'), 'plugin.php?p=widgets') . '</p>';

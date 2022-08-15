@@ -1,7 +1,7 @@
 /*global $, jsToolBar, dotclear */
 'use strict';
 
-$(function () {
+$(() => {
   // HTML text editor
   if (typeof jsToolBar === 'function') {
     $('p.area textarea').each(function () {

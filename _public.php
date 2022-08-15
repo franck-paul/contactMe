@@ -18,19 +18,19 @@ if (!defined('DC_RC_PATH')) {
 __('Subject');
 __('Message');
 
-$core->tpl->addValue('ContactMeURL', ['tplContactMe', 'ContactMeURL']);
-$core->tpl->addBlock('ContactMeIf', ['tplContactMe', 'ContactMeIf']);
-$core->tpl->addValue('ContactMePageTitle', ['tplContactMe', 'ContactMePageTitle']);
-$core->tpl->addValue('ContactMeFormCaption', ['tplContactMe', 'ContactMeFormCaption']);
-$core->tpl->addValue('ContactMeMsgSuccess', ['tplContactMe', 'ContactMeMsgSuccess']);
-$core->tpl->addValue('ContactMeMsgError', ['tplContactMe', 'ContactMeMsgError']);
-$core->tpl->addValue('ContactMeName', ['tplContactMe', 'ContactMeName']);
-$core->tpl->addValue('ContactMeEmail', ['tplContactMe', 'ContactMeEmail']);
-$core->tpl->addValue('ContactMeSite', ['tplContactMe', 'ContactMeSite']);
-$core->tpl->addValue('ContactMeSubject', ['tplContactMe', 'ContactMeSubject']);
-$core->tpl->addValue('ContactMeMessage', ['tplContactMe', 'ContactMeMessage']);
+dcCore::app()->tpl->addValue('ContactMeURL', ['tplContactMe', 'ContactMeURL']);
+dcCore::app()->tpl->addBlock('ContactMeIf', ['tplContactMe', 'ContactMeIf']);
+dcCore::app()->tpl->addValue('ContactMePageTitle', ['tplContactMe', 'ContactMePageTitle']);
+dcCore::app()->tpl->addValue('ContactMeFormCaption', ['tplContactMe', 'ContactMeFormCaption']);
+dcCore::app()->tpl->addValue('ContactMeMsgSuccess', ['tplContactMe', 'ContactMeMsgSuccess']);
+dcCore::app()->tpl->addValue('ContactMeMsgError', ['tplContactMe', 'ContactMeMsgError']);
+dcCore::app()->tpl->addValue('ContactMeName', ['tplContactMe', 'ContactMeName']);
+dcCore::app()->tpl->addValue('ContactMeEmail', ['tplContactMe', 'ContactMeEmail']);
+dcCore::app()->tpl->addValue('ContactMeSite', ['tplContactMe', 'ContactMeSite']);
+dcCore::app()->tpl->addValue('ContactMeSubject', ['tplContactMe', 'ContactMeSubject']);
+dcCore::app()->tpl->addValue('ContactMeMessage', ['tplContactMe', 'ContactMeMessage']);
 
-$core->addBehavior('publicBreadcrumb', ['extContactMe', 'publicBreadcrumb']);
+dcCore::app()->addBehavior('publicBreadcrumb', ['extContactMe', 'publicBreadcrumb']);
 
 class extContactMe
 {
@@ -46,14 +46,12 @@ class urlContactMe extends dcUrlHandlers
 {
     public static function contact($args)
     {
-        global $core, $_ctx;
-
-        if (!$core->blog->settings->contactme->cm_recipients || !$core->blog->settings->contactme->active) {
+        if (!dcCore::app()->blog->settings->contactme->cm_recipients || !dcCore::app()->blog->settings->contactme->active) {
             self::p404();
             exit;
         }
 
-        $_ctx->contactme = new ArrayObject([
+        dcCore::app()->ctx->contactme = new ArrayObject([
             'name'      => '',
             'email'     => '',
             'site'      => '',
@@ -61,13 +59,13 @@ class urlContactMe extends dcUrlHandlers
             'message'   => '',
             'sent'      => false,
             'error'     => false,
-            'error_msg' => ''
+            'error_msg' => '',
         ]);
 
         $send_msg = isset($_POST['c_name']) && isset($_POST['c_mail']) && isset($_POST['c_site']) && isset($_POST['c_message']) && isset($_POST['c_subject']);
 
         if ($args == 'sent') {
-            $_ctx->contactme['sent'] = true;
+            dcCore::app()->ctx->contactme['sent'] = true;
         } elseif ($send_msg) {
             # Spam trap
             if (!empty($_POST['f_mail'])) {
@@ -78,11 +76,11 @@ class urlContactMe extends dcUrlHandlers
             }
 
             try {
-                $_ctx->contactme['name']    = preg_replace('/[\n\r]/', '', $_POST['c_name']);
-                $_ctx->contactme['email']   = preg_replace('/[\n\r]/', '', $_POST['c_mail']);
-                $_ctx->contactme['site']    = preg_replace('/[\n\r]/', '', $_POST['c_site']);
-                $_ctx->contactme['subject'] = preg_replace('/[\n\r]/', '', $_POST['c_subject']);
-                $_ctx->contactme['message'] = $_POST['c_message'];
+                dcCore::app()->ctx->contactme['name']    = (string) preg_replace('/[\n\r]/', '', (string) $_POST['c_name']);
+                dcCore::app()->ctx->contactme['email']   = (string) preg_replace('/[\n\r]/', '', (string) $_POST['c_mail']);
+                dcCore::app()->ctx->contactme['site']    = (string) preg_replace('/[\n\r]/', '', (string) $_POST['c_site']);
+                dcCore::app()->ctx->contactme['subject'] = (string) preg_replace('/[\n\r]/', '', (string) $_POST['c_subject']);
+                dcCore::app()->ctx->contactme['message'] = $_POST['c_message'];
 
                 # Checks provided fields
                 if (empty($_POST['c_name'])) {
@@ -102,10 +100,10 @@ class urlContactMe extends dcUrlHandlers
                 }
 
                 # Checks recipients addresses
-                $recipients = explode(',', $core->blog->settings->contactme->cm_recipients);
+                $recipients = explode(',', dcCore::app()->blog->settings->contactme->cm_recipients);
                 $rc2        = [];
                 foreach ($recipients as $v) {
-                    $v = trim($v);
+                    $v = trim((string) $v);
                     if (!empty($v) && text::isEmail($v)) {
                         $rc2[] = $v;
                     }
@@ -118,21 +116,21 @@ class urlContactMe extends dcUrlHandlers
                 }
 
                 # Check message form spam
-                if ($core->blog->settings->contactme->cm_use_antispam && class_exists('dcAntispam') && isset($core->spamfilters)) {
+                if (dcCore::app()->blog->settings->contactme->cm_use_antispam && class_exists('dcAntispam') && isset(dcCore::app()->spamfilters)) {
                     # Fake cursor to check spam
-                    $cur                    = $core->con->openCursor('foo');
+                    $cur                    = dcCore::app()->con->openCursor('foo');    // @phpstan-ignore-line
                     $cur->comment_trackback = 0;
-                    $cur->comment_author    = $_ctx->contactme['name'];
-                    $cur->comment_email     = $_ctx->contactme['email'];
-                    $cur->comment_site      = $_ctx->contactme['site'];
+                    $cur->comment_author    = dcCore::app()->ctx->contactme['name'];
+                    $cur->comment_email     = dcCore::app()->ctx->contactme['email'];
+                    $cur->comment_site      = dcCore::app()->ctx->contactme['site'];
                     $cur->comment_ip        = http::realIP();
-                    $cur->comment_content   = $_ctx->contactme['message'];
+                    $cur->comment_content   = dcCore::app()->ctx->contactme['message'];
                     $cur->post_id           = 0; // That could break things...
                     $cur->comment_status    = 1;
 
                     @dcAntispam::isSpam($cur);
 
-                    if ($cur->comment_status == -2) {
+                    if ($cur->comment_status == -2) {   // @phpstan-ignore-line
                         unset($cur);
 
                         throw new Exception(__('Message seems to be a spam.'));
@@ -140,54 +138,54 @@ class urlContactMe extends dcUrlHandlers
                     unset($cur);
                 }
 
-                if ($core->blog->settings->contactme->cm_smtp_account) {
-                    $from = mail::B64Header(str_replace(':', '-', $core->blog->name)) . ' <' . $core->blog->settings->contactme->cm_smtp_account . '>';
+                if (dcCore::app()->blog->settings->contactme->cm_smtp_account) {
+                    $from = mail::B64Header(str_replace(':', '-', dcCore::app()->blog->name)) . ' <' . dcCore::app()->blog->settings->contactme->cm_smtp_account . '>';
                 } else {
-                    $from = mail::B64Header($_ctx->contactme['name']) . ' <' . $_ctx->contactme['email'] . '>';
+                    $from = mail::B64Header(dcCore::app()->ctx->contactme['name']) . ' <' . dcCore::app()->ctx->contactme['email'] . '>';
                 }
 
                 # Sending mail
                 $headers = [
                     'From: ' . $from,
-                    'Reply-To: ' . mail::B64Header($_ctx->contactme['name']) . ' <' . $_ctx->contactme['email'] . '>',
+                    'Reply-To: ' . mail::B64Header(dcCore::app()->ctx->contactme['name']) . ' <' . dcCore::app()->ctx->contactme['email'] . '>',
                     'Content-Type: text/plain; charset=UTF-8;',
                     'X-Originating-IP: ' . http::realIP(),
                     'X-Mailer: Dotclear',
-                    'X-Blog-Id: ' . mail::B64Header($core->blog->id),
-                    'X-Blog-Name: ' . mail::B64Header($core->blog->name),
-                    'X-Blog-Url: ' . mail::B64Header($core->blog->url)
+                    'X-Blog-Id: ' . mail::B64Header(dcCore::app()->blog->id),
+                    'X-Blog-Name: ' . mail::B64Header(dcCore::app()->blog->name),
+                    'X-Blog-Url: ' . mail::B64Header(dcCore::app()->blog->url),
                 ];
 
-                $subject = $_ctx->contactme['subject'];
-                if ($core->blog->settings->contactme->cm_subject_prefix) {
-                    $subject = $core->blog->settings->contactme->cm_subject_prefix . ' ' . $subject;
+                $subject = dcCore::app()->ctx->contactme['subject'];
+                if (dcCore::app()->blog->settings->contactme->cm_subject_prefix) {
+                    $subject = dcCore::app()->blog->settings->contactme->cm_subject_prefix . ' ' . $subject;
                 }
                 $subject = mail::B64Header($subject);
 
                 $msg = __("Hi there!\n\nYou received a message from your blog's contact page.") .
                 "\n\n" .
-                sprintf(__('Blog: %s'), $core->blog->name) . "\n" .
-                sprintf(__('Message from: %s <%s>'), $_ctx->contactme['name'], $_ctx->contactme['email']) . "\n" .
-                sprintf(__('Website: %s'), $_ctx->contactme['site']) . "\n\n" .
+                sprintf(__('Blog: %s'), dcCore::app()->blog->name) . "\n" .
+                sprintf(__('Message from: %s <%s>'), dcCore::app()->ctx->contactme['name'], dcCore::app()->ctx->contactme['email']) . "\n" .
+                sprintf(__('Website: %s'), dcCore::app()->ctx->contactme['site']) . "\n\n" .
                 __('Message:') . "\n" .
                 "-----------------------------------------------------------\n" .
-                $_ctx->contactme['message'] . "\n\n";
+                dcCore::app()->ctx->contactme['message'] . "\n\n";
 
                 foreach ($recipients as $email) {
                     mail::sendMail($email, $subject, $msg, $headers);
                 }
-                http::redirect($core->blog->url . $core->url->getURLFor('contactme') . '/sent');
+                http::redirect(dcCore::app()->blog->url . dcCore::app()->url->getURLFor('contactme') . '/sent');
             } catch (Exception $e) {
-                $_ctx->contactme['error']     = true;
-                $_ctx->contactme['error_msg'] = $e->getMessage();
+                dcCore::app()->ctx->contactme['error']     = true;
+                dcCore::app()->ctx->contactme['error_msg'] = $e->getMessage();
             }
         }
 
-        $tplset = $core->themes->moduleInfo($core->blog->settings->system->theme, 'tplset');
-        if (!empty($tplset) && is_dir(dirname(__FILE__) . '/default-templates/' . $tplset)) {
-            $core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__) . '/default-templates/' . $tplset);
+        $tplset = dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'tplset');
+        if (!empty($tplset) && is_dir(__DIR__ . '/default-templates/' . $tplset)) {
+            dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/default-templates/' . $tplset);
         } else {
-            $core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__) . '/default-templates/' . DC_DEFAULT_TPLSET);
+            dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/default-templates/' . DC_DEFAULT_TPLSET);
         }
         self::serveDocument('contact_me.html');
         exit;
@@ -198,9 +196,9 @@ class tplContactMe
 {
     public static function ContactMeURL($attr)
     {
-        $f = $GLOBALS['core']->tpl->getFilters($attr);
+        $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, '$core->blog->url.$core->url->getURLFor("contactme")') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'dcCore::app()->blog->url.dcCore::app()->url->getURLFor("contactme")') . '; ?>';
     }
 
     public static function ContactMeIf($attr, $content)
@@ -210,13 +208,13 @@ class tplContactMe
         $operator = isset($attr['operator']) ? dcTemplate::getOperator($attr['operator']) : '&&';
 
         if (isset($attr['sent'])) {
-            $sign = (boolean) $attr['sent'] ? '' : '!';
-            $if[] = $sign . "\$_ctx->contactme['sent']";
+            $sign = (bool) $attr['sent'] ? '' : '!';
+            $if[] = $sign . "dcCore::app()->ctx->contactme['sent']";
         }
 
         if (isset($attr['error'])) {
-            $sign = (boolean) $attr['error'] ? '' : '!';
-            $if[] = $sign . "\$_ctx->contactme['error']";
+            $sign = (bool) $attr['error'] ? '' : '!';
+            $if[] = $sign . "dcCore::app()->ctx->contactme['error']";
         }
 
         if (!empty($if)) {
@@ -228,82 +226,80 @@ class tplContactMe
 
     public static function ContactMePageTitle($attr)
     {
-        $f = $GLOBALS['core']->tpl->getFilters($attr);
+        $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, '$core->blog->settings->contactme->cm_page_title') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'dcCore::app()->blog->settings->contactme->cm_page_title') . '; ?>';
     }
 
     public static function ContactMeFormCaption($attr)
     {
-        $f = $GLOBALS['core']->tpl->getFilters($attr);
+        $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, '$core->blog->settings->contactme->cm_form_caption') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'dcCore::app()->blog->settings->contactme->cm_form_caption') . '; ?>';
     }
 
     public static function ContactMeMsgSuccess($attr)
     {
-        return '<?php echo $core->blog->settings->contactme->cm_msg_success; ?>';
+        return '<?php echo dcCore::app()->blog->settings->contactme->cm_msg_success; ?>';
     }
 
     public static function ContactMeMsgError($attr)
     {
-        return '<?php echo sprintf($core->blog->settings->contactme->cm_msg_error,html::escapeHTML($_ctx->contactme["error_msg"])); ?>';
+        return '<?php echo sprintf(dcCore::app()->blog->settings->contactme->cm_msg_error,html::escapeHTML(dcCore::app()->ctx->contactme["error_msg"])); ?>';
     }
 
     public static function ContactMeName($attr)
     {
-        $f = $GLOBALS['core']->tpl->getFilters($attr);
+        $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, '$_ctx->contactme["name"]') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["name"]') . '; ?>';
     }
 
     public static function ContactMeEmail($attr)
     {
-        $f = $GLOBALS['core']->tpl->getFilters($attr);
+        $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, '$_ctx->contactme["email"]') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["email"]') . '; ?>';
     }
 
     public static function ContactMeSite($attr)
     {
-        $f = $GLOBALS['core']->tpl->getFilters($attr);
+        $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, '$_ctx->contactme["site"]') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["site"]') . '; ?>';
     }
 
     public static function ContactMeSubject($attr)
     {
-        $f = $GLOBALS['core']->tpl->getFilters($attr);
+        $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, '$_ctx->contactme["subject"]') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["subject"]') . '; ?>';
     }
 
     public static function ContactMeMessage($attr)
     {
-        $f = $GLOBALS['core']->tpl->getFilters($attr);
+        $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, '$_ctx->contactme["message"]') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["message"]') . '; ?>';
     }
 
     # Widget function
     public static function contactMeWidget($w)
     {
-        global $core;
-
         if ($w->offline) {
             return;
         }
 
-        if (($w->homeonly == 1 && !$core->url->isHome($core->url->type)) || ($w->homeonly == 2 && $core->url->isHome($core->url->type))) {
+        if (($w->homeonly == 1 && !dcCore::app()->url->isHome(dcCore::app()->url->type)) || ($w->homeonly == 2 && dcCore::app()->url->isHome(dcCore::app()->url->type))) {
             return;
         }
 
-        if (!$core->blog->settings->contactme->cm_recipients || !$core->blog->settings->contactme->active) {
+        if (!dcCore::app()->blog->settings->contactme->cm_recipients || !dcCore::app()->blog->settings->contactme->active) {
             return;
         }
 
         $res = ($w->title ? $w->renderTitle(html::escapeHTML($w->title)) : '') .
-        '<p><a href="' . $core->blog->url . $core->url->getURLFor('contactme') . '">' .
+        '<p><a href="' . dcCore::app()->blog->url . dcCore::app()->url->getURLFor('contactme') . '">' .
             ($w->link_title ? html::escapeHTML($w->link_title) : __('Contact me')) .
             '</a></p>';
 

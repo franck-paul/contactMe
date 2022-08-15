@@ -18,15 +18,15 @@ $this->registerModule(
     'ContactMe',                              // Name
     'Add a simple contact form on your blog', // Description
     'Olivier Meunier and contributors',       // Author
-    '1.14',                                   // Version
+    '1.15',                                   // Version
     [
-        'requires'    => [['core', '2.19']],                         // Dependencies
+        'requires'    => [['core', '2.23']],                         // Dependencies
         'permissions' => 'admin',                                    // Permissions
         'type'        => 'plugin',                                   // Type
         'settings'    => [],
 
         'details'    => 'https://open-time.net/?q=contactMe',       // Details URL
         'support'    => 'https://github.com/franck-paul/contactMe', // Support URL
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/contactMe/master/dcstore.xml'
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/contactMe/master/dcstore.xml',
     ]
 );

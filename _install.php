@@ -14,8 +14,8 @@ if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-$new_version = $core->plugins->moduleInfo('contactMe', 'version');
-$old_version = $core->getVersion('contactMe');
+$new_version = dcCore::app()->plugins->moduleInfo('contactMe', 'version');
+$old_version = dcCore::app()->getVersion('contactMe');
 
 if (version_compare($old_version, $new_version, '>=')) {
     return;
@@ -24,15 +24,15 @@ if (version_compare($old_version, $new_version, '>=')) {
 try {
     if (version_compare($old_version, '1.10', '<')) {
         // Default activation = true
-        $core->blog->settings->addNamespace('contactme');
-        $core->blog->settings->contactme->put('active', true, 'boolean', 'Active', false, true);
+        dcCore::app()->blog->settings->addNamespace('contactme');
+        dcCore::app()->blog->settings->contactme->put('active', true, 'boolean', 'Active', false, true);
     }
 
-    $core->setVersion('contactMe', $new_version);
+    dcCore::app()->setVersion('contactMe', $new_version);
 
     return true;
 } catch (Exception $e) {
-    $core->error->add($e->getMessage());
+    dcCore::app()->error->add($e->getMessage());
 }
 
 return false;
