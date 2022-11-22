@@ -14,8 +14,6 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-dcCore::app()->addBehavior('initWidgets', ['contactMeWidgets', 'initWidgets']);
-
 class contactMeWidgets
 {
     public static function initWidgets($w)
@@ -30,3 +28,5 @@ class contactMeWidgets
             ->addOffline();
     }
 }
+
+dcCore::app()->addBehavior('initWidgets', [contactMeWidgets::class, 'initWidgets']);

@@ -18,29 +18,17 @@ if (!defined('DC_RC_PATH')) {
 __('Subject');
 __('Message');
 
-dcCore::app()->tpl->addValue('ContactMeURL', ['tplContactMe', 'ContactMeURL']);
-dcCore::app()->tpl->addBlock('ContactMeIf', ['tplContactMe', 'ContactMeIf']);
-dcCore::app()->tpl->addValue('ContactMePageTitle', ['tplContactMe', 'ContactMePageTitle']);
-dcCore::app()->tpl->addValue('ContactMeFormCaption', ['tplContactMe', 'ContactMeFormCaption']);
-dcCore::app()->tpl->addValue('ContactMeMsgSuccess', ['tplContactMe', 'ContactMeMsgSuccess']);
-dcCore::app()->tpl->addValue('ContactMeMsgError', ['tplContactMe', 'ContactMeMsgError']);
-dcCore::app()->tpl->addValue('ContactMeName', ['tplContactMe', 'ContactMeName']);
-dcCore::app()->tpl->addValue('ContactMeEmail', ['tplContactMe', 'ContactMeEmail']);
-dcCore::app()->tpl->addValue('ContactMeSite', ['tplContactMe', 'ContactMeSite']);
-dcCore::app()->tpl->addValue('ContactMeSubject', ['tplContactMe', 'ContactMeSubject']);
-dcCore::app()->tpl->addValue('ContactMeMessage', ['tplContactMe', 'ContactMeMessage']);
-
-dcCore::app()->addBehavior('publicBreadcrumb', ['extContactMe', 'publicBreadcrumb']);
-
 class extContactMe
 {
-    public static function publicBreadcrumb($context, $separator)
+    public static function publicBreadcrumb($context)
     {
         if ($context == 'contactme') {
             return __('Contact me');
         }
     }
 }
+
+dcCore::app()->addBehavior('publicBreadcrumb', [extContactMe::class, 'publicBreadcrumb']);
 
 class urlContactMe extends dcUrlHandlers
 {
@@ -126,11 +114,11 @@ class urlContactMe extends dcUrlHandlers
                     $cur->comment_ip        = http::realIP();
                     $cur->comment_content   = dcCore::app()->ctx->contactme['message'];
                     $cur->post_id           = 0; // That could break things...
-                    $cur->comment_status    = 1;
+                    $cur->comment_status    = dcBlog::COMMENT_PUBLISHED;
 
                     @dcAntispam::isSpam($cur);
 
-                    if ($cur->comment_status == -2) {   // @phpstan-ignore-line
+                    if ($cur->comment_status == dcBlog::COMMENT_JUNK) {   // @phpstan-ignore-line
                         unset($cur);
 
                         throw new Exception(__('Message seems to be a spam.'));
@@ -182,10 +170,10 @@ class urlContactMe extends dcUrlHandlers
         }
 
         $tplset = dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'tplset');
-        if (!empty($tplset) && is_dir(__DIR__ . '/default-templates/' . $tplset)) {
-            dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/default-templates/' . $tplset);
+        if (!empty($tplset) && is_dir(__DIR__ . '/' . dcPublic::TPL_ROOT . '/' . $tplset)) {
+            dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/' . dcPublic::TPL_ROOT . '/' . $tplset);
         } else {
-            dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/default-templates/' . DC_DEFAULT_TPLSET);
+            dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), __DIR__ . '/' . dcPublic::TPL_ROOT . '/' . DC_DEFAULT_TPLSET);
         }
         self::serveDocument('contact_me.html');
         exit;
@@ -238,12 +226,12 @@ class tplContactMe
         return '<?php echo ' . sprintf($f, 'dcCore::app()->blog->settings->contactme->cm_form_caption') . '; ?>';
     }
 
-    public static function ContactMeMsgSuccess($attr)
+    public static function ContactMeMsgSuccess()
     {
         return '<?php echo dcCore::app()->blog->settings->contactme->cm_msg_success; ?>';
     }
 
-    public static function ContactMeMsgError($attr)
+    public static function ContactMeMsgError()
     {
         return '<?php echo sprintf(dcCore::app()->blog->settings->contactme->cm_msg_error,html::escapeHTML(dcCore::app()->ctx->contactme["error_msg"])); ?>';
     }
@@ -306,3 +294,15 @@ class tplContactMe
         return $w->renderDiv($w->content_only, 'contact-me ' . $w->class, '', $res);
     }
 }
+
+dcCore::app()->tpl->addValue('ContactMeURL', [tplContactMe::class, 'ContactMeURL']);
+dcCore::app()->tpl->addBlock('ContactMeIf', [tplContactMe::class, 'ContactMeIf']);
+dcCore::app()->tpl->addValue('ContactMePageTitle', [tplContactMe::class, 'ContactMePageTitle']);
+dcCore::app()->tpl->addValue('ContactMeFormCaption', [tplContactMe::class, 'ContactMeFormCaption']);
+dcCore::app()->tpl->addValue('ContactMeMsgSuccess', [tplContactMe::class, 'ContactMeMsgSuccess']);
+dcCore::app()->tpl->addValue('ContactMeMsgError', [tplContactMe::class, 'ContactMeMsgError']);
+dcCore::app()->tpl->addValue('ContactMeName', [tplContactMe::class, 'ContactMeName']);
+dcCore::app()->tpl->addValue('ContactMeEmail', [tplContactMe::class, 'ContactMeEmail']);
+dcCore::app()->tpl->addValue('ContactMeSite', [tplContactMe::class, 'ContactMeSite']);
+dcCore::app()->tpl->addValue('ContactMeSubject', [tplContactMe::class, 'ContactMeSubject']);
+dcCore::app()->tpl->addValue('ContactMeMessage', [tplContactMe::class, 'ContactMeMessage']);

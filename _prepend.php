@@ -23,4 +23,4 @@ if (!dcCore::app()->blog->settings->contactme->settingExists('active')) {
     dcCore::app()->blog->settings->contactme->put('active', (bool) dcCore::app()->blog->settings->contactme->cm_recipients, 'boolean');
 }
 
-require __DIR__ . '/_widgets.php';
+require_once __DIR__ . '/_widgets.php';

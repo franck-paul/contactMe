@@ -17,39 +17,40 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 // dead but useful code, in order to have translations
 __('ContactMe') . __('Add a simple contact form on your blog');
 
-$_menu['Blog']->addItem(
+dcCore::app()->menu[dcAdmin::MENU_BLOG]->addItem(
     __('Contact me'),
     'plugin.php?p=contactMe',
     urldecode(dcPage::getPF('contactMe/icon.svg')),
     preg_match('/plugin.php\?p=contactMe(&.*)?$/', $_SERVER['REQUEST_URI']),
-    dcCore::app()->auth->check('admin', dcCore::app()->blog->id)
+    dcCore::app()->auth->check(dcCore::app()->auth->makePermissions([
+        dcAuth::PERMISSION_ADMIN,
+    ]), dcCore::app()->blog->id)
 );
-
-/* Register favorite */
-dcCore::app()->addBehavior('adminDashboardFavorites', ['contactMeAdmin', 'adminDashboardFavorites']);
-dcCore::app()->addBehavior('adminRteFlags', ['contactMeAdmin', 'adminRteFlags']);
 
 class contactMeAdmin
 {
-    public static function adminDashboardFavorites($core, $favs)
+    public static function adminDashboardFavorites($favs)
     {
         $favs->register('contactMe', [
             'title'       => __('Contact me'),
             'url'         => 'plugin.php?p=contactMe',
             'small-icon'  => urldecode(dcPage::getPF('contactMe/icon.svg')),
             'large-icon'  => urldecode(dcPage::getPF('contactMe/icon.svg')),
-            'permissions' => 'admin',
+            'permissions' => dcCore::app()->auth->makePermissions([
+                dcAuth::PERMISSION_ADMIN,
+            ]),
         ]);
     }
 
-    public static function adminRteFlags($core, $rte)
+    public static function adminRteFlags($rte)
     {
         $rte['contactme'] = [true, __('Contact me form caption and messages')];
     }
 }
 
-dcCore::app()->addBehavior('adminSimpleMenuAddType', ['contactMeSimpleMenu', 'adminSimpleMenuAddType']);
-dcCore::app()->addBehavior('adminSimpleMenuBeforeEdit', ['contactMeSimpleMenu', 'adminSimpleMenuBeforeEdit']);
+/* Register favorite */
+dcCore::app()->addBehavior('adminDashboardFavoritesV2', [contactMeAdmin::class, 'adminDashboardFavorites']);
+dcCore::app()->addBehavior('adminRteFlagsV2', [contactMeAdmin::class, 'adminRteFlags']);
 
 class contactMeSimpleMenu
 {
@@ -67,3 +68,6 @@ class contactMeSimpleMenu
         }
     }
 }
+
+dcCore::app()->addBehavior('adminSimpleMenuAddType', [contactMeSimpleMenu::class, 'adminSimpleMenuAddType']);
+dcCore::app()->addBehavior('adminSimpleMenuBeforeEdit', [contactMeSimpleMenu::class, 'adminSimpleMenuBeforeEdit']);

@@ -15,18 +15,21 @@ if (!defined('DC_RC_PATH')) {
 }
 
 $this->registerModule(
-    'ContactMe',                              // Name
-    'Add a simple contact form on your blog', // Description
-    'Olivier Meunier and contributors',       // Author
-    '1.15',                                   // Version
+    'ContactMe',
+    'Add a simple contact form on your blog',
+    'Olivier Meunier and contributors',
+    '1.16',
     [
-        'requires'    => [['core', '2.23']],                         // Dependencies
-        'permissions' => 'admin',                                    // Permissions
-        'type'        => 'plugin',                                   // Type
-        'settings'    => [],
+        'requires'    => [['core', '2.24']],
+        'permissions' => dcCore::app()->auth->makePermissions([
+            dcAuth::PERMISSION_ADMIN,
+        ]),
+        'type'     => 'plugin',
+        'settings' => [
+        ],
 
-        'details'    => 'https://open-time.net/?q=contactMe',       // Details URL
-        'support'    => 'https://github.com/franck-paul/contactMe', // Support URL
+        'details'    => 'https://open-time.net/?q=contactMe',
+        'support'    => 'https://github.com/franck-paul/contactMe',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/contactMe/master/dcstore.xml',
     ]
 );
