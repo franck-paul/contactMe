@@ -17,12 +17,12 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 $new_version = dcCore::app()->plugins->moduleInfo('contactMe', 'version');
 $old_version = dcCore::app()->getVersion('contactMe');
 
-if (version_compare($old_version, $new_version, '>=')) {
+if (version_compare((string) $old_version, $new_version, '>=')) {
     return;
 }
 
 try {
-    if (version_compare($old_version, '1.10', '<')) {
+    if (version_compare((string) $old_version, '1.10', '<')) {
         // Default activation = true
         dcCore::app()->blog->settings->addNamespace('contactme');
         dcCore::app()->blog->settings->contactme->put('active', true, 'boolean', 'Active', false, true);
