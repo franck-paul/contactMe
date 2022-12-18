@@ -14,21 +14,18 @@ if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-$new_version = dcCore::app()->plugins->moduleInfo('contactMe', 'version');
-$old_version = dcCore::app()->getVersion('contactMe');
-
-if (version_compare((string) $old_version, $new_version, '>=')) {
+if (!dcCore::app()->newVersion(basename(__DIR__), dcCore::app()->plugins->moduleInfo(basename(__DIR__), 'version'))) {
     return;
 }
 
 try {
+    $old_version = dcCore::app()->getVersion(basename(__DIR__));
+
     if (version_compare((string) $old_version, '1.10', '<')) {
         // Default activation = true
         dcCore::app()->blog->settings->addNamespace('contactme');
         dcCore::app()->blog->settings->contactme->put('active', true, 'boolean', 'Active', false, true);
     }
-
-    dcCore::app()->setVersion('contactMe', $new_version);
 
     return true;
 } catch (Exception $e) {
