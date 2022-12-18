@@ -101,7 +101,7 @@ if (isset($_POST['cm_recipients'])) {
 
         dcCore::app()->blog->triggerBlog();
         dcPage::addSuccessNotice(__('Setting have been successfully updated.'));
-        http::redirect($p_url);
+        http::redirect(dcCore::app()->admin->getPageURL());
     } catch (Exception $e) {
         dcCore::app()->error->add($e->getMessage());
     }
@@ -143,7 +143,7 @@ echo dcPage::breadcrumb(
 echo dcPage::notices();
 
 echo
-'<form action="' . $p_url . '" method="post">' .
+'<form action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
 '<p>' . form::checkbox('cm_active', 1, $cm_active) . ' ' .
 '<label for="cm_active" class="classic">' . __('Activate contactMe on blog') . '</label></p>' .
 '<h3>' . __('E-Mail settings') . '</h3>' .
