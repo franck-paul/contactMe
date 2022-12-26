@@ -127,7 +127,7 @@ if ($rte_flag) {
         ['#cm_form_caption', '#cm_msg_success', '#cm_msg_error'],
         'xhtml'
     ) .
-    dcPage::jsModuleLoad('contactMe/contactme.js');
+    dcPage::jsModuleLoad('contactMe/js/contactme.js');
 }
 ?>
 </head>
