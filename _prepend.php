@@ -17,8 +17,8 @@ if (!defined('DC_RC_PATH')) {
 dcCore::app()->url->register('contactme', 'contact', '^contact(?:/(.+))?$', ['urlContactMe', 'contact']);
 
 // Cope with new activation (since 1.10)
-dcCore::app()->blog->settings->addNamespace('contactme');
 if (dcCore::app()->blog) {
+    dcCore::app()->blog->settings->addNamespace('contactme');
     if (!dcCore::app()->blog->settings->contactme->settingExists('active')) {
         // Set active flag to true only if recipient(s) is/are set
         dcCore::app()->blog->settings->contactme->put('active', (bool) dcCore::app()->blog->settings->contactme->cm_recipients, 'boolean');
