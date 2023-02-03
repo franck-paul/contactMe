@@ -49,8 +49,10 @@ class contactMeAdmin
 }
 
 /* Register favorite */
-dcCore::app()->addBehavior('adminDashboardFavoritesV2', [contactMeAdmin::class, 'adminDashboardFavorites']);
-dcCore::app()->addBehavior('adminRteFlagsV2', [contactMeAdmin::class, 'adminRteFlags']);
+dcCore::app()->addBehaviors([
+    'adminDashboardFavoritesV2' => [contactMeAdmin::class, 'adminDashboardFavorites'],
+    'adminRteFlagsV2'           => [contactMeAdmin::class, 'adminRteFlags'],
+]);
 
 class contactMeSimpleMenu
 {
@@ -69,5 +71,7 @@ class contactMeSimpleMenu
     }
 }
 
-dcCore::app()->addBehavior('adminSimpleMenuAddType', [contactMeSimpleMenu::class, 'adminSimpleMenuAddType']);
-dcCore::app()->addBehavior('adminSimpleMenuBeforeEdit', [contactMeSimpleMenu::class, 'adminSimpleMenuBeforeEdit']);
+dcCore::app()->addBehaviors([
+    'adminSimpleMenuAddType'    => [contactMeSimpleMenu::class, 'adminSimpleMenuAddType'],
+    'adminSimpleMenuBeforeEdit' => [contactMeSimpleMenu::class, 'adminSimpleMenuBeforeEdit'],
+]);

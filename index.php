@@ -85,7 +85,6 @@ if (isset($_POST['cm_recipients'])) {
         $cm_recipients = implode(', ', $cm_r2);
 
         # Everything's fine, save options
-        dcCore::app()->blog->settings->addNamespace('contactme');
         dcCore::app()->blog->settings->contactme->put('active', $cm_active, 'boolean');
         dcCore::app()->blog->settings->contactme->put('cm_recipients', $cm_recipients, 'string', 'ContactMe recipients');
         dcCore::app()->blog->settings->contactme->put('cm_subject_prefix', $cm_subject_prefix, 'string', 'ContactMe subject prefix');

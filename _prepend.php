@@ -10,10 +10,6 @@
  * @copyright Olivier Meunier
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_RC_PATH')) {
-    return;
-}
-
 dcCore::app()->url->register('contactme', 'contact', '^contact(?:/(.+))?$', ['urlContactMe', 'contact']);
 
 // Cope with new activation (since 1.10)

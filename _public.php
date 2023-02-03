@@ -10,9 +10,6 @@
  * @copyright Olivier Meunier
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_RC_PATH')) {
-    return;
-}
 
 # Localized string we find in template
 __('Subject');
@@ -36,7 +33,6 @@ class urlContactMe extends dcUrlHandlers
     {
         if (!dcCore::app()->blog->settings->contactme->cm_recipients || !dcCore::app()->blog->settings->contactme->active) {
             self::p404();
-            exit;
         }
 
         dcCore::app()->ctx->contactme = new ArrayObject([

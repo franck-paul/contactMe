@@ -23,7 +23,6 @@ try {
 
     if (version_compare((string) $old_version, '1.10', '<')) {
         // Default activation = true
-        dcCore::app()->blog->settings->addNamespace('contactme');
         dcCore::app()->blog->settings->contactme->put('active', true, 'boolean', 'Active', false, true);
     }
 
