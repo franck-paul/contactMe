@@ -19,6 +19,7 @@ $this->registerModule(
     'Add a simple contact form on your blog',
     'Olivier Meunier and contributors',
     '2.1',
+    '2.1.1',
     [
         'requires'    => [['core', '2.24']],
         'permissions' => dcCore::app()->auth->makePermissions([
