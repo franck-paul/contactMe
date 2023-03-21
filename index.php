@@ -10,6 +10,11 @@
  * @copyright Olivier Meunier
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+
+use Dotclear\Helper\Html\Html;
+use Dotclear\Helper\Network\Http;
+use Dotclear\Helper\Text;
+
 if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
@@ -77,8 +82,8 @@ if (isset($_POST['cm_recipients'])) {
             if (empty($v)) {
                 continue;
             }
-            if (!text::isEmail($v)) {
-                throw new Exception(sprintf(__('%s is not a valid e-mail address.'), html::escapeHTML($v)));
+            if (!Text::isEmail($v)) {
+                throw new Exception(sprintf(__('%s is not a valid e-mail address.'), Html::escapeHTML($v)));
             }
             $cm_r2[] = $v;
         }
@@ -100,7 +105,7 @@ if (isset($_POST['cm_recipients'])) {
 
         dcCore::app()->blog->triggerBlog();
         dcPage::addSuccessNotice(__('Setting have been successfully updated.'));
-        http::redirect(dcCore::app()->admin->getPageURL());
+        Http::redirect(dcCore::app()->admin->getPageURL());
     } catch (Exception $e) {
         dcCore::app()->error->add($e->getMessage());
     }
@@ -135,7 +140,7 @@ if ($rte_flag) {
 <?php
 echo dcPage::breadcrumb(
     [
-        html::escapeHTML(dcCore::app()->blog->name) => '',
+        Html::escapeHTML(dcCore::app()->blog->name) => '',
         __('Contact me')                            => '',
     ]
 );
@@ -147,12 +152,12 @@ echo
 '<label for="cm_active" class="classic">' . __('Activate contactMe on blog') . '</label></p>' .
 '<h3>' . __('E-Mail settings') . '</h3>' .
 '<p><label for="cm_recipients" class="required" title="' . __('Required field') . '">' . __('Comma separated recipients list:') . '</label> ' .
-form::field('cm_recipients', 30, 512, html::escapeHTML($cm_recipients), 'maximal', '', false, 'required placeholder="' . __('Email') . '"') . '</p>' .
+form::field('cm_recipients', 30, 512, Html::escapeHTML($cm_recipients), 'maximal', '', false, 'required placeholder="' . __('Email') . '"') . '</p>' .
 '<p><label for="cm_subject_prefix">' . __('E-Mail subject prefix:') . '</label> ' .
-form::field('cm_subject_prefix', 30, 128, html::escapeHTML($cm_subject_prefix)) . '</p>' .
+form::field('cm_subject_prefix', 30, 128, Html::escapeHTML($cm_subject_prefix)) . '</p>' .
 '<p class="form-note">' . __('This will be prepend to e-mail subject') . '</p>' .
 '<p><label for="cm_smtp_account">' . __('SMTP account (optional):') . '</label> ' .
-form::field('cm_smtp_account', 30, 512, html::escapeHTML($cm_smtp_account), 'maximal', '', false) . '</p>' .
+form::field('cm_smtp_account', 30, 512, Html::escapeHTML($cm_smtp_account), 'maximal', '', false) . '</p>' .
 '<p class="form-note">' . __('This will be use as e-mail sender. Note that the sent e-mails will have a Reply-To filled with your correspondent e-mail.') . '</p>';
 
 # Antispam options
@@ -166,18 +171,18 @@ echo
 '<h3>' . __('Presentation options') . '</h3>' .
 '<p><label for="cm_page_title" class="required" title="' . __('Required field') . '"><abbr title="' . __('Required field') . '">*</abbr> ' .
 __('Page title:') . '</label> ' .
-form::field('cm_page_title', 30, 256, html::escapeHTML($cm_page_title), '', '', false, 'required placeholder="' . __('Title') . '"') .
+form::field('cm_page_title', 30, 256, Html::escapeHTML($cm_page_title), '', '', false, 'required placeholder="' . __('Title') . '"') .
 '</p>' .
 '<p class="area"><label for="cm_form_caption">' . __('Form caption:') . '</label> ' .
-form::textarea('cm_form_caption', 30, 2, html::escapeHTML($cm_form_caption)) .
+form::textarea('cm_form_caption', 30, 2, Html::escapeHTML($cm_form_caption)) .
 '</p>' .
 '<p class="area"><label for="cm_msg_success" class="required" title="' . __('Required field') . '"><abbr title="' . __('Required field') . '">*</abbr> ' .
 __('Confirmation message:') . '</label> ' .
-form::textarea('cm_msg_success', 30, 2, html::escapeHTML($cm_msg_success), '', '', false, 'required placeholder="' . __('Message') . '"') .
+form::textarea('cm_msg_success', 30, 2, Html::escapeHTML($cm_msg_success), '', '', false, 'required placeholder="' . __('Message') . '"') .
 '</p>' .
 '<p class="area"><label for="cm_msg_error" class="required" title="' . __('Required field') . '"><abbr title="' . __('Required field') . '">*</abbr> ' .
 __('Error message:') . '</label> ' .
-form::textarea('cm_msg_error', 30, 2, html::escapeHTML($cm_msg_error), '', '', false, 'required placeholder="' . __('Message') . '"') .
+form::textarea('cm_msg_error', 30, 2, Html::escapeHTML($cm_msg_error), '', '', false, 'required placeholder="' . __('Message') . '"') .
 '</p>' .
 '<p class="form-note">' . __('"%s" is the error message.') . '</p>' .
 

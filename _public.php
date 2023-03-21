@@ -11,6 +11,11 @@
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 
+use Dotclear\Helper\Html\Html;
+use Dotclear\Helper\Network\Http;
+use Dotclear\Helper\Network\Mail\Mail;
+use Dotclear\Helper\Text;
+
 # Localized string we find in template
 __('Subject');
 __('Message');
@@ -53,7 +58,7 @@ class urlContactMe extends dcUrlHandlers
         } elseif ($send_msg) {
             # Spam trap
             if (!empty($_POST['f_mail'])) {
-                http::head(412, 'Precondition Failed');
+                Http::head(412, 'Precondition Failed');
                 header('Content-Type: text/plain');
                 echo 'So Long, and Thanks For All the Fish';
                 exit;
@@ -71,7 +76,7 @@ class urlContactMe extends dcUrlHandlers
                     throw new Exception(__('You must provide a name.'));
                 }
 
-                if (!text::isEmail($_POST['c_mail'])) {
+                if (!Text::isEmail($_POST['c_mail'])) {
                     throw new Exception(__('You must provide a valid email address.'));
                 }
 
@@ -88,7 +93,7 @@ class urlContactMe extends dcUrlHandlers
                 $rc2        = [];
                 foreach ($recipients as $v) {
                     $v = trim((string) $v);
-                    if (!empty($v) && text::isEmail($v)) {
+                    if (!empty($v) && Text::isEmail($v)) {
                         $rc2[] = $v;
                     }
                 }
@@ -107,7 +112,7 @@ class urlContactMe extends dcUrlHandlers
                     $cur->comment_author    = dcCore::app()->ctx->contactme['name'];
                     $cur->comment_email     = dcCore::app()->ctx->contactme['email'];
                     $cur->comment_site      = dcCore::app()->ctx->contactme['site'];
-                    $cur->comment_ip        = http::realIP();
+                    $cur->comment_ip        = Http::realIP();
                     $cur->comment_content   = dcCore::app()->ctx->contactme['message'];
                     $cur->post_id           = 0; // That could break things...
                     $cur->comment_status    = dcBlog::COMMENT_PUBLISHED;
@@ -133,7 +138,7 @@ class urlContactMe extends dcUrlHandlers
                     'From: ' . $from,
                     'Reply-To: ' . mail::B64Header(dcCore::app()->ctx->contactme['name']) . ' <' . dcCore::app()->ctx->contactme['email'] . '>',
                     'Content-Type: text/plain; charset=UTF-8;',
-                    'X-Originating-IP: ' . http::realIP(),
+                    'X-Originating-IP: ' . Http::realIP(),
                     'X-Mailer: Dotclear',
                     'X-Blog-Id: ' . mail::B64Header(dcCore::app()->blog->id),
                     'X-Blog-Name: ' . mail::B64Header(dcCore::app()->blog->name),
@@ -158,7 +163,7 @@ class urlContactMe extends dcUrlHandlers
                 foreach ($recipients as $email) {
                     mail::sendMail($email, $subject, $msg, $headers);
                 }
-                http::redirect(dcCore::app()->blog->url . dcCore::app()->url->getURLFor('contactme') . '/sent');
+                Http::redirect(dcCore::app()->blog->url . dcCore::app()->url->getURLFor('contactme') . '/sent');
             } catch (Exception $e) {
                 dcCore::app()->ctx->contactme['error']     = true;
                 dcCore::app()->ctx->contactme['error_msg'] = $e->getMessage();
@@ -229,7 +234,7 @@ class tplContactMe
 
     public static function ContactMeMsgError()
     {
-        return '<?php echo sprintf(dcCore::app()->blog->settings->contactme->cm_msg_error,html::escapeHTML(dcCore::app()->ctx->contactme["error_msg"])); ?>';
+        return '<?php echo sprintf(dcCore::app()->blog->settings->contactme->cm_msg_error,\\Dotclear\\Helper\\Html\\Html::escapeHTML(dcCore::app()->ctx->contactme["error_msg"])); ?>';
     }
 
     public static function ContactMeName($attr)
@@ -282,9 +287,9 @@ class tplContactMe
             return;
         }
 
-        $res = ($w->title ? $w->renderTitle(html::escapeHTML($w->title)) : '') .
+        $res = ($w->title ? $w->renderTitle(Html::escapeHTML($w->title)) : '') .
         '<p><a href="' . dcCore::app()->blog->url . dcCore::app()->url->getURLFor('contactme') . '">' .
-            ($w->link_title ? html::escapeHTML($w->link_title) : __('Contact me')) .
+            ($w->link_title ? Html::escapeHTML($w->link_title) : __('Contact me')) .
             '</a></p>';
 
         return $w->renderDiv($w->content_only, 'contact-me ' . $w->class, '', $res);

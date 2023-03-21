@@ -16,16 +16,16 @@ $this->registerModule(
     'Olivier Meunier and contributors',
     '2.1.1',
     [
-        'requires'    => [['core', '2.24']],
+        'requires'    => [['core', '2.26']],
         'permissions' => dcCore::app()->auth->makePermissions([
             dcAuth::PERMISSION_ADMIN,
         ]),
-        'type'        => 'plugin',
-        'settings'    => [
+        'type'     => 'plugin',
+        'settings' => [
         ],
 
-        'details'     => 'https://open-time.net/?q=contactMe',
-        'support'     => 'https://github.com/franck-paul/contactMe',
-        'repository'  => 'https://raw.githubusercontent.com/franck-paul/contactMe/master/dcstore.xml',
+        'details'    => 'https://open-time.net/?q=contactMe',
+        'support'    => 'https://github.com/franck-paul/contactMe',
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/contactMe/master/dcstore.xml',
     ]
 );
