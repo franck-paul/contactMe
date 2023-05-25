@@ -1,0 +1,21 @@
+filters:
+  - filter_type: dir
+    # all supported i18n types: https://docs.transifex.com/formats
+    file_format: PO
+    source_file_extension: po
+    source_language: en
+    source_file_dir: locales/en/
+    # path expression to translation files, must contain <lang> placeholder
+    translation_files_expression: locales/<lang>/
+  - filter_type: dir
+    file_format: HTML
+    source_file_extension: html
+    source_language: en
+    source_file_dir: locales/en/help/
+    # path expression to translation files, must contain <lang> placeholder
+    translation_files_expression: locales/<lang>/help/
+settings:
+    language_mapping:
+        es-ar: es_AR
+        pt-br: pt_BR
+        zh-cn: zh_CN

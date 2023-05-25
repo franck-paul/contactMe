@@ -22,9 +22,9 @@ jobs:
           php-version: '8.0'
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      # Back to default branche
+      # Back to default branch
       - name: Back to default branch of repository
         shell: bash
         run: |
@@ -66,8 +66,8 @@ jobs:
               }
             }
           }
-          echo "::set-output name=module_version::$version\n";
-          echo "::set-output name=module_dcmin::$dcmin\n";
+          file_put_contents(getenv('GITHUB_OUTPUT'), "module_version=$version\n", FILE_APPEND);
+          file_put_contents(getenv('GITHUB_OUTPUT'), "module_dcmin=$dcmin\n", FILE_APPEND);
 
       # Cope with returned versions
       - name: Log output of the script
@@ -112,8 +112,8 @@ jobs:
           format: markdown
           message: |
             → Update *dcstore.xml* file if necessary
+            Repository: *${{github.repository}}*
             Version: *${{steps.getversion.outputs.module_version}}* (Dotclear ${{steps.getversion.outputs.module_dcmin}}+)
             Branch: *${{ github.ref }}*
-            Repository: *${{github.repository}}*
             Owner: *${{github.repository_owner}}*
             🍺

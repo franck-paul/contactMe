@@ -5,17 +5,23 @@
  * @package Dotclear
  * @subpackage Plugins
  *
- * @author Olivier Meunier and contributors
+ * @author Franck Paul and contributors
  *
- * @copyright Olivier Meunier
+ * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-class contactMeWidgets
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\contactMe;
+
+use Dotclear\Plugin\widgets\WidgetsStack;
+
+class Widgets
 {
-    public static function initWidgets($w)
+    public static function initWidgets(WidgetsStack $w)
     {
         $w
-            ->create('contactMe', __('Contact me'), ['tplContactMe', 'contactMeWidget'], null, __('Link to the contact form'))
+            ->create('contactMe', __('Contact me'), [FrontendWidgets::class, 'renderWidget'], null, __('Link to the contact form'))
             ->addTitle(__('Contact'))
             ->setting('link_title', __('Link title:'), __('Contact me'))
             ->addHomeOnly()
@@ -24,5 +30,3 @@ class contactMeWidgets
             ->addOffline();
     }
 }
-
-dcCore::app()->addBehavior('initWidgets', [contactMeWidgets::class, 'initWidgets']);
