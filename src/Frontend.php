@@ -36,6 +36,12 @@ class Frontend extends dcNsProcess
             return false;
         }
 
+        // Don't do things in frontend if plugin disabled
+        $settings = dcCore::app()->blog->settings->get(My::id());
+        if (!(bool) $settings->active) {
+            return false;
+        }
+
         dcCore::app()->tpl->addValue('ContactMeURL', [FrontendTemplate::class, 'ContactMeURL']);
         dcCore::app()->tpl->addBlock('ContactMeIf', [FrontendTemplate::class, 'ContactMeIf']);
         dcCore::app()->tpl->addValue('ContactMePageTitle', [FrontendTemplate::class, 'ContactMePageTitle']);
