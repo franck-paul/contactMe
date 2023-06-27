@@ -19,6 +19,7 @@ use dcNsProcess;
 
 class Frontend extends dcNsProcess
 {
+    protected static $init = false; /** @deprecated since 2.27 */
     public static function init(): bool
     {
         static::$init = My::checkContext(My::FRONTEND);
