@@ -30,7 +30,7 @@ class FrontendWidgets
         }
 
         $settings = dcCore::app()->blog->settings->get(My::id());
-        if (!$settings->cm_recipients || !$settings->active) {
+        if (!$settings->recipients || !$settings->active) {
             return;
         }
 
