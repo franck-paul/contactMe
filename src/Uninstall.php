@@ -15,22 +15,19 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\contactMe;
 
 use dcCore;
-use dcNsProcess;
+use Dotclear\Core\Process;
 use Dotclear\Plugin\Uninstaller\Uninstaller;
 
-class Uninstall extends dcNsProcess
+class Uninstall extends Process
 {
-    protected static $init = false; /** @deprecated since 2.27 */
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::UNINSTALL);
-
-        return static::$init;
+        return self::status(My::checkContext(My::UNINSTALL));
     }
 
     public static function process(): bool
     {
-        if (!static::$init || !dcCore::app()->plugins->moduleExists('Uninstaller')) {
+        if (!self::status() || !dcCore::app()->plugins->moduleExists('Uninstaller')) {
             return false;
         }
 

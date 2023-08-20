@@ -15,15 +15,15 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\contactMe;
 
 use ArrayObject;
-use dcAntispam;
 use dcBlog;
 use dcCore;
-use dcPublic;
 use dcUrlHandlers;
+use Dotclear\Core\Frontend\Utility;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Network\Http;
 use Dotclear\Helper\Network\Mail\Mail;
 use Dotclear\Helper\Text;
+use Dotclear\Plugin\antispam\Antispam;
 use Exception;
 
 class FrontendUrl extends dcUrlHandlers
@@ -112,7 +112,7 @@ class FrontendUrl extends dcUrlHandlers
                     $cur->post_id           = 0; // That could break things...
                     $cur->comment_status    = dcBlog::COMMENT_PUBLISHED;
 
-                    @dcAntispam::isSpam($cur);
+                    @Antispam::isSpam($cur);
 
                     if ($cur->comment_status == dcBlog::COMMENT_JUNK) {   // @phpstan-ignore-line
                         unset($cur);
@@ -166,7 +166,7 @@ class FrontendUrl extends dcUrlHandlers
         }
 
         $tplset           = dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'tplset');
-        $default_template = Path::real(dcCore::app()->plugins->moduleInfo(My::id(), 'root')) . DIRECTORY_SEPARATOR . dcPublic::TPL_ROOT . DIRECTORY_SEPARATOR;
+        $default_template = Path::real(dcCore::app()->plugins->moduleInfo(My::id(), 'root')) . DIRECTORY_SEPARATOR . Utility::TPL_ROOT . DIRECTORY_SEPARATOR;
         if (!empty($tplset) && is_dir($default_template . $tplset)) {
             dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $default_template . $tplset);
         } else {

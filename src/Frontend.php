@@ -15,25 +15,22 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\contactMe;
 
 use dcCore;
-use dcNsProcess;
+use Dotclear\Core\Process;
 
-class Frontend extends dcNsProcess
+class Frontend extends Process
 {
-    protected static $init = false; /** @deprecated since 2.27 */
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::FRONTEND);
-
         // Localized string we find in template
         __('Subject');
         __('Message');
 
-        return static::$init;
+        return self::status(My::checkContext(My::FRONTEND));
     }
 
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
@@ -43,22 +40,22 @@ class Frontend extends dcNsProcess
             return false;
         }
 
-        dcCore::app()->tpl->addValue('ContactMeURL', [FrontendTemplate::class, 'ContactMeURL']);
-        dcCore::app()->tpl->addBlock('ContactMeIf', [FrontendTemplate::class, 'ContactMeIf']);
-        dcCore::app()->tpl->addValue('ContactMePageTitle', [FrontendTemplate::class, 'ContactMePageTitle']);
-        dcCore::app()->tpl->addValue('ContactMeFormCaption', [FrontendTemplate::class, 'ContactMeFormCaption']);
-        dcCore::app()->tpl->addValue('ContactMeMsgSuccess', [FrontendTemplate::class, 'ContactMeMsgSuccess']);
-        dcCore::app()->tpl->addValue('ContactMeMsgError', [FrontendTemplate::class, 'ContactMeMsgError']);
-        dcCore::app()->tpl->addValue('ContactMeName', [FrontendTemplate::class, 'ContactMeName']);
-        dcCore::app()->tpl->addValue('ContactMeEmail', [FrontendTemplate::class, 'ContactMeEmail']);
-        dcCore::app()->tpl->addValue('ContactMeSite', [FrontendTemplate::class, 'ContactMeSite']);
-        dcCore::app()->tpl->addValue('ContactMeSubject', [FrontendTemplate::class, 'ContactMeSubject']);
-        dcCore::app()->tpl->addValue('ContactMeMessage', [FrontendTemplate::class, 'ContactMeMessage']);
+        dcCore::app()->tpl->addValue('ContactMeURL', FrontendTemplate::ContactMeURL(...));
+        dcCore::app()->tpl->addBlock('ContactMeIf', FrontendTemplate::ContactMeIf(...));
+        dcCore::app()->tpl->addValue('ContactMePageTitle', FrontendTemplate::ContactMePageTitle(...));
+        dcCore::app()->tpl->addValue('ContactMeFormCaption', FrontendTemplate::ContactMeFormCaption(...));
+        dcCore::app()->tpl->addValue('ContactMeMsgSuccess', FrontendTemplate::ContactMeMsgSuccess(...));
+        dcCore::app()->tpl->addValue('ContactMeMsgError', FrontendTemplate::ContactMeMsgError(...));
+        dcCore::app()->tpl->addValue('ContactMeName', FrontendTemplate::ContactMeName(...));
+        dcCore::app()->tpl->addValue('ContactMeEmail', FrontendTemplate::ContactMeEmail(...));
+        dcCore::app()->tpl->addValue('ContactMeSite', FrontendTemplate::ContactMeSite(...));
+        dcCore::app()->tpl->addValue('ContactMeSubject', FrontendTemplate::ContactMeSubject(...));
+        dcCore::app()->tpl->addValue('ContactMeMessage', FrontendTemplate::ContactMeMessage(...));
 
         dcCore::app()->addBehaviors([
-            'publicBreadcrumb' => [FrontendBehaviors::class, 'publicBreadcrumb'],
+            'publicBreadcrumb' => FrontendBehaviors::publicBreadcrumb(...),
 
-            'initWidgets' => [Widgets::class, 'initWidgets'],
+            'initWidgets' => Widgets::initWidgets(...),
         ]);
 
         return true;

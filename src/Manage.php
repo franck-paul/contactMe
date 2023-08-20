@@ -15,8 +15,9 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\contactMe;
 
 use dcCore;
-use dcNsProcess;
-use dcPage;
+use Dotclear\Core\Backend\Notices;
+use Dotclear\Core\Backend\Page;
+use Dotclear\Core\Process;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Input;
@@ -29,17 +30,14 @@ use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Text as TextHelper;
 use Exception;
 
-class Manage extends dcNsProcess
+class Manage extends Process
 {
-    protected static $init = false; /** @deprecated since 2.27 */
     /**
      * Initializes the page.
      */
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::MANAGE);
-
-        return static::$init;
+        return self::status(My::checkContext(My::MANAGE));
     }
 
     /**
@@ -47,7 +45,7 @@ class Manage extends dcNsProcess
      */
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
@@ -109,8 +107,8 @@ class Manage extends dcNsProcess
                 }
 
                 dcCore::app()->blog->triggerBlog();
-                dcPage::addSuccessNotice(__('Setting have been successfully updated.'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
+                Notices::addSuccessNotice(__('Setting have been successfully updated.'));
+                dcCore::app()->admin->url->redirect('admin.plugin.' . My::id());
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -124,7 +122,7 @@ class Manage extends dcNsProcess
      */
     public static function render(): void
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return;
         }
 
@@ -143,7 +141,7 @@ class Manage extends dcNsProcess
                 ['#form_caption', '#msg_success', '#msg_error'],
                 'xhtml'
             ) .
-            dcPage::jsModuleLoad(My::id() . '/js/contactme.js');
+            My::jsLoad('contactme.js');
         }
 
         $settings = dcCore::app()->blog->settings->get(My::id());
@@ -173,15 +171,15 @@ class Manage extends dcNsProcess
             $msg_error = __('<p style="color:red"><strong>An error occured:</strong> %s</p>');
         }
 
-        dcPage::openModule(__('Contact me'), $head);
+        Page::openModule(__('Contact me'), $head);
 
-        echo dcPage::breadcrumb(
+        echo Page::breadcrumb(
             [
                 Html::escapeHTML(dcCore::app()->blog->name) => '',
                 __('Contact me')                            => '',
             ]
         );
-        echo dcPage::notices();
+        echo Notices::getNotices();
 
         // Form
 
@@ -297,11 +295,11 @@ class Manage extends dcNsProcess
                     dcCore::app()->formNonce(false),
                 ]),
                 (new Para())->class('info')->items([
-                    (new Text(null, sprintf(__('Don\'t forget to add a <a href="%s">“Contact Me” widget</a> linking to your contact page.'), dcCore::app()->adminurl->get('admin.plugin.widgets')))),
+                    (new Text(null, sprintf(__('Don\'t forget to add a <a href="%s">“Contact Me” widget</a> linking to your contact page.'), dcCore::app()->admin->url->get('admin.plugin.widgets')))),
                 ]),
             ])
         ->render();
 
-        dcPage::closeModule();
+        Page::closeModule();
     }
 }

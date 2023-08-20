@@ -21,7 +21,7 @@ class Widgets
     public static function initWidgets(WidgetsStack $w)
     {
         $w
-            ->create('contactMe', __('Contact me'), [FrontendWidgets::class, 'renderWidget'], null, __('Link to the contact form'))
+            ->create('contactMe', __('Contact me'), FrontendWidgets::renderWidget(...), null, __('Link to the contact form'))
             ->addTitle(__('Contact'))
             ->setting('link_title', __('Link title:'), __('Contact me'))
             ->addHomeOnly()
