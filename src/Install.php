@@ -49,7 +49,7 @@ class Install extends Process
                     }
                 };
 
-                $settings = dcCore::app()->blog->settings->get(My::id());
+                $settings = My::settings();
                 foreach ([
                     'recipients',
                     'subject_prefix',
@@ -65,7 +65,7 @@ class Install extends Process
             }
 
             // Init
-            $settings = dcCore::app()->blog->settings->get(My::id());
+            $settings = My::settings();
             $settings->put('active', true, dcNamespace::NS_BOOL, 'Active', false, true);
         } catch (Exception $e) {
             dcCore::app()->error->add($e->getMessage());

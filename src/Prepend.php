@@ -34,7 +34,7 @@ class Prepend extends Process
         dcCore::app()->url->register('contactme', 'contact', '^contact(?:/(.+))?$', FrontendUrl::contact(...));
 
         if (dcCore::app()->blog) {
-            $settings = dcCore::app()->blog->settings->get(My::id());
+            $settings = My::settings();
             if (!$settings->settingExists('active')) {
                 // Set active flag to true only if recipient(s) is/are set
                 $settings->put('active', (bool) $settings->recipients, dcNamespace::NS_BOOL);

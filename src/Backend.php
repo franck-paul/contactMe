@@ -34,13 +34,7 @@ class Backend extends Process
             return false;
         }
 
-        dcCore::app()->admin->menus[Menus::MENU_BLOG]->addItem(
-            __('Contact me'),
-            My::manageUrl(),
-            My::icons(),
-            preg_match(My::urlScheme(), $_SERVER['REQUEST_URI']),
-            My::checkContext(My::MENU)
-        );
+        My::addBackendMenuItem(Menus::MENU_BLOG);
 
         /* Register favorite */
         dcCore::app()->addBehaviors([

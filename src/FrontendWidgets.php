@@ -29,7 +29,7 @@ class FrontendWidgets
             return;
         }
 
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
         if (!$settings->recipients || !$settings->active) {
             return;
         }

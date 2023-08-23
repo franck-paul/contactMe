@@ -92,7 +92,7 @@ class Manage extends Process
                 $recipients = implode(', ', $r2);
 
                 // Everything's fine, save options
-                $settings = dcCore::app()->blog->settings->get(My::id());
+                $settings = My::settings();
                 $settings->put('active', $active, 'boolean');
                 $settings->put('recipients', $recipients, 'string', 'ContactMe recipients');
                 $settings->put('subject_prefix', $subject_prefix, 'string', 'ContactMe subject prefix');
@@ -144,7 +144,7 @@ class Manage extends Process
             My::jsLoad('contactme.js');
         }
 
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
 
         $active         = $settings->active;
         $recipients     = $settings->recipients;
@@ -171,7 +171,7 @@ class Manage extends Process
             $msg_error = __('<p style="color:red"><strong>An error occured:</strong> %s</p>');
         }
 
-        Page::openModule(__('Contact me'), $head);
+        Page::openModule(My::name(), $head);
 
         echo Page::breadcrumb(
             [
@@ -292,7 +292,7 @@ class Manage extends Process
                 (new Para())->items([
                     (new Submit(['frmsubmit']))
                         ->value(__('Save')),
-                    dcCore::app()->formNonce(false),
+                    ... My::hiddenFields(),
                 ]),
                 (new Para())->class('info')->items([
                     (new Text(null, sprintf(__('Don\'t forget to add a <a href="%s">“Contact Me” widget</a> linking to your contact page.'), dcCore::app()->admin->url->get('admin.plugin.widgets')))),

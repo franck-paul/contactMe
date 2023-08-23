@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\contactMe;
 
-use dcCore;
 use Dotclear\Module\MyPlugin;
 
 /**
@@ -22,13 +21,4 @@ use Dotclear\Module\MyPlugin;
  */
 class My extends MyPlugin
 {
-    /**
-     * Return URL regexp scheme cope by the plugin
-     *
-     * @return     string
-     */
-    public static function urlScheme(): string
-    {
-        return '/' . preg_quote(dcCore::app()->admin->url->get('admin.plugin.' . self::id())) . '(&.*)?$/';
-    }
 }

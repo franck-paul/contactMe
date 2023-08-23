@@ -35,7 +35,7 @@ class Frontend extends Process
         }
 
         // Don't do things in frontend if plugin disabled
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
         if (!(bool) $settings->active) {
             return false;
         }
