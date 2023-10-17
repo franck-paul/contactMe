@@ -18,7 +18,7 @@ use Dotclear\Plugin\widgets\WidgetsStack;
 
 class Widgets
 {
-    public static function initWidgets(WidgetsStack $w)
+    public static function initWidgets(WidgetsStack $w): string
     {
         $w
             ->create('contactMe', __('Contact me'), FrontendWidgets::renderWidget(...), null, __('Link to the contact form'))
@@ -28,5 +28,7 @@ class Widgets
             ->addContentOnly()
             ->addClass()
             ->addOffline();
+
+        return '';
     }
 }

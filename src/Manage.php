@@ -108,7 +108,7 @@ class Manage extends Process
 
                 dcCore::app()->blog->triggerBlog();
                 Notices::addSuccessNotice(__('Setting have been successfully updated.'));
-                dcCore::app()->admin->url->redirect('admin.plugin.' . My::id());
+                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -295,7 +295,7 @@ class Manage extends Process
                     ... My::hiddenFields(),
                 ]),
                 (new Para())->class('info')->items([
-                    (new Text(null, sprintf(__('Don\'t forget to add a <a href="%s">“Contact Me” widget</a> linking to your contact page.'), dcCore::app()->admin->url->get('admin.plugin.widgets')))),
+                    (new Text(null, sprintf(__('Don\'t forget to add a <a href="%s">“Contact Me” widget</a> linking to your contact page.'), dcCore::app()->adminurl->get('admin.plugin.widgets')))),
                 ]),
             ])
         ->render();

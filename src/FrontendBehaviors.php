@@ -16,10 +16,12 @@ namespace Dotclear\Plugin\contactMe;
 
 class FrontendBehaviors
 {
-    public static function publicBreadcrumb($context)
+    public static function publicBreadcrumb(string $context): string
     {
         if ($context == 'contactme') {
             return __('Contact me');
         }
+
+        return '';
     }
 }

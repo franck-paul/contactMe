@@ -19,17 +19,33 @@ use dcCore;
 
 class SimpleMenuBehaviors
 {
-    public static function adminSimpleMenuAddType($items)
+    /**
+     * @param      ArrayObject<string, ArrayObject<int, mixed>>  $items  The items
+     *
+     * @return     string
+     */
+    public static function adminSimpleMenuAddType($items): string
     {
         $items['contactme'] = new ArrayObject([__('Contact me'), false]);
+
+        return '';
     }
 
-    public static function adminSimpleMenuBeforeEdit($item_type, $item_select, $args)
+    /**
+     * @param      string               $item_type    The item type
+     * @param      string               $item_select  The item select
+     * @param      array<int, string>   $args         The arguments
+     *
+     * @return     string
+     */
+    public static function adminSimpleMenuBeforeEdit($item_type, $item_select, $args): string
     {
         if ($item_type == 'contactme') {
             $args[0] = __('Contact me');
             $args[1] = __('Mail contact form');
             $args[2] .= dcCore::app()->url->getURLFor('contactme');
         }
+
+        return '';
     }
 }

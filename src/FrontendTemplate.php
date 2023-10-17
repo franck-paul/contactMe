@@ -14,20 +14,32 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\contactMe;
 
+use ArrayObject;
 use dcCore;
 use dcTemplate;
 use Dotclear\Helper\Html\Html;
 
 class FrontendTemplate
 {
-    public static function ContactMeURL($attr)
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
+     *
+     * @return     string
+     */
+    public static function ContactMeURL(array|ArrayObject $attr): string
     {
         $f = dcCore::app()->tpl->getFilters($attr);
 
         return '<?php echo ' . sprintf($f, 'dcCore::app()->blog->url.dcCore::app()->url->getURLFor("contactme")') . '; ?>';
     }
 
-    public static function ContactMeIf($attr, $content)
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
+     * @param      string                                            $content   The content
+     *
+     * @return     string
+     */
+    public static function ContactMeIf(array|ArrayObject $attr, string $content): string
     {
         $if = [];
 
@@ -50,59 +62,100 @@ class FrontendTemplate
         return $content;
     }
 
-    public static function ContactMePageTitle($attr)
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
+     *
+     * @return     string
+     */
+    public static function ContactMePageTitle(array|ArrayObject $attr): string
     {
         $f = dcCore::app()->tpl->getFilters($attr);
 
         return '<?php echo ' . sprintf($f, 'dcCore::app()->blog->settings->' . My::id() . '->page_title') . '; ?>';
     }
 
-    public static function ContactMeFormCaption($attr)
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
+     *
+     * @return     string
+     */
+    public static function ContactMeFormCaption(array|ArrayObject $attr): string
     {
         $f = dcCore::app()->tpl->getFilters($attr);
 
         return '<?php echo ' . sprintf($f, 'dcCore::app()->blog->settings->' . My::id() . '->form_caption') . '; ?>';
     }
 
-    public static function ContactMeMsgSuccess()
+    /**
+     * @return     string
+     */
+    public static function ContactMeMsgSuccess(): string
     {
         return '<?php echo dcCore::app()->blog->settings->' . My::id() . '->msg_success; ?>';
     }
 
-    public static function ContactMeMsgError()
+    /**
+     * @return     string
+     */
+    public static function ContactMeMsgError(): string
     {
         return '<?php echo sprintf(dcCore::app()->blog->settings->' . My::id() . '->msg_error,' . Html::class . '::escapeHTML(dcCore::app()->ctx->contactme["error_msg"])); ?>';
     }
 
-    public static function ContactMeName($attr)
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
+     *
+     * @return     string
+     */
+    public static function ContactMeName(array|ArrayObject $attr): string
     {
         $f = dcCore::app()->tpl->getFilters($attr);
 
         return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["name"]') . '; ?>';
     }
 
-    public static function ContactMeEmail($attr)
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
+     *
+     * @return     string
+     */
+    public static function ContactMeEmail(array|ArrayObject $attr): string
     {
         $f = dcCore::app()->tpl->getFilters($attr);
 
         return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["email"]') . '; ?>';
     }
 
-    public static function ContactMeSite($attr)
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
+     *
+     * @return     string
+     */
+    public static function ContactMeSite(array|ArrayObject $attr): string
     {
         $f = dcCore::app()->tpl->getFilters($attr);
 
         return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["site"]') . '; ?>';
     }
 
-    public static function ContactMeSubject($attr)
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
+     *
+     * @return     string
+     */
+    public static function ContactMeSubject(array|ArrayObject $attr): string
     {
         $f = dcCore::app()->tpl->getFilters($attr);
 
         return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["subject"]') . '; ?>';
     }
 
-    public static function ContactMeMessage($attr)
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
+     *
+     * @return     string
+     */
+    public static function ContactMeMessage(array|ArrayObject $attr): string
     {
         $f = dcCore::app()->tpl->getFilters($attr);
 

@@ -16,22 +16,23 @@ namespace Dotclear\Plugin\contactMe;
 
 use dcCore;
 use Dotclear\Helper\Html\Html;
+use Dotclear\Plugin\widgets\WidgetsElement;
 
 class FrontendWidgets
 {
-    public static function renderWidget($w)
+    public static function renderWidget(WidgetsElement $w): string
     {
         if ($w->offline) {
-            return;
+            return '';
         }
 
         if (($w->homeonly == 1 && !dcCore::app()->url->isHome(dcCore::app()->url->type)) || ($w->homeonly == 2 && dcCore::app()->url->isHome(dcCore::app()->url->type))) {
-            return;
+            return '';
         }
 
         $settings = My::settings();
         if (!$settings->recipients || !$settings->active) {
-            return;
+            return '';
         }
 
         $res = ($w->title ? $w->renderTitle(Html::escapeHTML($w->title)) : '') .

@@ -19,7 +19,12 @@ use Dotclear\Core\Backend\Favorites;
 
 class BackendBehaviors
 {
-    public static function adminDashboardFavorites(Favorites $favs)
+    /**
+     * @param      Favorites  $favs   The favs
+     *
+     * @return     string
+     */
+    public static function adminDashboardFavorites(Favorites $favs): string
     {
         $favs->register('contactMe', [
             'title'       => __('Contact me'),
@@ -28,10 +33,19 @@ class BackendBehaviors
             'large-icon'  => My::icons(),
             'permissions' => My::checkContext(My::MENU),
         ]);
+
+        return '';
     }
 
-    public static function adminRteFlags(ArrayObject $rte)
+    /**
+     * @param      ArrayObject<string, mixed>  $rte
+     *
+     * @return     string
+     */
+    public static function adminRteFlags(ArrayObject $rte): string
     {
         $rte['contactme'] = [true, __('Contact me form caption and messages')];
+
+        return '';
     }
 }

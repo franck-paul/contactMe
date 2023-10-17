@@ -28,7 +28,10 @@ use Exception;
 
 class FrontendUrl extends dcUrlHandlers
 {
-    public static function contact($args)
+    /**
+     * @param      null|string  $args   The arguments
+     */
+    public static function contact(?string $args): void
     {
         $settings = My::settings();
         if (!$settings->recipients || !$settings->active) {
@@ -100,7 +103,7 @@ class FrontendUrl extends dcUrlHandlers
                 }
 
                 # Check message form spam
-                if ($settings->use_antispam && class_exists('dcAntispam') && isset(dcCore::app()->spamfilters)) {
+                if ($settings->use_antispam && class_exists('Antispam') && isset(dcCore::app()->spamfilters)) {
                     # Fake cursor to check spam
                     $cur                    = dcCore::app()->con->openCursor('foo');    // @phpstan-ignore-line
                     $cur->comment_trackback = 0;
