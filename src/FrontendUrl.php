@@ -128,13 +128,13 @@ class FrontendUrl extends dcUrlHandlers
                 if ($settings->smtp_account) {
                     $from = mail::B64Header(str_replace(':', '-', dcCore::app()->blog->name)) . ' <' . $settings->smtp_account . '>';
                 } else {
-                    $from = mail::B64Header(dcCore::app()->ctx->contactme['name']) . ' <' . dcCore::app()->ctx->contactme['email'] . '>';
+                    $from = mail::B64Header((string) dcCore::app()->ctx->contactme['name']) . ' <' . dcCore::app()->ctx->contactme['email'] . '>';
                 }
 
                 # Sending mail
                 $headers = [
                     'From: ' . $from,
-                    'Reply-To: ' . mail::B64Header(dcCore::app()->ctx->contactme['name']) . ' <' . dcCore::app()->ctx->contactme['email'] . '>',
+                    'Reply-To: ' . mail::B64Header((string) dcCore::app()->ctx->contactme['name']) . ' <' . dcCore::app()->ctx->contactme['email'] . '>',
                     'Content-Type: text/plain; charset=UTF-8;',
                     'X-Originating-IP: ' . Http::realIP(),
                     'X-Mailer: Dotclear',
@@ -147,7 +147,7 @@ class FrontendUrl extends dcUrlHandlers
                 if ($settings->subject_prefix) {
                     $subject = $settings->subject_prefix . ' ' . $subject;
                 }
-                $subject = mail::B64Header($subject);
+                $subject = mail::B64Header((string) $subject);
 
                 $msg = __("Hi there!\n\nYou received a message from your blog's contact page.") .
                 "\n\n" .
