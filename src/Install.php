@@ -16,6 +16,7 @@ namespace Dotclear\Plugin\contactMe;
 
 use dcCore;
 use dcNamespace;
+use Dotclear\App;
 use Dotclear\Core\Process;
 use Exception;
 
@@ -37,9 +38,9 @@ class Install extends Process
             $old_version = dcCore::app()->getVersion(My::id());
             if (version_compare((string) $old_version, '3.0', '<')) {
                 // Rename settings namespace
-                if (dcCore::app()->blog->settings->exists('contactme')) {
-                    dcCore::app()->blog->settings->delNamespace(My::id());
-                    dcCore::app()->blog->settings->renNamespace('contactme', My::id());
+                if (App::blog()->settings()->exists('contactme')) {
+                    App::blog()->settings()->delNamespace(My::id());
+                    App::blog()->settings()->renNamespace('contactme', My::id());
                 }
 
                 // Change settings names (remove cm_ prefix in them)

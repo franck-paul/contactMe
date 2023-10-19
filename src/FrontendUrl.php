@@ -18,6 +18,7 @@ use ArrayObject;
 use dcBlog;
 use dcCore;
 use dcUrlHandlers;
+use Dotclear\App;
 use Dotclear\Core\Frontend\Utility;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Network\Http;
@@ -126,7 +127,7 @@ class FrontendUrl extends dcUrlHandlers
                 }
 
                 if ($settings->smtp_account) {
-                    $from = mail::B64Header(str_replace(':', '-', dcCore::app()->blog->name)) . ' <' . $settings->smtp_account . '>';
+                    $from = mail::B64Header(str_replace(':', '-', App::blog()->name())) . ' <' . $settings->smtp_account . '>';
                 } else {
                     $from = mail::B64Header((string) dcCore::app()->ctx->contactme['name']) . ' <' . dcCore::app()->ctx->contactme['email'] . '>';
                 }
@@ -138,9 +139,9 @@ class FrontendUrl extends dcUrlHandlers
                     'Content-Type: text/plain; charset=UTF-8;',
                     'X-Originating-IP: ' . Http::realIP(),
                     'X-Mailer: Dotclear',
-                    'X-Blog-Id: ' . mail::B64Header(dcCore::app()->blog->id),
-                    'X-Blog-Name: ' . mail::B64Header(dcCore::app()->blog->name),
-                    'X-Blog-Url: ' . mail::B64Header(dcCore::app()->blog->url),
+                    'X-Blog-Id: ' . mail::B64Header(App::blog()->id()),
+                    'X-Blog-Name: ' . mail::B64Header(App::blog()->name()),
+                    'X-Blog-Url: ' . mail::B64Header(App::blog()->url()),
                 ];
 
                 $subject = dcCore::app()->ctx->contactme['subject'];
@@ -151,7 +152,7 @@ class FrontendUrl extends dcUrlHandlers
 
                 $msg = __("Hi there!\n\nYou received a message from your blog's contact page.") .
                 "\n\n" .
-                sprintf(__('Blog: %s'), dcCore::app()->blog->name) . "\n" .
+                sprintf(__('Blog: %s'), App::blog()->name()) . "\n" .
                 sprintf(__('Message from: %s <%s>'), dcCore::app()->ctx->contactme['name'], dcCore::app()->ctx->contactme['email']) . "\n" .
                 sprintf(__('Website: %s'), dcCore::app()->ctx->contactme['site']) . "\n\n" .
                 __('Message:') . "\n" .
@@ -161,14 +162,14 @@ class FrontendUrl extends dcUrlHandlers
                 foreach ($recipients as $email) {
                     mail::sendMail($email, $subject, $msg, $headers);
                 }
-                Http::redirect(dcCore::app()->blog->url . dcCore::app()->url->getURLFor('contactme') . '/sent');
+                Http::redirect(App::blog()->url() . dcCore::app()->url->getURLFor('contactme') . '/sent');
             } catch (Exception $e) {
                 dcCore::app()->ctx->contactme['error']     = true;
                 dcCore::app()->ctx->contactme['error_msg'] = $e->getMessage();
             }
         }
 
-        $tplset           = dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'tplset');
+        $tplset           = dcCore::app()->themes->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
         $default_template = Path::real(dcCore::app()->plugins->moduleInfo(My::id(), 'root')) . DIRECTORY_SEPARATOR . Utility::TPL_ROOT . DIRECTORY_SEPARATOR;
         if (!empty($tplset) && is_dir($default_template . $tplset)) {
             dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $default_template . $tplset);

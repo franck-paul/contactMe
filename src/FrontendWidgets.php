@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\contactMe;
 
 use dcCore;
+use Dotclear\App;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Plugin\widgets\WidgetsElement;
 
@@ -36,7 +37,7 @@ class FrontendWidgets
         }
 
         $res = ($w->title ? $w->renderTitle(Html::escapeHTML($w->title)) : '') .
-        '<p><a href="' . dcCore::app()->blog->url . dcCore::app()->url->getURLFor('contactme') . '">' .
+        '<p><a href="' . App::blog()->url() . dcCore::app()->url->getURLFor('contactme') . '">' .
             ($w->link_title ? Html::escapeHTML($w->link_title) : __('Contact me')) .
             '</a></p>';
 

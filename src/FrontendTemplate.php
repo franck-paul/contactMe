@@ -30,7 +30,7 @@ class FrontendTemplate
     {
         $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'dcCore::app()->blog->url.dcCore::app()->url->getURLFor("contactme")') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'App::blog()->url().dcCore::app()->url->getURLFor("contactme")') . '; ?>';
     }
 
     /**
@@ -71,7 +71,7 @@ class FrontendTemplate
     {
         $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'dcCore::app()->blog->settings->' . My::id() . '->page_title') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'App::blog()->settings()->' . My::id() . '->page_title') . '; ?>';
     }
 
     /**
@@ -83,7 +83,7 @@ class FrontendTemplate
     {
         $f = dcCore::app()->tpl->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'dcCore::app()->blog->settings->' . My::id() . '->form_caption') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'App::blog()->settings()->' . My::id() . '->form_caption') . '; ?>';
     }
 
     /**
@@ -91,7 +91,7 @@ class FrontendTemplate
      */
     public static function ContactMeMsgSuccess(): string
     {
-        return '<?php echo dcCore::app()->blog->settings->' . My::id() . '->msg_success; ?>';
+        return '<?php echo App::blog()->settings()->' . My::id() . '->msg_success; ?>';
     }
 
     /**
@@ -99,7 +99,7 @@ class FrontendTemplate
      */
     public static function ContactMeMsgError(): string
     {
-        return '<?php echo sprintf(dcCore::app()->blog->settings->' . My::id() . '->msg_error,' . Html::class . '::escapeHTML(dcCore::app()->ctx->contactme["error_msg"])); ?>';
+        return '<?php echo sprintf(App::blog()->settings()->' . My::id() . '->msg_error,' . Html::class . '::escapeHTML(dcCore::app()->ctx->contactme["error_msg"])); ?>';
     }
 
     /**
