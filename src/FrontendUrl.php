@@ -173,7 +173,7 @@ class FrontendUrl extends Url
         if (!empty($tplset) && is_dir($default_template . $tplset)) {
             App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $default_template . $tplset);
         } else {
-            App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $default_template . DC_DEFAULT_TPLSET);
+            App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $default_template . App::config()->defaultTplset());
         }
 
         self::serveDocument('contact_me.html');
