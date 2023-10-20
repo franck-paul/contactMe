@@ -14,8 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\contactMe;
 
-use dcCore;
-use dcNamespace;
+use Dotclear\App;
 use Dotclear\Core\Process;
 
 class Prepend extends Process
@@ -31,13 +30,13 @@ class Prepend extends Process
             return false;
         }
 
-        dcCore::app()->url->register('contactme', 'contact', '^contact(?:/(.+))?$', FrontendUrl::contact(...));
+        App::url()->register('contactme', 'contact', '^contact(?:/(.+))?$', FrontendUrl::contact(...));
 
-        if (dcCore::app()->blog) {
+        if (App::blog()->isDefined()) {
             $settings = My::settings();
             if (!$settings->settingExists('active')) {
                 // Set active flag to true only if recipient(s) is/are set
-                $settings->put('active', (bool) $settings->recipients, dcNamespace::NS_BOOL);
+                $settings->put('active', (bool) $settings->recipients, App::blogWorkspace()::NS_BOOL);
             }
         }
 

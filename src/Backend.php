@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\contactMe;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Backend\Menus;
 use Dotclear\Core\Process;
 
@@ -37,7 +37,7 @@ class Backend extends Process
         My::addBackendMenuItem(Menus::MENU_BLOG);
 
         /* Register favorite */
-        dcCore::app()->addBehaviors([
+        App::behavior()->addBehaviors([
             'adminDashboardFavoritesV2' => BackendBehaviors::adminDashboardFavorites(...),
             'adminRteFlagsV2'           => BackendBehaviors::adminRteFlags(...),
 
@@ -47,7 +47,7 @@ class Backend extends Process
         ]);
 
         if (My::checkContext(My::WIDGETS)) {
-            dcCore::app()->addBehaviors([
+            App::behavior()->addBehaviors([
                 'initWidgets' => Widgets::initWidgets(...),
             ]);
         }

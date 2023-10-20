@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\contactMe;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 
 class Frontend extends Process
@@ -40,19 +40,19 @@ class Frontend extends Process
             return false;
         }
 
-        dcCore::app()->tpl->addValue('ContactMeURL', FrontendTemplate::ContactMeURL(...));
-        dcCore::app()->tpl->addBlock('ContactMeIf', FrontendTemplate::ContactMeIf(...));
-        dcCore::app()->tpl->addValue('ContactMePageTitle', FrontendTemplate::ContactMePageTitle(...));
-        dcCore::app()->tpl->addValue('ContactMeFormCaption', FrontendTemplate::ContactMeFormCaption(...));
-        dcCore::app()->tpl->addValue('ContactMeMsgSuccess', FrontendTemplate::ContactMeMsgSuccess(...));
-        dcCore::app()->tpl->addValue('ContactMeMsgError', FrontendTemplate::ContactMeMsgError(...));
-        dcCore::app()->tpl->addValue('ContactMeName', FrontendTemplate::ContactMeName(...));
-        dcCore::app()->tpl->addValue('ContactMeEmail', FrontendTemplate::ContactMeEmail(...));
-        dcCore::app()->tpl->addValue('ContactMeSite', FrontendTemplate::ContactMeSite(...));
-        dcCore::app()->tpl->addValue('ContactMeSubject', FrontendTemplate::ContactMeSubject(...));
-        dcCore::app()->tpl->addValue('ContactMeMessage', FrontendTemplate::ContactMeMessage(...));
+        App::frontend()->template()->addValue('ContactMeURL', FrontendTemplate::ContactMeURL(...));
+        App::frontend()->template()->addBlock('ContactMeIf', FrontendTemplate::ContactMeIf(...));
+        App::frontend()->template()->addValue('ContactMePageTitle', FrontendTemplate::ContactMePageTitle(...));
+        App::frontend()->template()->addValue('ContactMeFormCaption', FrontendTemplate::ContactMeFormCaption(...));
+        App::frontend()->template()->addValue('ContactMeMsgSuccess', FrontendTemplate::ContactMeMsgSuccess(...));
+        App::frontend()->template()->addValue('ContactMeMsgError', FrontendTemplate::ContactMeMsgError(...));
+        App::frontend()->template()->addValue('ContactMeName', FrontendTemplate::ContactMeName(...));
+        App::frontend()->template()->addValue('ContactMeEmail', FrontendTemplate::ContactMeEmail(...));
+        App::frontend()->template()->addValue('ContactMeSite', FrontendTemplate::ContactMeSite(...));
+        App::frontend()->template()->addValue('ContactMeSubject', FrontendTemplate::ContactMeSubject(...));
+        App::frontend()->template()->addValue('ContactMeMessage', FrontendTemplate::ContactMeMessage(...));
 
-        dcCore::app()->addBehaviors([
+        App::behavior()->addBehaviors([
             'publicBreadcrumb' => FrontendBehaviors::publicBreadcrumb(...),
 
             'initWidgets' => Widgets::initWidgets(...),

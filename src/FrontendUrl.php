@@ -15,19 +15,18 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\contactMe;
 
 use ArrayObject;
-use dcBlog;
-use dcCore;
-use dcUrlHandlers;
 use Dotclear\App;
+use Dotclear\Core\Frontend\Url;
 use Dotclear\Core\Frontend\Utility;
 use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Network\Http;
 use Dotclear\Helper\Network\Mail\Mail;
 use Dotclear\Helper\Text;
+use Dotclear\Interface\Core\BlogInterface;
 use Dotclear\Plugin\antispam\Antispam;
 use Exception;
 
-class FrontendUrl extends dcUrlHandlers
+class FrontendUrl extends Url
 {
     /**
      * @param      null|string  $args   The arguments
@@ -39,7 +38,7 @@ class FrontendUrl extends dcUrlHandlers
             self::p404();
         }
 
-        dcCore::app()->ctx->contactme = new ArrayObject([
+        App::frontend()->context()->contactme = new ArrayObject([
             'name'      => '',
             'email'     => '',
             'site'      => '',
@@ -53,7 +52,7 @@ class FrontendUrl extends dcUrlHandlers
         $send_msg = isset($_POST['c_name']) && isset($_POST['c_mail']) && isset($_POST['c_site']) && isset($_POST['c_message']) && isset($_POST['c_subject']);
 
         if ($args == 'sent') {
-            dcCore::app()->ctx->contactme['sent'] = true;
+            App::frontend()->context()->contactme['sent'] = true;
         } elseif ($send_msg) {
             # Spam trap
             if (!empty($_POST['f_mail'])) {
@@ -64,11 +63,11 @@ class FrontendUrl extends dcUrlHandlers
             }
 
             try {
-                dcCore::app()->ctx->contactme['name']    = (string) preg_replace('/[\n\r]/', '', (string) $_POST['c_name']);
-                dcCore::app()->ctx->contactme['email']   = (string) preg_replace('/[\n\r]/', '', (string) $_POST['c_mail']);
-                dcCore::app()->ctx->contactme['site']    = (string) preg_replace('/[\n\r]/', '', (string) $_POST['c_site']);
-                dcCore::app()->ctx->contactme['subject'] = (string) preg_replace('/[\n\r]/', '', (string) $_POST['c_subject']);
-                dcCore::app()->ctx->contactme['message'] = $_POST['c_message'];
+                App::frontend()->context()->contactme['name']    = (string) preg_replace('/[\n\r]/', '', (string) $_POST['c_name']);
+                App::frontend()->context()->contactme['email']   = (string) preg_replace('/[\n\r]/', '', (string) $_POST['c_mail']);
+                App::frontend()->context()->contactme['site']    = (string) preg_replace('/[\n\r]/', '', (string) $_POST['c_site']);
+                App::frontend()->context()->contactme['subject'] = (string) preg_replace('/[\n\r]/', '', (string) $_POST['c_subject']);
+                App::frontend()->context()->contactme['message'] = $_POST['c_message'];
 
                 # Checks provided fields
                 if (empty($_POST['c_name'])) {
@@ -104,21 +103,21 @@ class FrontendUrl extends dcUrlHandlers
                 }
 
                 # Check message form spam
-                if ($settings->use_antispam && class_exists('Antispam') && isset(dcCore::app()->spamfilters)) {
+                if ($settings->use_antispam && class_exists('Antispam')) {
                     # Fake cursor to check spam
-                    $cur                    = dcCore::app()->con->openCursor('foo');    // @phpstan-ignore-line
+                    $cur                    = App::con()->openCursor('foo');
                     $cur->comment_trackback = 0;
-                    $cur->comment_author    = dcCore::app()->ctx->contactme['name'];
-                    $cur->comment_email     = dcCore::app()->ctx->contactme['email'];
-                    $cur->comment_site      = dcCore::app()->ctx->contactme['site'];
+                    $cur->comment_author    = App::frontend()->context()->contactme['name'];
+                    $cur->comment_email     = App::frontend()->context()->contactme['email'];
+                    $cur->comment_site      = App::frontend()->context()->contactme['site'];
                     $cur->comment_ip        = Http::realIP();
-                    $cur->comment_content   = dcCore::app()->ctx->contactme['message'];
+                    $cur->comment_content   = App::frontend()->context()->contactme['message'];
                     $cur->post_id           = 0; // That could break things...
-                    $cur->comment_status    = dcBlog::COMMENT_PUBLISHED;
+                    $cur->comment_status    = BlogInterface::COMMENT_PUBLISHED;
 
-                    @Antispam::isSpam($cur);
+                    Antispam::isSpam($cur);
 
-                    if ($cur->comment_status == dcBlog::COMMENT_JUNK) {   // @phpstan-ignore-line
+                    if ($cur->comment_status === BlogInterface::COMMENT_JUNK) { // @phpstan-ignore-line — Antispam::isSpam() may modify it!
                         unset($cur);
 
                         throw new Exception(__('Message seems to be a spam.'));
@@ -129,13 +128,13 @@ class FrontendUrl extends dcUrlHandlers
                 if ($settings->smtp_account) {
                     $from = mail::B64Header(str_replace(':', '-', App::blog()->name())) . ' <' . $settings->smtp_account . '>';
                 } else {
-                    $from = mail::B64Header((string) dcCore::app()->ctx->contactme['name']) . ' <' . dcCore::app()->ctx->contactme['email'] . '>';
+                    $from = mail::B64Header((string) App::frontend()->context()->contactme['name']) . ' <' . App::frontend()->context()->contactme['email'] . '>';
                 }
 
                 # Sending mail
                 $headers = [
                     'From: ' . $from,
-                    'Reply-To: ' . mail::B64Header((string) dcCore::app()->ctx->contactme['name']) . ' <' . dcCore::app()->ctx->contactme['email'] . '>',
+                    'Reply-To: ' . mail::B64Header((string) App::frontend()->context()->contactme['name']) . ' <' . App::frontend()->context()->contactme['email'] . '>',
                     'Content-Type: text/plain; charset=UTF-8;',
                     'X-Originating-IP: ' . Http::realIP(),
                     'X-Mailer: Dotclear',
@@ -144,7 +143,7 @@ class FrontendUrl extends dcUrlHandlers
                     'X-Blog-Url: ' . mail::B64Header(App::blog()->url()),
                 ];
 
-                $subject = dcCore::app()->ctx->contactme['subject'];
+                $subject = App::frontend()->context()->contactme['subject'];
                 if ($settings->subject_prefix) {
                     $subject = $settings->subject_prefix . ' ' . $subject;
                 }
@@ -153,28 +152,28 @@ class FrontendUrl extends dcUrlHandlers
                 $msg = __("Hi there!\n\nYou received a message from your blog's contact page.") .
                 "\n\n" .
                 sprintf(__('Blog: %s'), App::blog()->name()) . "\n" .
-                sprintf(__('Message from: %s <%s>'), dcCore::app()->ctx->contactme['name'], dcCore::app()->ctx->contactme['email']) . "\n" .
-                sprintf(__('Website: %s'), dcCore::app()->ctx->contactme['site']) . "\n\n" .
+                sprintf(__('Message from: %s <%s>'), App::frontend()->context()->contactme['name'], App::frontend()->context()->contactme['email']) . "\n" .
+                sprintf(__('Website: %s'), App::frontend()->context()->contactme['site']) . "\n\n" .
                 __('Message:') . "\n" .
                 "-----------------------------------------------------------\n" .
-                dcCore::app()->ctx->contactme['message'] . "\n\n";
+                App::frontend()->context()->contactme['message'] . "\n\n";
 
                 foreach ($recipients as $email) {
                     mail::sendMail($email, $subject, $msg, $headers);
                 }
-                Http::redirect(App::blog()->url() . dcCore::app()->url->getURLFor('contactme') . '/sent');
+                Http::redirect(App::blog()->url() . App::url()->getURLFor('contactme') . '/sent');
             } catch (Exception $e) {
-                dcCore::app()->ctx->contactme['error']     = true;
-                dcCore::app()->ctx->contactme['error_msg'] = $e->getMessage();
+                App::frontend()->context()->contactme['error']     = true;
+                App::frontend()->context()->contactme['error_msg'] = $e->getMessage();
             }
         }
 
-        $tplset           = dcCore::app()->themes->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
-        $default_template = Path::real(dcCore::app()->plugins->moduleInfo(My::id(), 'root')) . DIRECTORY_SEPARATOR . Utility::TPL_ROOT . DIRECTORY_SEPARATOR;
+        $tplset           = App::themes()->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
+        $default_template = Path::real(App::plugins()->moduleInfo(My::id(), 'root')) . DIRECTORY_SEPARATOR . Utility::TPL_ROOT . DIRECTORY_SEPARATOR;
         if (!empty($tplset) && is_dir($default_template . $tplset)) {
-            dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $default_template . $tplset);
+            App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $default_template . $tplset);
         } else {
-            dcCore::app()->tpl->setPath(dcCore::app()->tpl->getPath(), $default_template . DC_DEFAULT_TPLSET);
+            App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $default_template . DC_DEFAULT_TPLSET);
         }
 
         self::serveDocument('contact_me.html');

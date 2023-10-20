@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\contactMe;
 
-use dcCore;
 use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
@@ -103,15 +102,15 @@ class Manage extends Process
                 $settings->put('msg_error', $msg_error, 'string', 'ContactMe error message');
                 $settings->put('smtp_account', $smtp_account, 'string', 'ContactMe SMTP account');
 
-                if (dcCore::app()->plugins->moduleExists('antispam')) {
+                if (App::plugins()->moduleExists('antispam')) {
                     $settings->put('use_antispam', !empty($_POST['use_antispam']), 'boolean', 'ContactMe should use comments spam filter');
                 }
 
                 App::blog()->triggerBlog();
                 Notices::addSuccessNotice(__('Setting have been successfully updated.'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
+                My::redirect();
             } catch (Exception $e) {
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
         }
 
@@ -128,14 +127,14 @@ class Manage extends Process
         }
 
         $head        = '';
-        $rich_editor = dcCore::app()->auth->getOption('editor');
+        $rich_editor = App::auth()->getOption('editor');
         $rte_flag    = true;
-        $rte_flags   = @dcCore::app()->auth->user_prefs->interface->rte_flags;
+        $rte_flags   = @App::auth()->prefs()->interface->rte_flags;
         if (is_array($rte_flags) && in_array('contactme', $rte_flags)) {
             $rte_flag = $rte_flags['contactme'];
         }
         if ($rte_flag) {
-            $head = dcCore::app()->callBehavior(
+            $head = App::behavior()->callBehavior(
                 'adminPostEditor',
                 $rich_editor['xhtml'],
                 'contactme',
@@ -157,7 +156,7 @@ class Manage extends Process
         $use_antispam   = $settings->use_antispam;
         $smtp_account   = $settings->smtp_account;
 
-        $antispam_enabled = dcCore::app()->plugins->moduleExists('antispam');
+        $antispam_enabled = App::plugins()->moduleExists('antispam');
 
         if ($page_title === null) {
             $page_title = __('Contact me');
@@ -195,7 +194,7 @@ class Manage extends Process
         }
 
         echo (new Form('contactme'))
-            ->action(dcCore::app()->admin->getPageURL())
+            ->action(App::backend()->getPageURL())
             ->method('post')
             ->fields([
                 (new Para())->items([
@@ -255,7 +254,7 @@ class Manage extends Process
                     (new Textarea('form_caption'))
                         ->cols(30)
                         ->rows(2)
-                        ->lang(dcCore::app()->auth->getInfo('user_lang'))
+                        ->lang(App::auth()->getInfo('user_lang'))
                         ->spellcheck(true)
                         ->value(Html::escapeHTML($form_caption))
                         ->label((new Label(__('Form caption:'), Label::OUTSIDE_TEXT_BEFORE))),
@@ -264,7 +263,7 @@ class Manage extends Process
                     (new Textarea('msg_success'))
                         ->cols(30)
                         ->rows(2)
-                        ->lang(dcCore::app()->auth->getInfo('user_lang'))
+                        ->lang(App::auth()->getInfo('user_lang'))
                         ->spellcheck(true)
                         ->value(Html::escapeHTML($msg_success))
                         ->placeholder(__('Message'))
@@ -277,7 +276,7 @@ class Manage extends Process
                     (new Textarea('msg_error'))
                         ->cols(30)
                         ->rows(2)
-                        ->lang(dcCore::app()->auth->getInfo('user_lang'))
+                        ->lang(App::auth()->getInfo('user_lang'))
                         ->spellcheck(true)
                         ->value(Html::escapeHTML($msg_error))
                         ->placeholder(__('Message'))
@@ -296,7 +295,7 @@ class Manage extends Process
                     ... My::hiddenFields(),
                 ]),
                 (new Para())->class('info')->items([
-                    (new Text(null, sprintf(__('Don\'t forget to add a <a href="%s">“Contact Me” widget</a> linking to your contact page.'), dcCore::app()->adminurl->get('admin.plugin.widgets')))),
+                    (new Text(null, sprintf(__('Don\'t forget to add a <a href="%s">“Contact Me” widget</a> linking to your contact page.'), App::backend()->url()->get('admin.plugin.widgets')))),
                 ]),
             ])
         ->render();

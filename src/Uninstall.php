@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\contactMe;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 use Dotclear\Plugin\Uninstaller\Uninstaller;
 
@@ -27,7 +27,7 @@ class Uninstall extends Process
 
     public static function process(): bool
     {
-        if (!self::status() || !dcCore::app()->plugins->moduleExists('Uninstaller')) {
+        if (!self::status()) {
             return false;
         }
 
@@ -40,7 +40,7 @@ class Uninstall extends Process
         // $var   = My::id(); // Var sub-folder
 
         // Database table name
-        // $table = dcCore::app()->prefix . 'contactMe';
+        // $table = App::con()->prefix() . 'contactMe';
 
         $user_actions = [
 
@@ -86,7 +86,7 @@ class Uninstall extends Process
             ],
 
             // Plugin or Theme
-            (dcCore::app()->plugins->getDefines(['id' => $module]) ? 'plugins' : 'themes') => [
+            (App::plugins()->getDefines(['id' => $module]) ? 'plugins' : 'themes') => [
                 ['delete', $module],    // Same as plugin/theme Delete button in plugin/theme management
             ],
 
@@ -149,7 +149,7 @@ class Uninstall extends Process
             ],
 
             // Plugin or Theme
-            (dcCore::app()->plugins->getDefines(['id' => $module]) ? 'plugins' : 'themes') => [
+            (App::plugins()->getDefines(['id' => $module]) ? 'plugins' : 'themes') => [
                 ['delete', $module],    // Same as plugin/theme Delete button in plugin/theme management
             ],
 

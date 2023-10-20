@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\contactMe;
 
 use ArrayObject;
-use dcCore;
-use dcTemplate;
+use Dotclear\App;
+use Dotclear\Core\Frontend\Tpl;
 use Dotclear\Helper\Html\Html;
 
 class FrontendTemplate
@@ -28,9 +28,9 @@ class FrontendTemplate
      */
     public static function ContactMeURL(array|ArrayObject $attr): string
     {
-        $f = dcCore::app()->tpl->getFilters($attr);
+        $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'App::blog()->url().dcCore::app()->url->getURLFor("contactme")') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'App::blog()->url().App::url()->getURLFor("contactme")') . '; ?>';
     }
 
     /**
@@ -43,16 +43,16 @@ class FrontendTemplate
     {
         $if = [];
 
-        $operator = isset($attr['operator']) ? dcTemplate::getOperator($attr['operator']) : '&&';
+        $operator = isset($attr['operator']) ? Tpl::getOperator($attr['operator']) : '&&';
 
         if (isset($attr['sent'])) {
             $sign = (bool) $attr['sent'] ? '' : '!';
-            $if[] = $sign . "dcCore::app()->ctx->contactme['sent']";
+            $if[] = $sign . "App::frontend()->context()->contactme['sent']";
         }
 
         if (isset($attr['error'])) {
             $sign = (bool) $attr['error'] ? '' : '!';
-            $if[] = $sign . "dcCore::app()->ctx->contactme['error']";
+            $if[] = $sign . "App::frontend()->context()->contactme['error']";
         }
 
         if (!empty($if)) {
@@ -69,7 +69,7 @@ class FrontendTemplate
      */
     public static function ContactMePageTitle(array|ArrayObject $attr): string
     {
-        $f = dcCore::app()->tpl->getFilters($attr);
+        $f = App::frontend()->template()->getFilters($attr);
 
         return '<?php echo ' . sprintf($f, 'App::blog()->settings()->' . My::id() . '->page_title') . '; ?>';
     }
@@ -81,7 +81,7 @@ class FrontendTemplate
      */
     public static function ContactMeFormCaption(array|ArrayObject $attr): string
     {
-        $f = dcCore::app()->tpl->getFilters($attr);
+        $f = App::frontend()->template()->getFilters($attr);
 
         return '<?php echo ' . sprintf($f, 'App::blog()->settings()->' . My::id() . '->form_caption') . '; ?>';
     }
@@ -99,7 +99,7 @@ class FrontendTemplate
      */
     public static function ContactMeMsgError(): string
     {
-        return '<?php echo sprintf(App::blog()->settings()->' . My::id() . '->msg_error,' . Html::class . '::escapeHTML(dcCore::app()->ctx->contactme["error_msg"])); ?>';
+        return '<?php echo sprintf(App::blog()->settings()->' . My::id() . '->msg_error,' . Html::class . '::escapeHTML(App::frontend()->context()->contactme["error_msg"])); ?>';
     }
 
     /**
@@ -109,9 +109,9 @@ class FrontendTemplate
      */
     public static function ContactMeName(array|ArrayObject $attr): string
     {
-        $f = dcCore::app()->tpl->getFilters($attr);
+        $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["name"]') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'App::frontend()->context()->contactme["name"]') . '; ?>';
     }
 
     /**
@@ -121,9 +121,9 @@ class FrontendTemplate
      */
     public static function ContactMeEmail(array|ArrayObject $attr): string
     {
-        $f = dcCore::app()->tpl->getFilters($attr);
+        $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["email"]') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'App::frontend()->context()->contactme["email"]') . '; ?>';
     }
 
     /**
@@ -133,9 +133,9 @@ class FrontendTemplate
      */
     public static function ContactMeSite(array|ArrayObject $attr): string
     {
-        $f = dcCore::app()->tpl->getFilters($attr);
+        $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["site"]') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'App::frontend()->context()->contactme["site"]') . '; ?>';
     }
 
     /**
@@ -145,9 +145,9 @@ class FrontendTemplate
      */
     public static function ContactMeSubject(array|ArrayObject $attr): string
     {
-        $f = dcCore::app()->tpl->getFilters($attr);
+        $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["subject"]') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'App::frontend()->context()->contactme["subject"]') . '; ?>';
     }
 
     /**
@@ -157,8 +157,8 @@ class FrontendTemplate
      */
     public static function ContactMeMessage(array|ArrayObject $attr): string
     {
-        $f = dcCore::app()->tpl->getFilters($attr);
+        $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'dcCore::app()->ctx->contactme["message"]') . '; ?>';
+        return '<?php echo ' . sprintf($f, 'App::frontend()->context()->contactme["message"]') . '; ?>';
     }
 }

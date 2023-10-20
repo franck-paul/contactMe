@@ -14,10 +14,9 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\contactMe;
 
-use dcCore;
-use dcNamespace;
 use Dotclear\App;
 use Dotclear\Core\Process;
+use Dotclear\Interface\Core\BlogWorkspaceInterface;
 use Exception;
 
 class Install extends Process
@@ -35,16 +34,16 @@ class Install extends Process
 
         try {
             // Update
-            $old_version = dcCore::app()->getVersion(My::id());
+            $old_version = App::version()->getVersion(My::id());
             if (version_compare((string) $old_version, '3.0', '<')) {
                 // Rename settings namespace
                 if (App::blog()->settings()->exists('contactme')) {
-                    App::blog()->settings()->delNamespace(My::id());
-                    App::blog()->settings()->renNamespace('contactme', My::id());
+                    App::blog()->settings()->delWorkspace(My::id());
+                    App::blog()->settings()->renWorkspace('contactme', My::id());
                 }
 
                 // Change settings names (remove cm_ prefix in them)
-                $rename = function (string $name, dcNamespace $settings): void {
+                $rename = function (string $name, BlogWorkspaceInterface $settings): void {
                     if ($settings->settingExists('cm_' . $name, true)) {
                         $settings->rename('cm_' . $name, $name);
                     }
@@ -67,9 +66,9 @@ class Install extends Process
 
             // Init
             $settings = My::settings();
-            $settings->put('active', true, dcNamespace::NS_BOOL, 'Active', false, true);
+            $settings->put('active', true, App::blogWorkspace()::NS_BOOL, 'Active', false, true);
         } catch (Exception $e) {
-            dcCore::app()->error->add($e->getMessage());
+            App::error()->add($e->getMessage());
         }
 
         return true;

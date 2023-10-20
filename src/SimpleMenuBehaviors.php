@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\contactMe;
 
 use ArrayObject;
-use dcCore;
+use Dotclear\App;
 
 class SimpleMenuBehaviors
 {
@@ -43,7 +43,7 @@ class SimpleMenuBehaviors
         if ($item_type == 'contactme') {
             $args[0] = __('Contact me');
             $args[1] = __('Mail contact form');
-            $args[2] .= dcCore::app()->url->getURLFor('contactme');
+            $args[2] .= App::url()->getURLFor('contactme');
         }
 
         return '';
