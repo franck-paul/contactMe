@@ -37,7 +37,7 @@ class FrontendWidgets
 
         $res = ($w->title ? $w->renderTitle(Html::escapeHTML($w->title)) : '') .
         '<p><a href="' . App::blog()->url() . App::url()->getURLFor('contactme') . '">' .
-            ($w->link_title ? Html::escapeHTML($w->link_title) : __('Contact me')) .
+            ($w->get('link_title') ? Html::escapeHTML($w->get('link_title')) : __('Contact me')) .
             '</a></p>';
 
         return $w->renderDiv((bool) $w->content_only, 'contact-me ' . $w->class, '', $res);
