@@ -22,7 +22,6 @@ use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Network\Http;
 use Dotclear\Helper\Network\Mail\Mail;
 use Dotclear\Helper\Text;
-use Dotclear\Interface\Core\BlogInterface;
 use Dotclear\Plugin\antispam\Antispam;
 use Exception;
 
@@ -113,11 +112,11 @@ class FrontendUrl extends Url
                     $cur->comment_ip        = Http::realIP();
                     $cur->comment_content   = App::frontend()->context()->contactme['message'];
                     $cur->post_id           = 0; // That could break things...
-                    $cur->comment_status    = BlogInterface::COMMENT_PUBLISHED;
+                    $cur->comment_status    = App::blog()::COMMENT_PUBLISHED;
 
                     Antispam::isSpam($cur);
 
-                    if ($cur->comment_status === BlogInterface::COMMENT_JUNK) { // @phpstan-ignore-line — Antispam::isSpam() may modify it!
+                    if ($cur->comment_status === App::blog()::COMMENT_JUNK) { // @phpstan-ignore-line — Antispam::isSpam() may modify it!
                         unset($cur);
 
                         throw new Exception(__('Message seems to be a spam.'));
