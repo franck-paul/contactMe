@@ -18,7 +18,6 @@ use ArrayObject;
 use Dotclear\App;
 use Dotclear\Core\Frontend\Url;
 use Dotclear\Core\Frontend\Utility;
-use Dotclear\Helper\File\Path;
 use Dotclear\Helper\Network\Http;
 use Dotclear\Helper\Network\Mail\Mail;
 use Dotclear\Helper\Text;
@@ -168,11 +167,11 @@ class FrontendUrl extends Url
         }
 
         $tplset           = App::themes()->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
-        $default_template = Path::real(App::plugins()->moduleInfo(My::id(), 'root')) . DIRECTORY_SEPARATOR . Utility::TPL_ROOT . DIRECTORY_SEPARATOR;
+        $default_template = My::path() . DIRECTORY_SEPARATOR . Utility::TPL_ROOT . DIRECTORY_SEPARATOR;
         if (!empty($tplset) && is_dir($default_template . $tplset)) {
-            App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $default_template . $tplset);
+            App::frontend()->template()->appendPath($default_template . $tplset);
         } else {
-            App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $default_template . App::config()->defaultTplset());
+            App::frontend()->template()->appendPath($default_template . App::config()->defaultTplset());
         }
 
         self::serveDocument('contact_me.html');
