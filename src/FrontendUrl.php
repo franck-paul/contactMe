@@ -17,7 +17,6 @@ namespace Dotclear\Plugin\contactMe;
 use ArrayObject;
 use Dotclear\App;
 use Dotclear\Core\Frontend\Url;
-use Dotclear\Core\Frontend\Utility;
 use Dotclear\Helper\Network\Http;
 use Dotclear\Helper\Network\Mail\Mail;
 use Dotclear\Helper\Text;
@@ -166,14 +165,7 @@ class FrontendUrl extends Url
             }
         }
 
-        $tplset           = App::themes()->moduleInfo(App::blog()->settings()->system->theme, 'tplset');
-        $default_template = My::path() . DIRECTORY_SEPARATOR . Utility::TPL_ROOT . DIRECTORY_SEPARATOR;
-        if (!empty($tplset) && is_dir($default_template . $tplset)) {
-            App::frontend()->template()->appendPath($default_template . $tplset);
-        } else {
-            App::frontend()->template()->appendPath($default_template . App::config()->defaultTplset());
-        }
-
+        App::frontend()->template()->appendPath(My::tplPath());
         self::serveDocument('contact_me.html');
         exit;
     }
