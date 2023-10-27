@@ -88,14 +88,15 @@ class FrontendUrl extends Url
                 $rc2        = [];
                 foreach ($recipients as $v) {
                     $v = trim((string) $v);
-                    if (!empty($v) && Text::isEmail($v)) {
+                    if ($v !== '' && Text::isEmail($v)) {
                         $rc2[] = $v;
                     }
                 }
+
                 $recipients = $rc2;
                 unset($rc2);
 
-                if (empty($recipients)) {
+                if ($recipients === []) {
                     throw new Exception(__('No valid contact recipient was found.'));
                 }
 
@@ -119,6 +120,7 @@ class FrontendUrl extends Url
 
                         throw new Exception(__('Message seems to be a spam.'));
                     }
+
                     unset($cur);
                 }
 
@@ -144,6 +146,7 @@ class FrontendUrl extends Url
                 if ($settings->subject_prefix) {
                     $subject = $settings->subject_prefix . ' ' . $subject;
                 }
+
                 $subject = mail::B64Header((string) $subject);
 
                 $msg = __("Hi there!\n\nYou received a message from your blog's contact page.") .
@@ -158,6 +161,7 @@ class FrontendUrl extends Url
                 foreach ($recipients as $email) {
                     mail::sendMail($email, $subject, $msg, $headers);
                 }
+
                 Http::redirect(App::blog()->url() . App::url()->getURLFor('contactme') . '/sent');
             } catch (Exception $e) {
                 App::frontend()->context()->contactme['error']     = true;

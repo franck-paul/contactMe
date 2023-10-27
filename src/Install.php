@@ -43,7 +43,7 @@ class Install extends Process
                 }
 
                 // Change settings names (remove cm_ prefix in them)
-                $rename = function (string $name, BlogWorkspaceInterface $settings): void {
+                $rename = static function (string $name, BlogWorkspaceInterface $settings) : void {
                     if ($settings->settingExists('cm_' . $name, true)) {
                         $settings->rename('cm_' . $name, $name);
                     }
@@ -67,8 +67,8 @@ class Install extends Process
             // Init
             $settings = My::settings();
             $settings->put('active', true, App::blogWorkspace()::NS_BOOL, 'Active', false, true);
-        } catch (Exception $e) {
-            App::error()->add($e->getMessage());
+        } catch (Exception $exception) {
+            App::error()->add($exception->getMessage());
         }
 
         return true;

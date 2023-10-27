@@ -55,7 +55,7 @@ class FrontendTemplate
             $if[] = $sign . "App::frontend()->context()->contactme['error']";
         }
 
-        if (!empty($if)) {
+        if ($if !== []) {
             return '<?php if(' . implode(' ' . $operator . ' ', $if) . ') : ?>' . $content . '<?php endif; ?>';
         }
 

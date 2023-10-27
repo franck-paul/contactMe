@@ -81,14 +81,17 @@ class Manage extends Process
 
                 foreach ($r as $v) {
                     $v = trim((string) $v);
-                    if (empty($v)) {
+                    if ($v === '') {
                         continue;
                     }
+
                     if (!TextHelper::isEmail($v)) {
                         throw new Exception(sprintf(__('%s is not a valid e-mail address.'), Html::escapeHTML($v)));
                     }
+
                     $r2[] = $v;
                 }
+
                 $recipients = implode(', ', $r2);
 
                 // Everything's fine, save options
@@ -133,6 +136,7 @@ class Manage extends Process
         if (is_array($rte_flags) && in_array('contactme', $rte_flags)) {
             $rte_flag = $rte_flags['contactme'];
         }
+
         if ($rte_flag) {
             $head = App::behavior()->callBehavior(
                 'adminPostEditor',
@@ -161,12 +165,15 @@ class Manage extends Process
         if ($page_title === null) {
             $page_title = __('Contact me');
         }
+
         if ($form_caption === null) {
             $form_caption = __('<p>You can use the following form to send me an e-mail.</p>');
         }
+
         if ($msg_success === null) {
             $msg_success = __('<p style="color:green"><strong>Thank you for your message.</strong></p>');
         }
+
         if ($msg_error === null) {
             $msg_error = __('<p style="color:red"><strong>An error occured:</strong> %s</p>');
         }
