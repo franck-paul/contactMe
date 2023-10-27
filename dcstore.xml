@@ -1,10 +1,10 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="contactMe">
     <name>ContactMe</name>
-    <version>5.2</version>
+    <version>5.3</version>
     <author>Olivier Meunier and contributors</author>
     <desc>Add a simple contact form on your blog</desc>
-    <file>https://github.com/franck-paul/contactMe/releases/download/5.2/plugin-contactMe-5.2.zip</file>
+    <file>https://github.com/franck-paul/contactMe/releases/download/5.3/plugin-contactMe-5.3.zip</file>
     <da:dcmin>2.28</da:dcmin>
     <da:details>https://open-time.net/?q=contactMe</da:details>
     <da:support>https://github.com/franck-paul/contactMe</da:support>
