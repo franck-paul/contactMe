@@ -6,11 +6,11 @@
 </tpl:Block>
 
 <tpl:Block name="meta-robots">
-	<meta name="ROBOTS" content="{{tpl:BlogMetaRobots robots="NOINDEX,NOARCHIVE"}}" />
+	<meta name="ROBOTS" content="{{tpl:BlogMetaRobots robots="NOINDEX,NOARCHIVE"}}">
 </tpl:Block>
 
 <tpl:Block name="head-linkrel">
-	<link rel="contents" title="{{tpl:lang Archives}}" href="{{tpl:BlogArchiveURL}}" />
+	<link rel="contents" title="{{tpl:lang Archives}}" href="{{tpl:BlogArchiveURL}}">
 </tpl:Block>
 
 <tpl:Block name="body-tag"><body class="dc-contactme"></tpl:Block>
@@ -33,27 +33,27 @@
           {{tpl:SysBehavior behavior="publicContactMeFormBeforeContent"}}
 					<p class="field"><label for="c_name">{{tpl:lang Name or nickname}}&nbsp;:</label>
 					<input name="c_name" id="c_name" type="text" size="30" maxlength="255"
-					value="{{tpl:ContactMeName encode_html="1"}}" required aria-required="true" />
+					value="{{tpl:ContactMeName encode_html="1"}}" required aria-required="true">
 					</p>
 
 					<p class="field"><label for="c_mail">{{tpl:lang Email address}}&nbsp;:</label>
 					<input name="c_mail" id="c_mail" type="text" size="30" maxlength="255"
-					value="{{tpl:ContactMeEmail encode_html="1"}}" required aria-required="true" />
+					value="{{tpl:ContactMeEmail encode_html="1"}}" required aria-required="true">
 					</p>
 
 					<p class="field"><label for="c_site">{{tpl:lang Website}}
 					({{tpl:lang optional}})&nbsp;:</label>
 					<input name="c_site" id="c_site" type="text" size="30" maxlength="255"
-					value="{{tpl:ContactMeSite encode_html="1"}}" />
+					value="{{tpl:ContactMeSite encode_html="1"}}">
 					</p>
 
 					<p class="field"><label for="c_subject">{{tpl:lang Subject}}&nbsp;:</label>
 					<input name="c_subject" id="c_subject" type="text" size="30" maxlength="255"
-					value="{{tpl:ContactMeSubject encode_html="1"}}" required aria-required="true" />
+					value="{{tpl:ContactMeSubject encode_html="1"}}" required aria-required="true">
 					</p>
 
 					<p style="display:none"><input name="f_mail" type="text" size="30"
-					maxlength="255" value="" /></p>
+					maxlength="255" value=""></p>
 
 					<p class="field"><label for="c_message">{{tpl:lang Message}}&nbsp;:</label>
 					<textarea name="c_message" id="c_message" cols="35"
@@ -62,7 +62,7 @@
           <!-- # --BEHAVIOR-- publicContactMeFormAfterContent -->
           {{tpl:SysBehavior behavior="publicContactMeFormAfterContent"}}
 
-					<p><input type="submit" class="submit" value="{{tpl:lang send}}" /></p>
+					<p><input type="submit" class="submit" value="{{tpl:lang send}}"></p>
 				</fieldset>
 			</form>
 		</tpl:ContactMeIf>

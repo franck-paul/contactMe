@@ -101,7 +101,7 @@ class FrontendUrl extends Url
                 }
 
                 # Check message form spam
-                if ($settings->use_antispam && class_exists('Antispam')) {
+                if ($settings->use_antispam && class_exists('Dotclear\Plugin\antispam\Antispam')) {
                     # Fake cursor to check spam
                     $cur                    = App::con()->openCursor('foo');
                     $cur->comment_trackback = 0;
