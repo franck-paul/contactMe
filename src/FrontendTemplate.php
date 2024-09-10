@@ -30,7 +30,7 @@ class FrontendTemplate
     {
         $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'App::blog()->url().App::url()->getURLFor("contactme")') . '; ?>';
+        return '<?= ' . sprintf($f, 'App::blog()->url().App::url()->getURLFor("contactme")') . ' ?>';
     }
 
     /**
@@ -71,7 +71,7 @@ class FrontendTemplate
     {
         $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'App::blog()->settings()->' . My::id() . '->page_title') . '; ?>';
+        return '<?= ' . sprintf($f, 'App::blog()->settings()->' . My::id() . '->page_title') . ' ?>';
     }
 
     /**
@@ -83,7 +83,7 @@ class FrontendTemplate
     {
         $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'App::blog()->settings()->' . My::id() . '->form_caption') . '; ?>';
+        return '<?= ' . sprintf($f, 'App::blog()->settings()->' . My::id() . '->form_caption') . ' ?>';
     }
 
     /**
@@ -91,7 +91,7 @@ class FrontendTemplate
      */
     public static function ContactMeMsgSuccess(): string
     {
-        return '<?php echo App::blog()->settings()->' . My::id() . '->msg_success; ?>';
+        return '<?= App::blog()->settings()->' . My::id() . '->msg_success ?>';
     }
 
     /**
@@ -99,7 +99,7 @@ class FrontendTemplate
      */
     public static function ContactMeMsgError(): string
     {
-        return '<?php echo sprintf(App::blog()->settings()->' . My::id() . '->msg_error,' . Html::class . '::escapeHTML(App::frontend()->context()->contactme["error_msg"])); ?>';
+        return '<?= sprintf(App::blog()->settings()->' . My::id() . '->msg_error,' . Html::class . '::escapeHTML(App::frontend()->context()->contactme["error_msg"])) ?>';
     }
 
     /**
@@ -111,7 +111,7 @@ class FrontendTemplate
     {
         $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'App::frontend()->context()->contactme["name"]') . '; ?>';
+        return '<?= ' . sprintf($f, 'App::frontend()->context()->contactme["name"]') . ' ?>';
     }
 
     /**
@@ -123,7 +123,7 @@ class FrontendTemplate
     {
         $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'App::frontend()->context()->contactme["email"]') . '; ?>';
+        return '<?= ' . sprintf($f, 'App::frontend()->context()->contactme["email"]') . ' ?>';
     }
 
     /**
@@ -135,7 +135,7 @@ class FrontendTemplate
     {
         $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'App::frontend()->context()->contactme["site"]') . '; ?>';
+        return '<?= ' . sprintf($f, 'App::frontend()->context()->contactme["site"]') . ' ?>';
     }
 
     /**
@@ -147,7 +147,7 @@ class FrontendTemplate
     {
         $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'App::frontend()->context()->contactme["subject"]') . '; ?>';
+        return '<?= ' . sprintf($f, 'App::frontend()->context()->contactme["subject"]') . ' ?>';
     }
 
     /**
@@ -159,6 +159,6 @@ class FrontendTemplate
     {
         $f = App::frontend()->template()->getFilters($attr);
 
-        return '<?php echo ' . sprintf($f, 'App::frontend()->context()->contactme["message"]') . '; ?>';
+        return '<?= ' . sprintf($f, 'App::frontend()->context()->contactme["message"]') . ' ?>';
     }
 }
