@@ -1,13 +1,13 @@
-/*global $, jsToolBar, dotclear */
+/*global jsToolBar, dotclear */
 'use strict';
 
-$(() => {
+dotclear.ready(() => {
   // HTML text editor
   if (typeof jsToolBar === 'function') {
-    $('#contactme textarea').each(function () {
-      dotclear.tbWidgetText = new jsToolBar(this);
+    for (const elt of document.querySelectorAll('#contactme textarea')) {
+      dotclear.tbWidgetText = new jsToolBar(elt);
       dotclear.tbWidgetText.context = 'contactme';
       dotclear.tbWidgetText.draw('xhtml');
-    });
+    }
   }
 });
