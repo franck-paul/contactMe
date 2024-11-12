@@ -14,7 +14,7 @@ $this->registerModule(
     'ContactMe',
     'Add a simple contact form on your blog',
     'Olivier Meunier and contributors',
-    '5.5',
+    '5.6',
     [
         'requires'    => [['core', '2.28']],
         'permissions' => 'My',
