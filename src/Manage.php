@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief contactMe, a plugin for Dotclear 2
  *
@@ -76,7 +77,7 @@ class Manage extends Process
                     throw new Exception(__('No error message.'));
                 }
 
-                $r  = explode(',', $recipients);
+                $r  = explode(',', (string) $recipients);
                 $r2 = [];
 
                 foreach ($r as $v) {
