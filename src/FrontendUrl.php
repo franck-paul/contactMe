@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief contactMe, a plugin for Dotclear 2
  *
@@ -87,7 +88,7 @@ class FrontendUrl extends Url
                 $recipients = explode(',', $settings->recipients);
                 $rc2        = [];
                 foreach ($recipients as $v) {
-                    $v = trim((string) $v);
+                    $v = trim($v);
                     if ($v !== '' && Text::isEmail($v)) {
                         $rc2[] = $v;
                     }

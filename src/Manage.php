@@ -81,7 +81,7 @@ class Manage extends Process
                 $r2 = [];
 
                 foreach ($r as $v) {
-                    $v = trim((string) $v);
+                    $v = trim($v);
                     if ($v === '') {
                         continue;
                     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief contactMe, a plugin for Dotclear 2
  *
@@ -21,10 +22,8 @@ class SimpleMenuBehaviors
 {
     /**
      * @param      ArrayObject<string, ArrayObject<int, mixed>>  $items  The items
-     *
-     * @return     string
      */
-    public static function adminSimpleMenuAddType($items): string
+    public static function adminSimpleMenuAddType(ArrayObject $items): string
     {
         $items['contactme'] = new ArrayObject([__('Contact me'), false]);
 
@@ -35,10 +34,8 @@ class SimpleMenuBehaviors
      * @param      string               $item_type    The item type
      * @param      string               $item_select  The item select
      * @param      array<int, string>   $args         The arguments
-     *
-     * @return     string
      */
-    public static function adminSimpleMenuBeforeEdit($item_type, $item_select, $args): string
+    public static function adminSimpleMenuBeforeEdit($item_type, $item_select, array $args): string
     {
         if ($item_type == 'contactme') {
             $args[0] = __('Contact me');

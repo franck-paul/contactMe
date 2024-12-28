@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief contactMe, a plugin for Dotclear 2
  *
@@ -18,10 +19,6 @@ class FrontendBehaviors
 {
     public static function publicBreadcrumb(string $context): string
     {
-        if ($context == 'contactme') {
-            return __('Contact me');
-        }
-
-        return '';
+        return $context === 'contactme' ? __('Contact me') : '';
     }
 }

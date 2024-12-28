@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief contactMe, a plugin for Dotclear 2
  *
@@ -23,8 +24,6 @@ class FrontendTemplate
 {
     /**
      * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
-     *
-     * @return     string
      */
     public static function ContactMeURL(array|ArrayObject $attr): string
     {
@@ -36,8 +35,6 @@ class FrontendTemplate
     /**
      * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
      * @param      string                                            $content   The content
-     *
-     * @return     string
      */
     public static function ContactMeIf(array|ArrayObject $attr, string $content): string
     {
@@ -64,8 +61,6 @@ class FrontendTemplate
 
     /**
      * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
-     *
-     * @return     string
      */
     public static function ContactMePageTitle(array|ArrayObject $attr): string
     {
@@ -76,8 +71,6 @@ class FrontendTemplate
 
     /**
      * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
-     *
-     * @return     string
      */
     public static function ContactMeFormCaption(array|ArrayObject $attr): string
     {
@@ -86,17 +79,11 @@ class FrontendTemplate
         return '<?= ' . sprintf($f, 'App::blog()->settings()->' . My::id() . '->form_caption') . ' ?>';
     }
 
-    /**
-     * @return     string
-     */
     public static function ContactMeMsgSuccess(): string
     {
         return '<?= App::blog()->settings()->' . My::id() . '->msg_success ?>';
     }
 
-    /**
-     * @return     string
-     */
     public static function ContactMeMsgError(): string
     {
         return '<?= sprintf(App::blog()->settings()->' . My::id() . '->msg_error,' . Html::class . '::escapeHTML(App::frontend()->context()->contactme["error_msg"])) ?>';
@@ -104,8 +91,6 @@ class FrontendTemplate
 
     /**
      * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
-     *
-     * @return     string
      */
     public static function ContactMeName(array|ArrayObject $attr): string
     {
@@ -116,8 +101,6 @@ class FrontendTemplate
 
     /**
      * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
-     *
-     * @return     string
      */
     public static function ContactMeEmail(array|ArrayObject $attr): string
     {
@@ -128,8 +111,6 @@ class FrontendTemplate
 
     /**
      * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
-     *
-     * @return     string
      */
     public static function ContactMeSite(array|ArrayObject $attr): string
     {
@@ -140,8 +121,6 @@ class FrontendTemplate
 
     /**
      * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
-     *
-     * @return     string
      */
     public static function ContactMeSubject(array|ArrayObject $attr): string
     {
@@ -152,8 +131,6 @@ class FrontendTemplate
 
     /**
      * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
-     *
-     * @return     string
      */
     public static function ContactMeMessage(array|ArrayObject $attr): string
     {
