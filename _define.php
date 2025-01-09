@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief contactMe, a plugin for Dotclear 2
  *
@@ -16,7 +17,7 @@ $this->registerModule(
     'Olivier Meunier and contributors',
     '5.6',
     [
-        'requires'    => [['core', '2.28']],
+        'requires'    => [['core', '2.33']],
         'permissions' => 'My',
         'type'        => 'plugin',
         'settings'    => [
