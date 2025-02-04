@@ -40,6 +40,7 @@ jobs:
           <?php
           $version = '';
           $dcmin = '2.0';
+          $date = '';
           if (file_exists('dcstore.xml')) {
             $df = file_get_contents('./_define.php');
             if (preg_match('/registerModule\((.*?),(.*?)[\'\"],(.*?)[\'\"],(.*?)[\'\"](.*?)[\'\"](.*?)(,.*)\)/s',$df,$matches)) {
@@ -51,6 +52,9 @@ jobs:
                     $dcmin = $submatches[4];
                   }
                 }
+                if (preg_match('/\'date\'\s*=>\s*\'([^\']*?)\'/s',$df,$matches)) {
+                  $date = $matches[1];
+                }
               }
             }
             if ($version !== '') {
@@ -60,6 +64,7 @@ jobs:
                 $ds = preg_replace('/download\/(.*?)\//s',"download/$version/",$ds);
                 $ds = preg_replace('/(.*)-(.*?).zip/s',"$1-$version.zip",$ds);
                 $ds = preg_replace('/<da:dcmin>(.*?)<\/da:dcmin>/s',"<da:dcmin>$dcmin</da:dcmin>",$ds);
+                $ds = preg_replace('/<date>(.*?)<\/date>/s',"<date>$date</date>",$ds);
                 if ($ds) {
                   file_put_contents('dcstore.xml',$ds);
                 }
