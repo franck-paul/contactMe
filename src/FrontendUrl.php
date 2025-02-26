@@ -85,7 +85,7 @@ class FrontendUrl extends Url
                 }
 
                 # Checks recipients addresses
-                $recipients = explode(',', $settings->recipients);
+                $recipients = explode(',', (string) $settings->recipients);
                 $rc2        = [];
                 foreach ($recipients as $v) {
                     $v = trim($v);
