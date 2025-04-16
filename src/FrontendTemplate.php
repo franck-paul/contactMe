@@ -16,9 +16,8 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\contactMe;
 
 use ArrayObject;
-use Dotclear\App;
 use Dotclear\Core\Frontend\Tpl;
-use Dotclear\Helper\Html\Html;
+use Dotclear\Plugin\TemplateHelper\Code;
 
 class FrontendTemplate
 {
@@ -27,9 +26,12 @@ class FrontendTemplate
      */
     public static function ContactMeURL(array|ArrayObject $attr): string
     {
-        $f = App::frontend()->template()->getFilters($attr);
+        $attr = $attr instanceof ArrayObject ? $attr : new ArrayObject($attr);
 
-        return '<?= ' . sprintf($f, 'App::blog()->url().App::url()->getURLFor("contactme")') . ' ?>';
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::ContactMeURL(...),
+            attr: $attr,
+        );
     }
 
     /**
@@ -38,8 +40,9 @@ class FrontendTemplate
      */
     public static function ContactMeIf(array|ArrayObject $attr, string $content): string
     {
-        $if = [];
+        $attr = $attr instanceof ArrayObject ? $attr : new ArrayObject($attr);
 
+        $if       = [];
         $operator = isset($attr['operator']) ? Tpl::getOperator($attr['operator']) : '&&';
 
         if (isset($attr['sent'])) {
@@ -53,7 +56,14 @@ class FrontendTemplate
         }
 
         if ($if !== []) {
-            return '<?php if(' . implode(' ' . $operator . ' ', $if) . ') : ?>' . $content . '<?php endif; ?>';
+            return Code::getPHPTemplateBlockCode(
+                FrontendTemplateCode::ContactMeIf(...),
+                [
+                    implode(' ' . $operator . ' ', $if),
+                ],
+                $content,
+                $attr,
+            );
         }
 
         return $content;
@@ -64,9 +74,15 @@ class FrontendTemplate
      */
     public static function ContactMePageTitle(array|ArrayObject $attr): string
     {
-        $f = App::frontend()->template()->getFilters($attr);
+        $attr = $attr instanceof ArrayObject ? $attr : new ArrayObject($attr);
 
-        return '<?= ' . sprintf($f, 'App::blog()->settings()->' . My::id() . '->page_title') . ' ?>';
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::ContactMePageTitle(...),
+            [
+                My::id(),
+            ],
+            attr: $attr,
+        );
     }
 
     /**
@@ -74,19 +90,47 @@ class FrontendTemplate
      */
     public static function ContactMeFormCaption(array|ArrayObject $attr): string
     {
-        $f = App::frontend()->template()->getFilters($attr);
+        $attr = $attr instanceof ArrayObject ? $attr : new ArrayObject($attr);
 
-        return '<?= ' . sprintf($f, 'App::blog()->settings()->' . My::id() . '->form_caption') . ' ?>';
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::ContactMeFormCaption(...),
+            [
+                My::id(),
+            ],
+            attr: $attr,
+        );
     }
 
-    public static function ContactMeMsgSuccess(): string
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
+     */
+    public static function ContactMeMsgSuccess(array|ArrayObject $attr): string
     {
-        return '<?= App::blog()->settings()->' . My::id() . '->msg_success ?>';
+        $attr = $attr instanceof ArrayObject ? $attr : new ArrayObject($attr);
+
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::ContactMeMsgSuccess(...),
+            [
+                My::id(),
+            ],
+            attr: $attr,
+        );
     }
 
-    public static function ContactMeMsgError(): string
+    /**
+     * @param      array<string, mixed>|\ArrayObject<string, mixed>  $attr      The attribute
+     */
+    public static function ContactMeMsgError(array|ArrayObject $attr): string
     {
-        return '<?= sprintf(App::blog()->settings()->' . My::id() . '->msg_error,' . Html::class . '::escapeHTML(App::frontend()->context()->contactme["error_msg"])) ?>';
+        $attr = $attr instanceof ArrayObject ? $attr : new ArrayObject($attr);
+
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::ContactMeMsgError(...),
+            [
+                My::id(),
+            ],
+            attr: $attr,
+        );
     }
 
     /**
@@ -94,9 +138,12 @@ class FrontendTemplate
      */
     public static function ContactMeName(array|ArrayObject $attr): string
     {
-        $f = App::frontend()->template()->getFilters($attr);
+        $attr = $attr instanceof ArrayObject ? $attr : new ArrayObject($attr);
 
-        return '<?= ' . sprintf($f, 'App::frontend()->context()->contactme["name"]') . ' ?>';
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::ContactMeName(...),
+            attr: $attr,
+        );
     }
 
     /**
@@ -104,9 +151,12 @@ class FrontendTemplate
      */
     public static function ContactMeEmail(array|ArrayObject $attr): string
     {
-        $f = App::frontend()->template()->getFilters($attr);
+        $attr = $attr instanceof ArrayObject ? $attr : new ArrayObject($attr);
 
-        return '<?= ' . sprintf($f, 'App::frontend()->context()->contactme["email"]') . ' ?>';
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::ContactMeEmail(...),
+            attr: $attr,
+        );
     }
 
     /**
@@ -114,9 +164,12 @@ class FrontendTemplate
      */
     public static function ContactMeSite(array|ArrayObject $attr): string
     {
-        $f = App::frontend()->template()->getFilters($attr);
+        $attr = $attr instanceof ArrayObject ? $attr : new ArrayObject($attr);
 
-        return '<?= ' . sprintf($f, 'App::frontend()->context()->contactme["site"]') . ' ?>';
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::ContactMeSite(...),
+            attr: $attr,
+        );
     }
 
     /**
@@ -124,9 +177,12 @@ class FrontendTemplate
      */
     public static function ContactMeSubject(array|ArrayObject $attr): string
     {
-        $f = App::frontend()->template()->getFilters($attr);
+        $attr = $attr instanceof ArrayObject ? $attr : new ArrayObject($attr);
 
-        return '<?= ' . sprintf($f, 'App::frontend()->context()->contactme["subject"]') . ' ?>';
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::ContactMeSubject(...),
+            attr: $attr,
+        );
     }
 
     /**
@@ -134,8 +190,11 @@ class FrontendTemplate
      */
     public static function ContactMeMessage(array|ArrayObject $attr): string
     {
-        $f = App::frontend()->template()->getFilters($attr);
+        $attr = $attr instanceof ArrayObject ? $attr : new ArrayObject($attr);
 
-        return '<?= ' . sprintf($f, 'App::frontend()->context()->contactme["message"]') . ' ?>';
+        return Code::getPHPTemplateValueCode(
+            FrontendTemplateCode::ContactMeMessage(...),
+            attr: $attr,
+        );
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief contactMe, a plugin for Dotclear 2
  *
@@ -15,6 +16,11 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\contactMe;
 
 use Dotclear\App;
+use Dotclear\Helper\Html\Form\Link;
+use Dotclear\Helper\Html\Form\None;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Plugin\widgets\WidgetsElement;
 
@@ -35,11 +41,18 @@ class FrontendWidgets
             return '';
         }
 
-        $res = ($w->title ? $w->renderTitle(Html::escapeHTML($w->title)) : '') .
-        '<p><a href="' . App::blog()->url() . App::url()->getURLFor('contactme') . '">' .
-            ($w->get('link_title') ? Html::escapeHTML($w->get('link_title')) : __('Contact me')) .
-            '</a></p>';
+        $buffer = (new Set())
+            ->items([
+                $w->title ? new Text(null, $w->renderTitle(Html::escapeHTML($w->title))) : new None(),
+                (new Para())
+                    ->items([
+                        (new Link())
+                            ->href(App::blog()->url() . App::url()->getURLFor('contactme'))
+                            ->text($w->get('link_title') ? Html::escapeHTML($w->get('link_title')) : __('Contact me')),
+                    ]),
+            ])
+        ->render();
 
-        return $w->renderDiv((bool) $w->content_only, 'contact-me ' . $w->class, '', $res);
+        return $w->renderDiv((bool) $w->content_only, 'contact-me ' . $w->class, '', $buffer);
     }
 }

@@ -17,8 +17,11 @@ $this->registerModule(
     'Olivier Meunier and contributors',
     '6.1',
     [
-        'date'        => '2025-02-26T16:09:26+0100',
-        'requires'    => [['core', '2.33']],
+        'date'     => '2025-02-26T16:09:26+0100',
+        'requires' => [
+            ['core', '2.34'],
+            ['TemplateHelper'],
+        ],
         'permissions' => 'My',
         'type'        => 'plugin',
         'settings'    => [
@@ -27,5 +30,6 @@ $this->registerModule(
         'details'    => 'https://open-time.net/?q=contactMe',
         'support'    => 'https://github.com/franck-paul/contactMe',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/contactMe/main/dcstore.xml',
+        'license'    => 'gpl2',
     ]
 );
