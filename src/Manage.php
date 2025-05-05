@@ -23,7 +23,9 @@ use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Input;
 use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Span;
 use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Helper\Html\Form\Textarea;
@@ -210,6 +212,9 @@ class Manage extends Process
                         ->value(1)
                         ->label((new Label(__('Activate contactMe on blog'), Label::INSIDE_TEXT_AFTER))),
                 ]),
+                (new Note())
+                    ->class('form-note')
+                    ->text(sprintf(__('Fields preceded by %s are mandatory.'), (new Span('*'))->class('required')->render())),
                 (new Text('h3', __('E-Mail settings'))),
                 (new Para())->items([
                     (new Input('recipients'))
@@ -220,7 +225,7 @@ class Manage extends Process
                         ->required(true)
                         ->placeholder(__('Email'))
                         ->label((new Label(
-                            (new Text('abbr', '*'))->title(__('Required field'))->render() . __('Comma separated recipients list:'),
+                            (new Span('*'))->render() . __('Comma separated recipients list:'),
                             Label::INSIDE_TEXT_BEFORE
                         ))->id('recipients_label')->class('required')->title(__('Required field'))),
                 ]),
@@ -254,7 +259,7 @@ class Manage extends Process
                         ->required(true)
                         ->placeholder(__('Title'))
                         ->label((new Label(
-                            (new Text('abbr', '*'))->title(__('Required field'))->render() . __('Page title:'),
+                            (new Span('*'))->render() . __('Page title:'),
                             Label::OUTSIDE_TEXT_BEFORE
                         ))->id('page_title_label')->class('required')->title(__('Required field'))),
                 ]),
@@ -276,7 +281,7 @@ class Manage extends Process
                         ->value(Html::escapeHTML($msg_success))
                         ->placeholder(__('Message'))
                         ->label((new Label(
-                            (new Text('abbr', '*'))->title(__('Required field'))->render() . __('Confirmation message:'),
+                            (new Span('*'))->render() . __('Confirmation message:'),
                             Label::OUTSIDE_TEXT_BEFORE
                         ))->id('msg_success_label')->class('required')->title(__('Required field'))),
                 ]),
@@ -289,7 +294,7 @@ class Manage extends Process
                         ->value(Html::escapeHTML($msg_error))
                         ->placeholder(__('Message'))
                         ->label((new Label(
-                            (new Text('abbr', '*'))->title(__('Required field'))->render() . __('Error message:'),
+                            (new Span('*'))->render() . __('Error message:'),
                             Label::OUTSIDE_TEXT_BEFORE
                         ))->id('msg_error_label')->class('required')->title(__('Required field'))),
                 ]),
