@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief contactMe, a plugin for Dotclear 2
  *
@@ -40,7 +41,7 @@ class Uninstall extends Process
         // $var   = My::id(); // Var sub-folder
 
         // Database table name
-        // $table = App::con()->prefix() . 'contactMe';
+        // $table = 'contactMe';
 
         $user_actions = [
 

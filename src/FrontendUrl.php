@@ -17,7 +17,7 @@ namespace Dotclear\Plugin\contactMe;
 
 use ArrayObject;
 use Dotclear\App;
-use Dotclear\Core\Frontend\Url;
+use Dotclear\Core\Url;
 use Dotclear\Helper\Network\Http;
 use Dotclear\Helper\Network\Mail\Mail;
 use Dotclear\Helper\Text;
@@ -104,7 +104,7 @@ class FrontendUrl extends Url
                 # Check message form spam
                 if ($settings->use_antispam && class_exists('Dotclear\Plugin\antispam\Antispam')) {
                     # Fake cursor to check spam
-                    $cur                    = App::con()->openCursor('foo');
+                    $cur                    = App::db()->con()->openCursor('foo');
                     $cur->comment_trackback = 0;
                     $cur->comment_author    = App::frontend()->context()->contactme['name'];
                     $cur->comment_email     = App::frontend()->context()->contactme['email'];
