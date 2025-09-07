@@ -16,10 +16,12 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\contactMe;
 
 use Dotclear\App;
-use Dotclear\Core\Process;
+use Dotclear\Helper\Process\TraitProcess;
 
-class Backend extends Process
+class Backend
 {
+    use TraitProcess;
+
     public static function init(): bool
     {
         // dead but useful code, in order to have translations
