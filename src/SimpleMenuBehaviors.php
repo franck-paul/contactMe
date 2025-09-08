@@ -21,7 +21,7 @@ use Dotclear\App;
 class SimpleMenuBehaviors
 {
     /**
-     * @param      ArrayObject<string, ArrayObject<int, mixed>>  $items  The items
+     * @param      ArrayObject<array-key, ArrayObject<int, mixed>>  $items  The items
      */
     public static function adminSimpleMenuAddType(ArrayObject $items): string
     {
