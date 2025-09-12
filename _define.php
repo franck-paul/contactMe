@@ -15,9 +15,9 @@ $this->registerModule(
     'ContactMe',
     'Add a simple contact form on your blog',
     'Olivier Meunier and contributors',
-    '8.1',
+    '8.2',
     [
-        'date'     => '2025-09-07T16:10:44+0200',
+        'date'     => '2025-09-12T18:43:22+0200',
         'requires' => [
             ['core', '2.36'],
             ['TemplateHelper'],
