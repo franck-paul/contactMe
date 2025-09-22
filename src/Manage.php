@@ -16,8 +16,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\contactMe;
 
 use Dotclear\App;
-use Dotclear\Core\Backend\Notices;
-use Dotclear\Core\Backend\Page;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Input;
@@ -115,7 +113,7 @@ class Manage
                 }
 
                 App::blog()->triggerBlog();
-                Notices::addSuccessNotice(__('Setting have been successfully updated.'));
+                App::backend()->notices()->addSuccessNotice(__('Setting have been successfully updated.'));
                 My::redirect();
             } catch (Exception $e) {
                 App::error()->add($e->getMessage());
@@ -183,15 +181,15 @@ class Manage
             $msg_error = __('<p style="color:red"><strong>An error occured:</strong> %s</p>');
         }
 
-        Page::openModule(My::name(), $head);
+        App::backend()->page()->openModule(My::name(), $head);
 
-        echo Page::breadcrumb(
+        echo App::backend()->page()->breadcrumb(
             [
                 Html::escapeHTML(App::blog()->name()) => '',
                 __('Contact me')                      => '',
             ]
         );
-        echo Notices::getNotices();
+        echo App::backend()->notices()->getNotices();
 
         // Form
 
@@ -315,6 +313,6 @@ class Manage
             ])
         ->render();
 
-        Page::closeModule();
+        App::backend()->page()->closeModule();
     }
 }
