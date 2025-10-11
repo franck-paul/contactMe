@@ -128,13 +128,13 @@ class FrontendUrl extends Url
                 if ($settings->smtp_account) {
                     $from = mail::B64Header(str_replace(':', '-', App::blog()->name())) . ' <' . $settings->smtp_account . '>';
                 } else {
-                    $from = mail::B64Header((string) App::frontend()->context()->contactme['name']) . ' <' . App::frontend()->context()->contactme['email'] . '>';
+                    $from = mail::B64Header(App::frontend()->context()->contactme['name']) . ' <' . App::frontend()->context()->contactme['email'] . '>';
                 }
 
                 # Sending mail
                 $headers = [
                     'From: ' . $from,
-                    'Reply-To: ' . mail::B64Header((string) App::frontend()->context()->contactme['name']) . ' <' . App::frontend()->context()->contactme['email'] . '>',
+                    'Reply-To: ' . mail::B64Header(App::frontend()->context()->contactme['name']) . ' <' . App::frontend()->context()->contactme['email'] . '>',
                     'Content-Type: text/plain; charset=UTF-8;',
                     'X-Originating-IP: ' . Http::realIP(),
                     'X-Mailer: Dotclear',
