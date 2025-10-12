@@ -116,7 +116,7 @@ class FrontendUrl extends Url
 
                     Antispam::isSpam($cur);
 
-                    if ($cur->comment_status === App::status()->comment()::JUNK) { // @phpstan-ignore-line — Antispam::isSpam() may modify it!
+                    if ($cur->comment_status === App::status()->comment()::JUNK) {
                         unset($cur);
 
                         throw new Exception(__('Message seems to be a spam.'));
