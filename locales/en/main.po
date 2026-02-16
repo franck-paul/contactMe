@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 contactMe module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-01 13:27+0200\n"
+"POT-Creation-Date: 2026-02-16 13:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,19 +22,16 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-msgid "Add a simple contact form on your blog"
+msgid "ContactMe"
 msgstr ""
 
-msgid "ContactMe"
+msgid "Add a simple contact form on your blog"
 msgstr ""
 
 msgid "Contact me"
 msgstr ""
 
 msgid "Contact me form caption and messages"
-msgstr ""
-
-msgid "Mail contact form"
 msgstr ""
 
 msgid "You must provide a name."
@@ -73,25 +70,6 @@ msgstr ""
 msgid "Message:"
 msgstr ""
 
-msgid "Link to the contact form"
-msgstr ""
-
-msgid "Contact"
-msgstr ""
-
-msgid "Link title:"
-msgstr ""
-
-msgid "<p>You can use the following form to send me an e-mail.</p>"
-msgstr ""
-
-msgid "<p style=\"color:green\"><strong>Thank you for your message.</strong></p>"
-msgstr ""
-
-#, php-format
-msgid "<p style=\"color:red\"><strong>An error occured:</strong> %s</p>"
-msgstr ""
-
 msgid "No recipients."
 msgstr ""
 
@@ -111,16 +89,37 @@ msgstr ""
 msgid "Setting have been successfully updated."
 msgstr ""
 
+msgid "<p>You can use the following form to send me an e-mail.</p>"
+msgstr ""
+
+msgid "<p style=\"color:green\"><strong>Thank you for your message.</strong></p>"
+msgstr ""
+
+#, php-format
+msgid "<p style=\"color:red\"><strong>An error occured:</strong> %s</p>"
+msgstr ""
+
+msgid "Use comments spam filter"
+msgstr ""
+
 msgid "Activate contactMe on blog"
+msgstr ""
+
+#, php-format
+msgid "The URL for the contact form is: <code>%s</code>"
+msgstr ""
+
+#, php-format
+msgid "Fields preceded by %s are mandatory."
 msgstr ""
 
 msgid "E-Mail settings"
 msgstr ""
 
-msgid "Comma separated recipients list:"
+msgid "Email"
 msgstr ""
 
-msgid "Email"
+msgid "Comma separated recipients list:"
 msgstr ""
 
 msgid "E-Mail subject prefix:"
@@ -135,16 +134,13 @@ msgstr ""
 msgid "This will be use as e-mail sender. Note that the sent e-mails will have a Reply-To filled with your correspondent e-mail."
 msgstr ""
 
-msgid "Use comments spam filter"
-msgstr ""
-
 msgid "Presentation options"
 msgstr ""
 
-msgid "Page title:"
+msgid "Title"
 msgstr ""
 
-msgid "Title"
+msgid "Page title:"
 msgstr ""
 
 msgid "Form caption:"
@@ -165,4 +161,16 @@ msgstr ""
 
 #, php-format
 msgid "Don't forget to add a <a href=\"%s\">“Contact Me” widget</a> linking to your contact page."
+msgstr ""
+
+msgid "Mail contact form"
+msgstr ""
+
+msgid "Link to the contact form"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Link title:"
 msgstr ""

@@ -213,6 +213,9 @@ class Manage
                         ->label((new Label(__('Activate contactMe on blog'), Label::INSIDE_TEXT_AFTER))),
                 ]),
                 (new Note())
+                    ->class('info')
+                    ->text(sprintf(__('The URL for the contact form is: <code>%s</code>'), App::blog()->url() . App::url()->getURLFor('contactme'))),
+                (new Note())
                     ->class('form-note')
                     ->text(sprintf(__('Fields preceded by %s are mandatory.'), (new Span('*'))->class('required')->render())),
                 (new Text('h3', __('E-Mail settings'))),
