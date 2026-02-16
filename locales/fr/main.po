@@ -117,7 +117,7 @@ msgstr "Activer Contactez-moi sur ce blog"
 
 #, php-format
 msgid "The URL for the contact form is: <code>%s</code>"
-msgstr "L'URL du formulaire de contact est la suivante <code>%s</code>"
+msgstr "L'URL du formulaire de contact est la suivante : <code>%s</code>"
 
 #, php-format
 msgid "Fields preceded by %s are mandatory."
