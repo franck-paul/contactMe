@@ -94,7 +94,7 @@ jobs:
           if [[ "$test" != "" ]]; then
             echo "dcstore.xml modified, need to be commit"
             echo "set credentials"
-            git config user.email "carnet.franck.paul@gmail.com"
+            git config user.email "contact@open-time.net"
             git config user.name "franck-paul"
             echo "git add dcstore.xml"
             git add dcstore.xml

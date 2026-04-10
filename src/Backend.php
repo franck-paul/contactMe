@@ -8,7 +8,7 @@
  *
  * @author Franck Paul and contributors
  *
- * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright Franck Paul contact@open-time.net
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 declare(strict_types=1);
@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\contactMe;
 
 use Dotclear\App;
+use Dotclear\Core\Backend\Menus;
 use Dotclear\Helper\Process\TraitProcess;
 
 class Backend
@@ -37,7 +38,7 @@ class Backend
             return false;
         }
 
-        My::addBackendMenuItem(App::backend()->menus()::MENU_BLOG);
+        My::addBackendMenuItem(Menus::MENU_BLOG);
 
         /* Register favorite */
         App::behavior()->addBehaviors([

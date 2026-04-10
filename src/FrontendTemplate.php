@@ -8,7 +8,7 @@
  *
  * @author Franck Paul and contributors
  *
- * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright Franck Paul contact@open-time.net
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 declare(strict_types=1);
@@ -43,7 +43,7 @@ class FrontendTemplate
         $attr = $attr instanceof ArrayObject ? $attr : new ArrayObject($attr);
 
         $if       = [];
-        $operator = isset($attr['operator']) ? Tpl::getOperator($attr['operator']) : '&&';
+        $operator = isset($attr['operator']) && is_string($attr['operator']) ? Tpl::getOperator($attr['operator']) : '&&';
 
         if (isset($attr['sent'])) {
             $sign = (bool) $attr['sent'] ? '' : '!';

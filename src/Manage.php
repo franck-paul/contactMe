@@ -8,7 +8,7 @@
  *
  * @author Franck Paul and contributors
  *
- * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright Franck Paul contact@open-time.net
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 declare(strict_types=1);
@@ -54,32 +54,36 @@ class Manage
 
         if (isset($_POST['recipients'])) {
             try {
-                $active         = !empty($_POST['active']);
-                $recipients     = $_POST['recipients'];
-                $subject_prefix = $_POST['subject_prefix'];
-                $page_title     = $_POST['page_title'];
-                $form_caption   = $_POST['form_caption'];
-                $msg_success    = $_POST['msg_success'];
-                $msg_error      = $_POST['msg_error'];
-                $smtp_account   = $_POST['smtp_account'];
+                // Post data helpers
+                $_Bool = fn (string $name): bool => !empty($_POST[$name]);
+                $_Str  = fn (string $name, string $default = ''): string => isset($_POST[$name]) && is_string($val = $_POST[$name]) ? $val : $default;
 
-                if (empty($_POST['recipients'])) {
+                $active         = $_Bool('active');
+                $recipients     = $_Str('recipients');
+                $subject_prefix = $_Str('subject_prefix');
+                $page_title     = $_Str('page_title');
+                $form_caption   = $_Str('form_caption');
+                $msg_success    = $_Str('msg_success');
+                $msg_error      = $_Str('msg_error');
+                $smtp_account   = $_Str('smtp_account');
+
+                if ($recipients === '') {
                     throw new Exception(__('No recipients.'));
                 }
 
-                if (empty($_POST['page_title'])) {
+                if ($page_title === '') {
                     throw new Exception(__('No page title.'));
                 }
 
-                if (empty($_POST['msg_success'])) {
+                if ($msg_success === '') {
                     throw new Exception(__('No success message.'));
                 }
 
-                if (empty($_POST['msg_error'])) {
+                if ($msg_error === '') {
                     throw new Exception(__('No error message.'));
                 }
 
-                $r  = explode(',', (string) $recipients);
+                $r  = explode(',', $recipients);
                 $r2 = [];
 
                 foreach ($r as $v) {
@@ -99,17 +103,17 @@ class Manage
 
                 // Everything's fine, save options
                 $settings = My::settings();
-                $settings->put('active', $active, 'boolean');
-                $settings->put('recipients', $recipients, 'string', 'ContactMe recipients');
-                $settings->put('subject_prefix', $subject_prefix, 'string', 'ContactMe subject prefix');
-                $settings->put('page_title', $page_title, 'string', 'ContactMe page title');
-                $settings->put('form_caption', $form_caption, 'string', 'ContactMe form caption');
-                $settings->put('msg_success', $msg_success, 'string', 'ContactMe success message');
-                $settings->put('msg_error', $msg_error, 'string', 'ContactMe error message');
-                $settings->put('smtp_account', $smtp_account, 'string', 'ContactMe SMTP account');
+                $settings->put('active', $active, App::blogWorkspace()::NS_BOOL);
+                $settings->put('recipients', $recipients, App::blogWorkspace()::NS_STRING, 'ContactMe recipients');
+                $settings->put('subject_prefix', $subject_prefix, App::blogWorkspace()::NS_STRING, 'ContactMe subject prefix');
+                $settings->put('page_title', $page_title, App::blogWorkspace()::NS_STRING, 'ContactMe page title');
+                $settings->put('form_caption', $form_caption, App::blogWorkspace()::NS_STRING, 'ContactMe form caption');
+                $settings->put('msg_success', $msg_success, App::blogWorkspace()::NS_STRING, 'ContactMe success message');
+                $settings->put('msg_error', $msg_error, App::blogWorkspace()::NS_STRING, 'ContactMe error message');
+                $settings->put('smtp_account', $smtp_account, App::blogWorkspace()::NS_STRING, 'ContactMe SMTP account');
 
                 if (App::plugins()->moduleExists('antispam')) {
-                    $settings->put('use_antispam', !empty($_POST['use_antispam']), 'boolean', 'ContactMe should use comments spam filter');
+                    $settings->put('use_antispam', $_Bool('use_antispam'), App::blogWorkspace()::NS_BOOL, 'ContactMe should use comments spam filter');
                 }
 
                 App::blog()->triggerBlog();
@@ -132,52 +136,58 @@ class Manage
             return;
         }
 
-        $head        = '';
-        $rich_editor = App::auth()->getOption('editor');
-        $rte_flag    = true;
-        $rte_flags   = @App::auth()->prefs()->interface->rte_flags;
+        $head      = '';
+        $rte_flag  = true;
+        $rte_flags = @App::auth()->prefs()->interface->rte_flags;
         if (is_array($rte_flags) && in_array('contactme', $rte_flags)) {
             $rte_flag = $rte_flags['contactme'];
         }
 
         if ($rte_flag) {
-            $head = App::behavior()->callBehavior(
-                'adminPostEditor',
-                $rich_editor['xhtml'],
-                'contactme',
-                ['#form_caption', '#msg_success', '#msg_error'],
-                'xhtml'
-            ) .
-            My::jsLoad('contactme.js');
+            $rich_editor = App::auth()->getOption('editor');
+            if (is_array($rich_editor) && isset($rich_editor['xhtml'])) {
+                $head = App::behavior()->callBehavior(
+                    'adminPostEditor',
+                    $rich_editor['xhtml'],
+                    'contactme',
+                    ['#form_caption', '#msg_success', '#msg_error'],
+                    'xhtml'
+                ) .
+                My::jsLoad('contactme.js');
+            }
         }
+
+        // Variable data helpers
+        $_Bool = fn (mixed $var): bool => (bool) $var;
+        $_Str  = fn (mixed $var, string $default = ''): string => $var !== null && is_string($val = $var) ? $val : $default;
 
         $settings = My::settings();
 
-        $active         = $settings->active;
-        $recipients     = $settings->recipients;
-        $subject_prefix = $settings->subject_prefix;
-        $page_title     = $settings->page_title;
-        $form_caption   = $settings->form_caption;
-        $msg_success    = $settings->msg_success;
-        $msg_error      = $settings->msg_error;
-        $use_antispam   = $settings->use_antispam;
-        $smtp_account   = $settings->smtp_account;
+        $active         = $_Bool($settings->active);
+        $recipients     = $_Str($settings->recipients);
+        $subject_prefix = $_Str($settings->subject_prefix);
+        $page_title     = $_Str($settings->page_title);
+        $form_caption   = $_Str($settings->form_caption);
+        $msg_success    = $_Str($settings->msg_success);
+        $msg_error      = $_Str($settings->msg_error);
+        $smtp_account   = $_Str($settings->smtp_account);
 
+        $use_antispam     = $_Bool($settings->use_antispam);
         $antispam_enabled = App::plugins()->moduleExists('antispam');
 
-        if ($page_title === null) {
+        if ($page_title === '') {
             $page_title = __('Contact me');
         }
 
-        if ($form_caption === null) {
+        if ($form_caption === '') {
             $form_caption = __('<p>You can use the following form to send me an e-mail.</p>');
         }
 
-        if ($msg_success === null) {
+        if ($msg_success === '') {
             $msg_success = __('<p style="color:green"><strong>Thank you for your message.</strong></p>');
         }
 
-        if ($msg_error === null) {
+        if ($msg_error === '') {
             $msg_error = __('<p style="color:red"><strong>An error occured:</strong> %s</p>');
         }
 
@@ -193,11 +203,13 @@ class Manage
 
         // Form
 
+        $user_lang = is_string($user_lang = App::auth()->getInfo('user_lang')) ? $user_lang : 'en';
+
         // Antispam options
         $options = [];
         if ($antispam_enabled) {
             $options[] = (new Para())->items([
-                (new Checkbox('use_antispam', (bool) $use_antispam))
+                (new Checkbox('use_antispam', $use_antispam))
                     ->value(1)
                     ->label((new Label(__('Use comments spam filter'), Label::INSIDE_TEXT_AFTER))),
             ]);
@@ -270,7 +282,7 @@ class Manage
                     (new Textarea('form_caption'))
                         ->cols(30)
                         ->rows(2)
-                        ->lang(App::auth()->getInfo('user_lang'))
+                        ->lang($user_lang)
                         ->spellcheck(true)
                         ->value(Html::escapeHTML($form_caption))
                         ->label((new Label(__('Form caption:'), Label::OUTSIDE_TEXT_BEFORE))),
@@ -279,7 +291,7 @@ class Manage
                     (new Textarea('msg_success'))
                         ->cols(30)
                         ->rows(2)
-                        ->lang(App::auth()->getInfo('user_lang'))
+                        ->lang($user_lang)
                         ->spellcheck(true)
                         ->value(Html::escapeHTML($msg_success))
                         ->placeholder(__('Message'))
@@ -292,7 +304,7 @@ class Manage
                     (new Textarea('msg_error'))
                         ->cols(30)
                         ->rows(2)
-                        ->lang(App::auth()->getInfo('user_lang'))
+                        ->lang($user_lang)
                         ->spellcheck(true)
                         ->value(Html::escapeHTML($msg_error))
                         ->placeholder(__('Message'))

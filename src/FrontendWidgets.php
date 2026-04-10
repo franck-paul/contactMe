@@ -8,7 +8,7 @@
  *
  * @author Franck Paul and contributors
  *
- * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright Franck Paul contact@open-time.net
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 declare(strict_types=1);
@@ -41,6 +41,11 @@ class FrontendWidgets
             return '';
         }
 
+        $link_title = is_string($link_title = $w->get('link_title')) ? $link_title : '';
+        if ($link_title === '') {
+            $link_title = __('Contact me');
+        }
+
         $buffer = (new Set())
             ->items([
                 $w->title ? new Text(null, $w->renderTitle(Html::escapeHTML($w->title))) : new None(),
@@ -48,7 +53,7 @@ class FrontendWidgets
                     ->items([
                         (new Link())
                             ->href(App::blog()->url() . App::url()->getURLFor('contactme'))
-                            ->text($w->get('link_title') ? Html::escapeHTML($w->get('link_title')) : __('Contact me')),
+                            ->text($link_title),
                     ]),
             ])
         ->render();
