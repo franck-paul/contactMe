@@ -108,6 +108,7 @@ class FrontendUrl extends Url
                         $rc2[] = $v;
                     }
                 }
+
                 $recipients = $rc2;
                 if ($recipients === []) {
                     throw new Exception(__('No valid contact recipient was found.'));
