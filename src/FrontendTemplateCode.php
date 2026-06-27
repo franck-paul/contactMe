@@ -42,7 +42,7 @@ class FrontendTemplateCode
         string $_test_HTML,
         string $_content_HTML
     ): void {
-        /* @phpstan-ignore-next-line */
+        /* @phpstan-ignore identical.alwaysFalse */
         if (($_test_HTML) === true) : ?>
             $_content_HTML
         <?php endif;

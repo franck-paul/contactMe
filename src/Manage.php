@@ -144,7 +144,7 @@ class Manage
         }
 
         if ($rte_flag) {
-            $rich_editor = App::auth()->getOption('editor');
+            $rich_editor = App::auth()->prefs()->get('interface')->get('editor');
             if (is_array($rich_editor) && isset($rich_editor['xhtml'])) {
                 $head = App::behavior()->callBehavior(
                     'adminPostEditor',
