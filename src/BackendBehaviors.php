@@ -26,11 +26,11 @@ class BackendBehaviors
     public static function adminDashboardFavorites(Favorites $favs): string
     {
         $favs->register('contactMe', [
-            'title'       => __('Contact me'),
-            'url'         => My::manageUrl(),
-            'small-icon'  => My::icons(),
-            'large-icon'  => My::icons(),
-            'permissions' => My::checkContext(My::MENU),
+            'title'          => __('Contact me'),
+            'url'            => My::manageUrl(),
+            'menu-icon'      => My::icon(),
+            'dashboard-icon' => My::icon(),
+            'permissions'    => My::checkContext(My::MENU),
         ]);
 
         return '';
