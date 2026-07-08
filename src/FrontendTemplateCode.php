@@ -58,7 +58,7 @@ class FrontendTemplateCode
         array $_params_,
         string $_tag_
     ): void {
-        $contactme_page_title = is_string($contactme_page_title = App::blog()->settings()->get($_id_)->page_title) ? $contactme_page_title : '';
+        $contactme_page_title = App::blog()->settings()->get($_id_)->getStr('page_title', false);
         if ($contactme_page_title !== '') {
             echo App::frontend()->context()::global_filters(
                 $contactme_page_title,
@@ -79,7 +79,7 @@ class FrontendTemplateCode
         array $_params_,
         string $_tag_
     ): void {
-        $contactme_form_caption = is_string($contactme_form_caption = App::blog()->settings()->get($_id_)->form_caption) ? $contactme_form_caption : '';
+        $contactme_form_caption = App::blog()->settings()->get($_id_)->getStr('form_caption', false);
         if ($contactme_form_caption !== '') {
             echo App::frontend()->context()::global_filters(
                 $contactme_form_caption,
@@ -96,7 +96,7 @@ class FrontendTemplateCode
     public static function ContactMeMsgSuccess(
         string $_id_,
     ): void {
-        $contactme_msg_success = is_string($contactme_msg_success = App::blog()->settings()->get($_id_)->msg_success) ? $contactme_msg_success : '';
+        $contactme_msg_success = App::blog()->settings()->get($_id_)->getStr('msg_success', false);
         if ($contactme_msg_success !== '') {
             echo $contactme_msg_success;
         }
@@ -109,7 +109,7 @@ class FrontendTemplateCode
     public static function ContactMeMsgError(
         string $_id_,
     ): void {
-        $contactme_msg_error = is_string($contactme_msg_error = App::blog()->settings()->get($_id_)->msg_error) ? $contactme_msg_error : '';
+        $contactme_msg_error = App::blog()->settings()->get($_id_)->getStr('msg_error', false);
         $contactme_error_msg = is_array(App::frontend()->context()->contactme) && is_string($contactme_error_msg = App::frontend()->context()->contactme['error_msg'] ?? '') ? $contactme_error_msg : '';
         if ($contactme_msg_error !== '' && $contactme_error_msg !== '') {
             echo sprintf(

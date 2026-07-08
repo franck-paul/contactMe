@@ -39,7 +39,7 @@ class Prepend
             $settings = My::settings();
             if (!$settings->settingExists('active')) {
                 // Set active flag to true only if recipient(s) is/are set
-                $settings->put('active', (bool) $settings->recipients, App::blogWorkspace()::NS_BOOL);
+                $settings->put('active', (bool) $settings->get('recipients'), App::blogWorkspace()::NS_BOOL);
             }
         }
 

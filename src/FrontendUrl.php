@@ -32,7 +32,7 @@ class FrontendUrl extends Url
     public static function contact(?string $args): void
     {
         $settings = My::settings();
-        if (!$settings->recipients || !$settings->active) {
+        if ($settings->getStr('recipients', false) === '' || !$settings->getBool('active')) {
             self::p404();
         }
 
@@ -99,7 +99,7 @@ class FrontendUrl extends Url
                 }
 
                 # Checks recipients addresses
-                $recipients = is_string($recipients = $settings->recipients) ? $recipients : '';
+                $recipients = $settings->getStr('recipients', false);
                 $recipients = explode(',', $recipients);
                 $rc2        = [];
                 foreach ($recipients as $v) {
@@ -115,7 +115,7 @@ class FrontendUrl extends Url
                 }
 
                 # Check message form spam
-                if ((bool) $settings->use_antispam && class_exists('Dotclear\Plugin\antispam\Antispam')) {
+                if ($settings->getBool('use_antispam') && class_exists('Dotclear\Plugin\antispam\Antispam')) {
                     # Fake cursor to check spam
                     $cur                    = App::db()->con()->openCursor('foo');
                     $cur->comment_trackback = 0;
@@ -134,7 +134,7 @@ class FrontendUrl extends Url
                     }
                 }
 
-                $smtp_account = is_string($smtp_account = $settings->smtp_account) ? $smtp_account : '';
+                $smtp_account = $settings->getStr('smtp_account', false);
                 if ($smtp_account !== '') {
                     $from = mail::B64Header(str_replace(':', '-', App::blog()->name())) . ' <' . $smtp_account . '>';
                 } else {
@@ -153,7 +153,7 @@ class FrontendUrl extends Url
                     'X-Blog-Url: ' . mail::B64Header(App::blog()->url()),
                 ];
 
-                $prefix = is_string($prefix = $settings->subject_prefix) ? $prefix : '';
+                $prefix = $settings->getStr('subject_prefix', false);
                 if ($prefix !== '') {
                     $subject = $prefix . ' ' . $subject;
                 }

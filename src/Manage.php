@@ -138,7 +138,7 @@ class Manage
 
         $head      = '';
         $rte_flag  = true;
-        $rte_flags = @App::auth()->prefs()->interface->rte_flags;
+        $rte_flags = App::auth()->prefs()->get('interface')->get('rte_flags');
         if (is_array($rte_flags) && in_array('contactme', $rte_flags)) {
             $rte_flag = $rte_flags['contactme'];
         }
@@ -157,22 +157,18 @@ class Manage
             }
         }
 
-        // Variable data helpers
-        $_Bool = fn (mixed $var): bool => (bool) $var;
-        $_Str  = fn (mixed $var, string $default = ''): string => $var !== null && is_string($val = $var) ? $val : $default;
-
         $settings = My::settings();
 
-        $active         = $_Bool($settings->active);
-        $recipients     = $_Str($settings->recipients);
-        $subject_prefix = $_Str($settings->subject_prefix);
-        $page_title     = $_Str($settings->page_title);
-        $form_caption   = $_Str($settings->form_caption);
-        $msg_success    = $_Str($settings->msg_success);
-        $msg_error      = $_Str($settings->msg_error);
-        $smtp_account   = $_Str($settings->smtp_account);
+        $active         = $settings->getBool('active', false);
+        $recipients     = $settings->getStr('recipients', false);
+        $subject_prefix = $settings->getStr('subject_prefix', false);
+        $page_title     = $settings->getStr('page_title', false);
+        $form_caption   = $settings->getStr('form_caption', false);
+        $msg_success    = $settings->getStr('msg_success', false);
+        $msg_error      = $settings->getStr('msg_error', false);
+        $smtp_account   = $settings->getStr('smtp_account', false);
 
-        $use_antispam     = $_Bool($settings->use_antispam);
+        $use_antispam     = $settings->getBool('use_antispam', false);
         $antispam_enabled = App::plugins()->moduleExists('antispam');
 
         if ($page_title === '') {
