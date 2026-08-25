@@ -117,19 +117,19 @@ class FrontendUrl extends Url
                 # Check message form spam
                 if ($settings->getBool('use_antispam') && class_exists('Dotclear\Plugin\antispam\Antispam')) {
                     # Fake cursor to check spam
-                    $cur                    = App::db()->con()->openCursor('foo');
-                    $cur->comment_trackback = 0;
-                    $cur->comment_author    = $name;
-                    $cur->comment_email     = $mail;
-                    $cur->comment_site      = $site;
-                    $cur->comment_ip        = Http::realIP();
-                    $cur->comment_content   = $message;
-                    $cur->post_id           = 0; // That could break things...
-                    $cur->comment_status    = App::status()->comment()::PUBLISHED;
+                    $cur = App::db()->con()->openCursor('foo');
+                    $cur->setBoolField('comment_trackback', false);
+                    $cur->setStrField('comment_author', $name);
+                    $cur->setStrField('comment_email', $mail);
+                    $cur->setStrField('comment_site', $site);
+                    $cur->setStrField('comment_ip', Http::realIP());
+                    $cur->setStrField('comment_content', $message);
+                    $cur->setIntField('post_id', 0); // That could break things...
+                    $cur->setIntField('comment_status', App::status()->comment()::PUBLISHED);
 
                     Antispam::isSpam($cur);
 
-                    if ($cur->comment_status === App::status()->comment()::JUNK) {
+                    if ($cur->intField('comment_status') === App::status()->comment()::JUNK) {
                         throw new Exception(__('Message seems to be a spam.'));
                     }
                 }
