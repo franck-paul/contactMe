@@ -136,21 +136,21 @@ class FrontendUrl extends Url
 
                 $smtp_account = $settings->getStr('smtp_account', false);
                 if ($smtp_account !== '') {
-                    $from = mail::B64Header(str_replace(':', '-', App::blog()->name())) . ' <' . $smtp_account . '>';
+                    $from = Mail::B64Header(str_replace(':', '-', App::blog()->name())) . ' <' . $smtp_account . '>';
                 } else {
-                    $from = mail::B64Header($name) . ' <' . $mail . '>';
+                    $from = Mail::B64Header($name) . ' <' . $mail . '>';
                 }
 
                 # Sending mail
                 $headers = [
                     'From: ' . $from,
-                    'Reply-To: ' . mail::B64Header($name) . ' <' . $mail . '>',
+                    'Reply-To: ' . Mail::B64Header($name) . ' <' . $mail . '>',
                     'Content-Type: text/plain; charset=UTF-8;',
                     'X-Originating-IP: ' . Http::realIP(),
                     'X-Mailer: Dotclear',
-                    'X-Blog-Id: ' . mail::B64Header(App::blog()->id()),
-                    'X-Blog-Name: ' . mail::B64Header(App::blog()->name()),
-                    'X-Blog-Url: ' . mail::B64Header(App::blog()->url()),
+                    'X-Blog-Id: ' . Mail::B64Header(App::blog()->id()),
+                    'X-Blog-Name: ' . Mail::B64Header(App::blog()->name()),
+                    'X-Blog-Url: ' . Mail::B64Header(App::blog()->url()),
                 ];
 
                 $prefix = $settings->getStr('subject_prefix', false);
@@ -158,7 +158,7 @@ class FrontendUrl extends Url
                     $subject = $prefix . ' ' . $subject;
                 }
 
-                $subject = mail::B64Header($subject);
+                $subject = Mail::B64Header($subject);
 
                 $msg = __("Hi there!\n\nYou received a message from your blog's contact page.") .
                 "\n\n" .
@@ -170,7 +170,7 @@ class FrontendUrl extends Url
                 $message . "\n\n";
 
                 foreach ($recipients as $email) {
-                    mail::sendMail($email, $subject, $msg, $headers);
+                    Mail::sendMail($email, $subject, $msg, $headers);
                 }
 
                 Http::redirect(App::blog()->url() . App::url()->getURLFor('contactme') . '/sent');
