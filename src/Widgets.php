@@ -19,9 +19,9 @@ use Dotclear\Plugin\widgets\WidgetsStack;
 
 class Widgets
 {
-    public static function initWidgets(WidgetsStack $w): string
+    public static function initWidgets(WidgetsStack $widgetsStack): string
     {
-        $w
+        $widgetsStack
             ->create('contactMe', __('Contact me'), FrontendWidgets::renderWidget(...), null, __('Link to the contact form'), My::id())
             ->addTitle(__('Contact'))
             ->setting('link_title', __('Link title:'), __('Contact me'))

@@ -21,11 +21,11 @@ use Dotclear\App;
 class SimpleMenuBehaviors
 {
     /**
-     * @param      ArrayObject<array-key, array{string, bool}>  $items  The items
+     * @param      ArrayObject<array-key, array{string, bool}>  $arrayObject  The items
      */
-    public static function adminSimpleMenuAddType(ArrayObject $items): string
+    public static function adminSimpleMenuAddType(ArrayObject $arrayObject): string
     {
-        $items['contactme'] = [__('Contact me'), false];
+        $arrayObject['contactme'] = [__('Contact me'), false];
 
         return '';
     }

@@ -46,9 +46,9 @@ class Install
                 }
 
                 // Change settings names (remove cm_ prefix in them)
-                $rename = static function (string $name, BlogWorkspaceInterface $settings): void {
-                    if ($settings->settingExists('cm_' . $name, true)) {
-                        $settings->rename('cm_' . $name, $name);
+                $rename = static function (string $name, BlogWorkspaceInterface $blogWorkspace): void {
+                    if ($blogWorkspace->settingExists('cm_' . $name, true)) {
+                        $blogWorkspace->rename('cm_' . $name, $name);
                     }
                 };
 

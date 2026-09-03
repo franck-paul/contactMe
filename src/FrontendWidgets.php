@@ -26,14 +26,14 @@ use Dotclear\Plugin\widgets\WidgetsElement;
 
 class FrontendWidgets
 {
-    public static function renderWidget(WidgetsElement $w): string
+    public static function renderWidget(WidgetsElement $widgetsElement): string
     {
-        if ($w->offline) {
+        if ($widgetsElement->offline) {
             return '';
         }
 
-        if (($w->homeonly == 1 && !App::url()->isHome(App::url()->getType()))
-            || ($w->homeonly == 2 && App::url()->isHome(App::url()->getType()))
+        if (($widgetsElement->homeonly == 1 && !App::url()->isHome(App::url()->getType()))
+            || ($widgetsElement->homeonly == 2 && App::url()->isHome(App::url()->getType()))
         ) {
             return '';
         }
@@ -43,14 +43,14 @@ class FrontendWidgets
             return '';
         }
 
-        $link_title = is_string($link_title = $w->get('link_title')) ? $link_title : '';
+        $link_title = is_string($link_title = $widgetsElement->get('link_title')) ? $link_title : '';
         if ($link_title === '') {
             $link_title = __('Contact me');
         }
 
         $buffer = (new Set())
             ->items([
-                $w->title ? new Text(null, $w->renderTitle(Html::escapeHTML($w->title))) : new None(),
+                $widgetsElement->title ? new Text(null, $widgetsElement->renderTitle(Html::escapeHTML($widgetsElement->title))) : new None(),
                 (new Para())
                     ->items([
                         (new Link())
@@ -60,6 +60,6 @@ class FrontendWidgets
             ])
         ->render();
 
-        return $w->renderDiv((bool) $w->content_only, 'contact-me ' . $w->class, '', $buffer);
+        return $widgetsElement->renderDiv((bool) $widgetsElement->content_only, 'contact-me ' . $widgetsElement->class, '', $buffer);
     }
 }

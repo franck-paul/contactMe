@@ -102,10 +102,10 @@ class FrontendUrl extends Url
                 $recipients = $settings->getStr('recipients', false);
                 $recipients = explode(',', $recipients);
                 $rc2        = [];
-                foreach ($recipients as $v) {
-                    $v = trim($v);
-                    if ($v !== '' && Text::isEmail($v)) {
-                        $rc2[] = $v;
+                foreach ($recipients as $recipient) {
+                    $recipient = trim($recipient);
+                    if ($recipient !== '' && Text::isEmail($recipient)) {
+                        $rc2[] = $recipient;
                     }
                 }
 
@@ -169,8 +169,8 @@ class FrontendUrl extends Url
                 "-----------------------------------------------------------\n" .
                 $message . "\n\n";
 
-                foreach ($recipients as $email) {
-                    Mail::sendMail($email, $subject, $msg, $headers);
+                foreach ($recipients as $recipient) {
+                    Mail::sendMail($recipient, $subject, $msg, $headers);
                 }
 
                 Http::redirect(App::blog()->url() . App::url()->getURLFor('contactme') . '/sent');

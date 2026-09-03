@@ -21,11 +21,11 @@ use Dotclear\Core\Backend\Favorites;
 class BackendBehaviors
 {
     /**
-     * @param      Favorites  $favs   The favs
+     * @param      Favorites  $favorites   The favs
      */
-    public static function adminDashboardFavorites(Favorites $favs): string
+    public static function adminDashboardFavorites(Favorites $favorites): string
     {
-        $favs->register('contactMe', [
+        $favorites->register('contactMe', [
             'title'          => __('Contact me'),
             'url'            => My::manageUrl(),
             'menu-icon'      => My::icon(),
@@ -37,11 +37,11 @@ class BackendBehaviors
     }
 
     /**
-     * @param      ArrayObject<string, mixed>  $rte
+     * @param      ArrayObject<string, mixed>  $arrayObject
      */
-    public static function adminRteFlags(ArrayObject $rte): string
+    public static function adminRteFlags(ArrayObject $arrayObject): string
     {
-        $rte['contactme'] = [true, __('Contact me form caption and messages')];
+        $arrayObject['contactme'] = [true, __('Contact me form caption and messages')];
 
         return '';
     }
