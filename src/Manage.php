@@ -247,9 +247,9 @@ class Manage
                         ->value($subject_prefix)
                         ->label((new Label(__('E-Mail subject prefix:'), Label::OUTSIDE_TEXT_BEFORE))),
                 ]),
-                (new Para())->class('form-note')->items([
-                    (new Text(null, __('This will be prepend to e-mail subject'))),
-                ]),
+                (new Note())
+                    ->class('form-note')
+                    ->text(__('This will be prepend to e-mail subject')),
                 (new Para())->items([
                     (new Input('smtp_account'))
                         ->size(64)
@@ -257,9 +257,9 @@ class Manage
                         ->value($smtp_account)
                         ->label((new Label(__('SMTP account (optional):'), Label::OUTSIDE_TEXT_BEFORE))),
                 ]),
-                (new Para())->class('form-note')->items([
-                    (new Text(null, __('This will be use as e-mail sender. Note that the sent e-mails will have a Reply-To filled with your correspondent e-mail.'))),
-                ]),
+                (new Note())
+                    ->class('form-note')
+                    ->text(__('This will be use as e-mail sender. Note that the sent e-mails will have a Reply-To filled with your correspondent e-mail.')),
                 ...$options,
                 (new Text('h3', __('Presentation options'))),
                 (new Para())->items([
@@ -309,9 +309,9 @@ class Manage
                             Label::OUTSIDE_TEXT_BEFORE
                         ))->id('msg_error_label')->class('required')->title(__('Required field'))),
                 ]),
-                (new Para())->class('form-note')->items([
-                    (new Text(null, __('"%s" is the error message.'))),
-                ]),
+                (new Note())
+                    ->class('form-note')
+                    ->text(__('"%s" is the error message.')),
                 // Submit
                 (new Para())->items([
                     (new Submit(['frmsubmit']))
