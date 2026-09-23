@@ -38,9 +38,9 @@ class SimpleMenuBehaviors
     public static function adminSimpleMenuBeforeEdit($item_type, $item_select, array $args): string
     {
         if ($item_type == 'contactme') {
-            $args[0] = __('Contact me');
-            $args[1] = __('Mail contact form');
-            $args[2] .= App::url()->getURLFor('contactme');
+            $args[0] = __('Contact me');    // @phpstan-ignore assign.unused (array item is a reference)
+            $args[1] = __('Mail contact form'); // @phpstan-ignore assign.unused (array item is a reference)
+            $args[2] .= App::url()->getURLFor('contactme'); // @phpstan-ignore assign.unused (array item is a reference)
         }
 
         return '';
