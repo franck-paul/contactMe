@@ -46,8 +46,8 @@ class Backend
             'adminRteFlagsV2'           => BackendBehaviors::adminRteFlags(...),
 
             // SimpleMenu behaviors
-            'adminSimpleMenuAddType'    => SimpleMenuBehaviors::adminSimpleMenuAddType(...),
-            'adminSimpleMenuBeforeEdit' => SimpleMenuBehaviors::adminSimpleMenuBeforeEdit(...),
+            'adminSimpleMenuAddType'      => SimpleMenuBehaviors::adminSimpleMenuAddType(...),
+            'adminSimpleMenuBeforeEditV2' => SimpleMenuBehaviors::adminSimpleMenuBeforeEditV2(...),
         ]);
 
         if (My::checkContext(My::WIDGETS)) {

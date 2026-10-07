@@ -17,6 +17,7 @@ namespace Dotclear\Plugin\contactMe;
 
 use ArrayObject;
 use Dotclear\App;
+use Dotclear\Plugin\simpleMenu\MenuItemEdit;
 
 class SimpleMenuBehaviors
 {
@@ -30,17 +31,12 @@ class SimpleMenuBehaviors
         return '';
     }
 
-    /**
-     * @param      string               $item_type    The item type
-     * @param      string               $item_select  The item select
-     * @param      array<int, string>   $args         The arguments
-     */
-    public static function adminSimpleMenuBeforeEdit($item_type, $item_select, array $args): string
+    public static function adminSimpleMenuBeforeEditV2(MenuItemEdit $menuItemEdit): string
     {
-        if ($item_type == 'contactme') {
-            $args[0] = __('Contact me');    // @phpstan-ignore assign.unused (array item is a reference)
-            $args[1] = __('Mail contact form'); // @phpstan-ignore assign.unused (array item is a reference)
-            $args[2] .= App::url()->getURLFor('contactme'); // @phpstan-ignore assign.unused (array item is a reference)
+        if ($menuItemEdit->getType() === 'contactme') {
+            $menuItemEdit->setLabel(__('Contact me'));
+            $menuItemEdit->setDescription(__('Mail contact form'));
+            $menuItemEdit->setUrl($menuItemEdit->getUrl() . App::url()->getURLFor('contactme'));
         }
 
         return '';
