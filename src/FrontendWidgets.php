@@ -28,13 +28,11 @@ class FrontendWidgets
 {
     public static function renderWidget(WidgetsElement $widgetsElement): string
     {
-        if ($widgetsElement->offline) {
+        if ($widgetsElement->isOffline()) {
             return '';
         }
 
-        if (($widgetsElement->homeonly == 1 && !App::url()->isHome(App::url()->getType()))
-            || ($widgetsElement->homeonly == 2 && App::url()->isHome(App::url()->getType()))
-        ) {
+        if (!$widgetsElement->checkHomeOnly(App::url()->getType())) {
             return '';
         }
 
@@ -50,7 +48,7 @@ class FrontendWidgets
 
         $buffer = (new Set())
             ->items([
-                $widgetsElement->title ? new Text(null, $widgetsElement->renderTitle(Html::escapeHTML($widgetsElement->title))) : new None(),
+                $widgetsElement->getTitle() !== '' ? new Text(null, $widgetsElement->renderTitle(Html::escapeHTML($widgetsElement->getTitle()))) : new None(),
                 (new Para())
                     ->items([
                         (new Link())
@@ -60,6 +58,6 @@ class FrontendWidgets
             ])
         ->render();
 
-        return $widgetsElement->renderDiv((bool) $widgetsElement->content_only, 'contact-me ' . $widgetsElement->class, '', $buffer);
+        return $widgetsElement->renderDiv($widgetsElement->getContentOnly(), 'contact-me ' . $widgetsElement->getClass(), '', $buffer);
     }
 }
