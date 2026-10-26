@@ -38,7 +38,7 @@ class Install
         try {
             // Update
             $old_version = App::version()->getVersion(My::id());
-            if (version_compare((string) $old_version, '3.0', '<')) {
+            if (version_compare($old_version, '3.0', '<')) {
                 // Rename settings namespace
                 if (App::blog()->settings()->exists('contactme')) {
                     App::blog()->settings()->delWorkspace(My::id());
