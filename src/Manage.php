@@ -139,7 +139,7 @@ class Manage
         $head      = '';
         $rte_flag  = true;
         $rte_flags = App::auth()->prefs()->get('interface')->get('rte_flags');
-        if (is_array($rte_flags) && in_array('contactme', $rte_flags)) {
+        if (is_array($rte_flags) && in_array('contactme', $rte_flags, true)) {
             $rte_flag = $rte_flags['contactme'];
         }
 
