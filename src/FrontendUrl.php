@@ -52,7 +52,7 @@ class FrontendUrl extends Url
 
         $send_msg = isset($_POST['c_name']) && isset($_POST['c_mail']) && isset($_POST['c_site']) && isset($_POST['c_message']) && isset($_POST['c_subject']);
 
-        if ($args == 'sent') {
+        if ($args === 'sent') {
             App::frontend()->context()->contactme['sent'] = true;
         } elseif ($send_msg) {
             # Spam trap
