@@ -32,7 +32,7 @@ class FrontendUrl extends Url
     public static function contact(?string $args): void
     {
         $settings = My::settings();
-        if ($settings->getStr('recipients', false) === '' || !$settings->getBool('active')) {
+        if ($settings->getStr('recipients', false) === '' || !$settings->getBool('active', false)) {
             self::p404();
         }
 
@@ -115,7 +115,7 @@ class FrontendUrl extends Url
                 }
 
                 # Check message form spam
-                if ($settings->getBool('use_antispam') && class_exists('Dotclear\Plugin\antispam\Antispam')) {
+                if ($settings->getBool('use_antispam', false) && class_exists('Dotclear\Plugin\antispam\Antispam')) {
                     # Fake cursor to check spam
                     $cur = App::db()->con()->openCursor('foo');
                     $cur->setBoolField('comment_trackback', false);

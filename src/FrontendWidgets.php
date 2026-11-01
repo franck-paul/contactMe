@@ -37,7 +37,7 @@ class FrontendWidgets
         }
 
         $settings = My::settings();
-        if ($settings->getStr('recipients', false) === '' || !$settings->getBool('active')) {
+        if ($settings->getStr('recipients', false) === '' || !$settings->getBool('active', false)) {
             return '';
         }
 

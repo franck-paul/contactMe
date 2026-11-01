@@ -143,7 +143,7 @@ class Manage
             $rte_flag = $rte_flags['contactme'];
         }
 
-        if ($rte_flag) {
+        if (!empty($rte_flag)) {
             $rich_editor = App::auth()->prefs()->get('interface')->get('editor');
             if (is_array($rich_editor) && isset($rich_editor['xhtml'])) {
                 $head = App::behavior()->callBehavior(
