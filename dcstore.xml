@@ -1,12 +1,12 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="contactMe">
     <name>ContactMe</name>
-    <version>9.0</version>
+    <version>10.0</version>
     <author>Olivier Meunier and contributors</author>
     <desc>Add a simple contact form on your blog</desc>
-    <date>2026-08-03T09:49:17+0200</date>
-    <file>https://github.com/franck-paul/contactMe/releases/download/9.0/plugin-contactMe-9.0.zip</file>
-    <da:dcmin>2.39</da:dcmin>
+    <date>2026-11-08T10:12:29+0100</date>
+    <file>https://github.com/franck-paul/contactMe/releases/download/10.0/plugin-contactMe-10.0.zip</file>
+    <da:dcmin>2.40</da:dcmin>
     <da:details>https://dotclear.org/plugin/detail/contactMe</da:details>
     <da:support>https://github.com/franck-paul/contactMe</da:support>
   </module>
