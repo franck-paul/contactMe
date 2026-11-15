@@ -18,9 +18,9 @@ if (isset($this) && is_object($this) && method_exists($this, 'registerModule') &
         'ContactMe',
         'Add a simple contact form on your blog',
         'Olivier Meunier and contributors',
-        '10.0',
+        '10.0.1',
         [
-            'date'     => '2026-11-08T10:12:29+0100',
+            'date'     => '2026-11-15T06:57:20+0100',
             'requires' => [
                 ['core', '2.40'],
                 ['TemplateHelper'],
