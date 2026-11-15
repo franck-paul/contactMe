@@ -110,7 +110,7 @@ class FrontendTemplateCode
         string $_id_,
     ): void {
         $contactme_msg_error = App::blog()->settings()->get($_id_)->getStr('msg_error', false);
-        $contactme_error_msg = is_array(App::frontend()->context()->contactme) && is_string($contactme_error_msg = App::frontend()->context()->contactme['error_msg'] ?? '') ? $contactme_error_msg : '';
+        $contactme_error_msg = App::frontend()->context()->contactme instanceof \ArrayObject && is_string($contactme_error_msg = App::frontend()->context()->contactme['error_msg'] ?? '') ? $contactme_error_msg : '';
         if ($contactme_msg_error !== '' && $contactme_error_msg !== '') {
             echo sprintf(
                 $contactme_msg_error,
@@ -129,7 +129,7 @@ class FrontendTemplateCode
         array $_params_,
         string $_tag_
     ): void {
-        $contactme_name = is_array(App::frontend()->context()->contactme) && is_string($contactme_name = App::frontend()->context()->contactme['name'] ?? '') ? $contactme_name : '';
+        $contactme_name = App::frontend()->context()->contactme instanceof \ArrayObject && is_string($contactme_name = App::frontend()->context()->contactme['name'] ?? '') ? $contactme_name : '';
         if ($contactme_name !== '') {
             echo App::frontend()->context()::global_filters(
                 $contactme_name,
@@ -149,7 +149,7 @@ class FrontendTemplateCode
         array $_params_,
         string $_tag_
     ): void {
-        $contactme_mail = is_array(App::frontend()->context()->contactme) && is_string($contactme_mail = App::frontend()->context()->contactme['email'] ?? '') ? $contactme_mail : '';
+        $contactme_mail = App::frontend()->context()->contactme instanceof \ArrayObject && is_string($contactme_mail = App::frontend()->context()->contactme['email'] ?? '') ? $contactme_mail : '';
         if ($contactme_mail !== '') {
             echo App::frontend()->context()::global_filters(
                 $contactme_mail,
@@ -169,7 +169,7 @@ class FrontendTemplateCode
         array $_params_,
         string $_tag_
     ): void {
-        $contactme_site = is_array(App::frontend()->context()->contactme) && is_string($contactme_site = App::frontend()->context()->contactme['site'] ?? '') ? $contactme_site : '';
+        $contactme_site = App::frontend()->context()->contactme instanceof \ArrayObject && is_string($contactme_site = App::frontend()->context()->contactme['site'] ?? '') ? $contactme_site : '';
         if ($contactme_site !== '') {
             echo App::frontend()->context()::global_filters(
                 $contactme_site,
@@ -189,7 +189,7 @@ class FrontendTemplateCode
         array $_params_,
         string $_tag_
     ): void {
-        $contactme_subject = is_array(App::frontend()->context()->contactme) && is_string($contactme_subject = App::frontend()->context()->contactme['subject'] ?? '') ? $contactme_subject : '';
+        $contactme_subject = App::frontend()->context()->contactme instanceof \ArrayObject && is_string($contactme_subject = App::frontend()->context()->contactme['subject'] ?? '') ? $contactme_subject : '';
         if ($contactme_subject !== '') {
             echo App::frontend()->context()::global_filters(
                 $contactme_subject,
@@ -209,7 +209,7 @@ class FrontendTemplateCode
         array $_params_,
         string $_tag_
     ): void {
-        $contactme_message = is_array(App::frontend()->context()->contactme) && is_string($contactme_message = App::frontend()->context()->contactme['message'] ?? '') ? $contactme_message : '';
+        $contactme_message = App::frontend()->context()->contactme instanceof \ArrayObject && is_string($contactme_message = App::frontend()->context()->contactme['message'] ?? '') ? $contactme_message : '';
         if ($contactme_message !== '') {
             echo App::frontend()->context()::global_filters(
                 $contactme_message,
